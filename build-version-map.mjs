@@ -74,19 +74,30 @@ function resolveSchema(spec, schema) {
 
 /**
  * Extract top-level property names and their types from a schema.
+ * Handles $ref, allOf (any length), and sibling properties correctly.
  * Returns Map<propertyName, typeString>.
  */
 function extractProperties(spec, schema, depth = 0, maxDepth = 3) {
   const props = new Map();
-  const resolved = resolveSchema(spec, schema);
-  if (!resolved) return props;
+  if (!schema) return props;
 
-  // Direct properties
-  if (resolved.properties) {
-    for (const [name, propSchema] of Object.entries(resolved.properties)) {
+  // Follow $ref — but merge with any sibling properties too
+  if (schema.$ref) {
+    const refTarget = resolveRef(spec, schema.$ref);
+    const refProps = extractProperties(spec, refTarget, depth, maxDepth);
+    for (const [name, info] of refProps) {
+      if (!props.has(name)) props.set(name, info);
+    }
+  }
+
+  // Direct properties on this schema
+  if (schema.properties) {
+    for (const [name, propSchema] of Object.entries(schema.properties)) {
       const resolvedProp = resolveSchema(spec, propSchema);
       const type = resolvedProp?.type || (resolvedProp?.enum ? 'enum' : 'object');
-      props.set(name, { type, depth });
+      if (!props.has(name)) {
+        props.set(name, { type, depth });
+      }
 
       // Recurse into nested objects (but not too deep)
       if (depth < maxDepth && (type === 'object' || type === 'array')) {
@@ -96,7 +107,6 @@ function extractProperties(spec, schema, depth = 0, maxDepth = 3) {
         }
         const nested = extractProperties(spec, innerSchema, depth + 1, maxDepth);
         for (const [nestedName, nestedInfo] of nested) {
-          // Avoid overwriting shallower entries
           if (!props.has(nestedName)) {
             props.set(nestedName, nestedInfo);
           }
@@ -105,9 +115,9 @@ function extractProperties(spec, schema, depth = 0, maxDepth = 3) {
     }
   }
 
-  // allOf composition (multi-element)
-  if (resolved.allOf && resolved.allOf.length > 1) {
-    for (const sub of resolved.allOf) {
+  // allOf composition — handle any length (including 1 with sibling properties)
+  if (schema.allOf) {
+    for (const sub of schema.allOf) {
       const subProps = extractProperties(spec, sub, depth, maxDepth);
       for (const [name, info] of subProps) {
         if (!props.has(name)) {
