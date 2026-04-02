@@ -1,0 +1,15 @@
+{
+  "name": "@camunda8/go-api-changelog",
+  "version": "0.1.0",
+  "description": "Builds a version map of when each API operation and property was introduced, based on OpenAPI specs from the Camunda 8 monorepo",
+  "type": "module",
+  "scripts": {
+    "extract": "bash extract-specs.sh",
+    "build": "node build-version-map.mjs",
+    "all": "bash extract-specs.sh && node build-version-map.mjs"
+  },
+  "private": true,
+  "dependencies": {
+    "yaml": "^2.8.3"
+  }
+}
