@@ -12,7 +12,7 @@
  * Output: output/bundler-version-map.json
  */
 import { writeFileSync, mkdirSync } from 'fs';
-import { fetchAndBundle } from '../camunda-schema-bundler/dist/index.js';
+import { fetchAndBundle } from 'camunda-schema-bundler';
 
 const VERSIONS = ['8.5', '8.6', '8.7', '8.8', '8.9'];
 const HTTP_METHODS = ['get', 'post', 'put', 'patch', 'delete', 'head', 'options'];
