@@ -6,6 +6,7 @@
   "scripts": {
     "extract": "bash extract-specs.sh",
     "build": "node build-version-map.mjs",
+    "build:bundler": "node build-bundler-version-map.mjs",
     "all": "bash extract-specs.sh && node build-version-map.mjs"
   },
   "private": true,
