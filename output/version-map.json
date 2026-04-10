@@ -1230,6 +1230,30 @@
       "property": "filter",
       "depth": 0
     },
+    "POST /user-tasks/search > request > key": {
+      "version": "8.6",
+      "type": "integer",
+      "location": "request",
+      "endpoint": "POST /user-tasks/search",
+      "property": "key",
+      "depth": 1
+    },
+    "POST /user-tasks/search > request > processDefinitionKey": {
+      "version": "8.6",
+      "type": "integer",
+      "location": "request",
+      "endpoint": "POST /user-tasks/search",
+      "property": "processDefinitionKey",
+      "depth": 1
+    },
+    "POST /user-tasks/search > request > processInstanceKey": {
+      "version": "8.6",
+      "type": "integer",
+      "location": "request",
+      "endpoint": "POST /user-tasks/search",
+      "property": "processInstanceKey",
+      "depth": 1
+    },
     "POST /user-tasks/search > request > state": {
       "version": "8.6",
       "type": "string",
@@ -4094,6 +4118,14 @@
       "property": "processDefinition",
       "depth": 1
     },
+    "POST /deployments > response > processDefinitionKey": {
+      "version": "8.6",
+      "type": "integer",
+      "location": "response",
+      "endpoint": "POST /deployments",
+      "property": "processDefinitionKey",
+      "depth": 2
+    },
     "POST /deployments > response > processDefinitionId": {
       "version": "8.6",
       "type": "string",
@@ -4133,6 +4165,22 @@
       "endpoint": "POST /deployments",
       "property": "decisionDefinition",
       "depth": 1
+    },
+    "POST /deployments > response > decisionDefinitionKey": {
+      "version": "8.6",
+      "type": "integer",
+      "location": "response",
+      "endpoint": "POST /deployments",
+      "property": "decisionDefinitionKey",
+      "depth": 2
+    },
+    "POST /deployments > response > decisionRequirementsKey": {
+      "version": "8.6",
+      "type": "integer",
+      "location": "response",
+      "endpoint": "POST /deployments",
+      "property": "decisionRequirementsKey",
+      "depth": 2
     },
     "POST /deployments > response > decisionDefinitionId": {
       "version": "8.6",
@@ -4189,6 +4237,14 @@
       "endpoint": "POST /deployments",
       "property": "form",
       "depth": 1
+    },
+    "POST /deployments > response > formKey": {
+      "version": "8.6",
+      "type": "integer",
+      "location": "response",
+      "endpoint": "POST /deployments",
+      "property": "formKey",
+      "depth": 2
     },
     "POST /deployments > response > formId": {
       "version": "8.6",
@@ -4278,6 +4334,14 @@
       "property": "tenantId",
       "depth": 0
     },
+    "POST /documents > request > processInstanceKey": {
+      "version": "8.7",
+      "type": "string",
+      "location": "request",
+      "endpoint": "POST /documents",
+      "property": "processInstanceKey",
+      "depth": 1
+    },
     "POST /documents > request > processDefinitionId": {
       "version": "8.7",
       "type": "string",
@@ -4292,6 +4356,14 @@
       "location": "request",
       "endpoint": "POST /documents",
       "property": "customProperties",
+      "depth": 1
+    },
+    "POST /documents > response > processInstanceKey": {
+      "version": "8.7",
+      "type": "string",
+      "location": "response",
+      "endpoint": "POST /documents",
+      "property": "processInstanceKey",
       "depth": 1
     },
     "POST /documents > response > processDefinitionId": {
@@ -4349,6 +4421,14 @@
       "endpoint": "POST /documents/batch",
       "property": "metadata",
       "depth": 1
+    },
+    "POST /documents/batch > response > processInstanceKey": {
+      "version": "8.7",
+      "type": "string",
+      "location": "response",
+      "endpoint": "POST /documents/batch",
+      "property": "processInstanceKey",
+      "depth": 2
     },
     "POST /documents/batch > response > contentType": {
       "version": "8.7",
@@ -4477,6 +4557,14 @@
       "endpoint": "POST /deployments",
       "property": "resource",
       "depth": 1
+    },
+    "POST /deployments > response > resourceKey": {
+      "version": "8.7",
+      "type": "string",
+      "location": "response",
+      "endpoint": "POST /deployments",
+      "property": "resourceKey",
+      "depth": 2
     },
     "POST /deployments > response > resourceId": {
       "version": "8.7",
@@ -6796,22 +6884,6 @@
       "location": "request",
       "endpoint": "POST /user-tasks/search",
       "property": "userTaskKey",
-      "depth": 1
-    },
-    "POST /user-tasks/search > request > processDefinitionKey": {
-      "version": "8.8",
-      "type": "string",
-      "location": "request",
-      "endpoint": "POST /user-tasks/search",
-      "property": "processDefinitionKey",
-      "depth": 1
-    },
-    "POST /user-tasks/search > request > processInstanceKey": {
-      "version": "8.8",
-      "type": "string",
-      "location": "request",
-      "endpoint": "POST /user-tasks/search",
-      "property": "processInstanceKey",
       "depth": 1
     },
     "POST /user-tasks/search > request > elementInstanceKey": {
@@ -14806,22 +14878,6 @@
       "property": "endCursor",
       "depth": 1
     },
-    "POST /documents > request > processInstanceKey": {
-      "version": "8.8",
-      "type": "string",
-      "location": "request",
-      "endpoint": "POST /documents",
-      "property": "processInstanceKey",
-      "depth": 1
-    },
-    "POST /documents > response > processInstanceKey": {
-      "version": "8.8",
-      "type": "string",
-      "location": "response",
-      "endpoint": "POST /documents",
-      "property": "processInstanceKey",
-      "depth": 1
-    },
     "POST /documents/batch > request > metadataList": {
       "version": "8.8",
       "type": "array",
@@ -14885,14 +14941,6 @@
       "endpoint": "POST /documents/batch",
       "property": "customProperties",
       "depth": 1
-    },
-    "POST /documents/batch > response > processInstanceKey": {
-      "version": "8.8",
-      "type": "string",
-      "location": "response",
-      "endpoint": "POST /documents/batch",
-      "property": "processInstanceKey",
-      "depth": 2
     },
     "POST /users > request > password": {
       "version": "8.8",
@@ -15533,46 +15581,6 @@
       "endpoint": "GET /system/usage-metrics",
       "property": "assignees",
       "depth": 0
-    },
-    "POST /deployments > response > processDefinitionKey": {
-      "version": "8.8",
-      "type": "string",
-      "location": "response",
-      "endpoint": "POST /deployments",
-      "property": "processDefinitionKey",
-      "depth": 2
-    },
-    "POST /deployments > response > decisionDefinitionKey": {
-      "version": "8.8",
-      "type": "string",
-      "location": "response",
-      "endpoint": "POST /deployments",
-      "property": "decisionDefinitionKey",
-      "depth": 2
-    },
-    "POST /deployments > response > decisionRequirementsKey": {
-      "version": "8.8",
-      "type": "string",
-      "location": "response",
-      "endpoint": "POST /deployments",
-      "property": "decisionRequirementsKey",
-      "depth": 2
-    },
-    "POST /deployments > response > formKey": {
-      "version": "8.8",
-      "type": "string",
-      "location": "response",
-      "endpoint": "POST /deployments",
-      "property": "formKey",
-      "depth": 2
-    },
-    "POST /deployments > response > resourceKey": {
-      "version": "8.8",
-      "type": "string",
-      "location": "response",
-      "endpoint": "POST /deployments",
-      "property": "resourceKey",
-      "depth": 2
     },
     "POST /element-instances/ad-hoc-activities/{adHocSubProcessInstanceKey}/activation > request > elements": {
       "version": "8.8",

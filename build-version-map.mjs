@@ -101,10 +101,15 @@ function extractProperties(spec, schema, depth = 0, maxDepth = 3) {
 
       // Recurse into nested objects (but not too deep)
       if (depth < maxDepth && (type === 'object' || type === 'array')) {
-        let innerSchema = resolvedProp;
-        if (type === 'array' && resolvedProp?.items) {
-          innerSchema = resolvedProp.items;
+        // Use the original propSchema (not resolvedProp) so extractProperties
+        // can walk $ref, allOf, and sibling properties correctly.
+        let innerSchema = propSchema.$ref ? resolveRef(spec, propSchema.$ref) : resolvedProp;
+        if (type === 'array') {
+          // For arrays, we need to get to the items schema
+          const arraySchema = propSchema.$ref ? resolveRef(spec, propSchema.$ref) : resolvedProp;
+          innerSchema = arraySchema?.items || resolvedProp?.items;
         }
+        if (!innerSchema) continue;
         const nested = extractProperties(spec, innerSchema, depth + 1, maxDepth);
         for (const [nestedName, nestedInfo] of nested) {
           if (!props.has(nestedName)) {
