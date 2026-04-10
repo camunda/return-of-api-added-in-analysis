@@ -127,6 +127,20 @@ function extractProperties(spec, schema, depth = 0, maxDepth = 3) {
     }
   }
 
+  // oneOf / anyOf — merge properties from all branches
+  for (const keyword of ['oneOf', 'anyOf']) {
+    if (schema[keyword]) {
+      for (const sub of schema[keyword]) {
+        const subProps = extractProperties(spec, sub, depth, maxDepth);
+        for (const [name, info] of subProps) {
+          if (!props.has(name)) {
+            props.set(name, info);
+          }
+        }
+      }
+    }
+  }
+
   return props;
 }
 

@@ -4814,6 +4814,70 @@
       "property": "deadline",
       "depth": 1
     },
+    "POST /jobs/search > request > $eq": {
+      "version": "8.8",
+      "type": "string",
+      "location": "request",
+      "endpoint": "POST /jobs/search",
+      "property": "$eq",
+      "depth": 2
+    },
+    "POST /jobs/search > request > $neq": {
+      "version": "8.8",
+      "type": "string",
+      "location": "request",
+      "endpoint": "POST /jobs/search",
+      "property": "$neq",
+      "depth": 2
+    },
+    "POST /jobs/search > request > $exists": {
+      "version": "8.8",
+      "type": "boolean",
+      "location": "request",
+      "endpoint": "POST /jobs/search",
+      "property": "$exists",
+      "depth": 2
+    },
+    "POST /jobs/search > request > $gt": {
+      "version": "8.8",
+      "type": "string",
+      "location": "request",
+      "endpoint": "POST /jobs/search",
+      "property": "$gt",
+      "depth": 2
+    },
+    "POST /jobs/search > request > $gte": {
+      "version": "8.8",
+      "type": "string",
+      "location": "request",
+      "endpoint": "POST /jobs/search",
+      "property": "$gte",
+      "depth": 2
+    },
+    "POST /jobs/search > request > $lt": {
+      "version": "8.8",
+      "type": "string",
+      "location": "request",
+      "endpoint": "POST /jobs/search",
+      "property": "$lt",
+      "depth": 2
+    },
+    "POST /jobs/search > request > $lte": {
+      "version": "8.8",
+      "type": "string",
+      "location": "request",
+      "endpoint": "POST /jobs/search",
+      "property": "$lte",
+      "depth": 2
+    },
+    "POST /jobs/search > request > $in": {
+      "version": "8.8",
+      "type": "array",
+      "location": "request",
+      "endpoint": "POST /jobs/search",
+      "property": "$in",
+      "depth": 2
+    },
     "POST /jobs/search > request > deniedReason": {
       "version": "8.8",
       "type": "object",
@@ -4821,6 +4885,22 @@
       "endpoint": "POST /jobs/search",
       "property": "deniedReason",
       "depth": 1
+    },
+    "POST /jobs/search > request > $notIn": {
+      "version": "8.8",
+      "type": "array",
+      "location": "request",
+      "endpoint": "POST /jobs/search",
+      "property": "$notIn",
+      "depth": 2
+    },
+    "POST /jobs/search > request > $like": {
+      "version": "8.8",
+      "type": "string",
+      "location": "request",
+      "endpoint": "POST /jobs/search",
+      "property": "$like",
+      "depth": 2
     },
     "POST /jobs/search > request > elementId": {
       "version": "8.8",
@@ -4973,6 +5053,38 @@
       "endpoint": "POST /jobs/search",
       "property": "page",
       "depth": 0
+    },
+    "POST /jobs/search > request > from": {
+      "version": "8.8",
+      "type": "integer",
+      "location": "request",
+      "endpoint": "POST /jobs/search",
+      "property": "from",
+      "depth": 1
+    },
+    "POST /jobs/search > request > limit": {
+      "version": "8.8",
+      "type": "integer",
+      "location": "request",
+      "endpoint": "POST /jobs/search",
+      "property": "limit",
+      "depth": 1
+    },
+    "POST /jobs/search > request > after": {
+      "version": "8.8",
+      "type": "string",
+      "location": "request",
+      "endpoint": "POST /jobs/search",
+      "property": "after",
+      "depth": 1
+    },
+    "POST /jobs/search > request > before": {
+      "version": "8.8",
+      "type": "string",
+      "location": "request",
+      "endpoint": "POST /jobs/search",
+      "property": "before",
+      "depth": 1
     },
     "POST /jobs/search > response > items": {
       "version": "8.8",
@@ -5206,6 +5318,110 @@
       "property": "type",
       "depth": 1
     },
+    "POST /jobs/{jobKey}/completion > request > denied": {
+      "version": "8.8",
+      "type": "boolean",
+      "location": "request",
+      "endpoint": "POST /jobs/{jobKey}/completion",
+      "property": "denied",
+      "depth": 1
+    },
+    "POST /jobs/{jobKey}/completion > request > deniedReason": {
+      "version": "8.8",
+      "type": "string",
+      "location": "request",
+      "endpoint": "POST /jobs/{jobKey}/completion",
+      "property": "deniedReason",
+      "depth": 1
+    },
+    "POST /jobs/{jobKey}/completion > request > corrections": {
+      "version": "8.8",
+      "type": "object",
+      "location": "request",
+      "endpoint": "POST /jobs/{jobKey}/completion",
+      "property": "corrections",
+      "depth": 1
+    },
+    "POST /jobs/{jobKey}/completion > request > assignee": {
+      "version": "8.8",
+      "type": "string",
+      "location": "request",
+      "endpoint": "POST /jobs/{jobKey}/completion",
+      "property": "assignee",
+      "depth": 2
+    },
+    "POST /jobs/{jobKey}/completion > request > dueDate": {
+      "version": "8.8",
+      "type": "string",
+      "location": "request",
+      "endpoint": "POST /jobs/{jobKey}/completion",
+      "property": "dueDate",
+      "depth": 2
+    },
+    "POST /jobs/{jobKey}/completion > request > followUpDate": {
+      "version": "8.8",
+      "type": "string",
+      "location": "request",
+      "endpoint": "POST /jobs/{jobKey}/completion",
+      "property": "followUpDate",
+      "depth": 2
+    },
+    "POST /jobs/{jobKey}/completion > request > candidateUsers": {
+      "version": "8.8",
+      "type": "array",
+      "location": "request",
+      "endpoint": "POST /jobs/{jobKey}/completion",
+      "property": "candidateUsers",
+      "depth": 2
+    },
+    "POST /jobs/{jobKey}/completion > request > candidateGroups": {
+      "version": "8.8",
+      "type": "array",
+      "location": "request",
+      "endpoint": "POST /jobs/{jobKey}/completion",
+      "property": "candidateGroups",
+      "depth": 2
+    },
+    "POST /jobs/{jobKey}/completion > request > priority": {
+      "version": "8.8",
+      "type": "integer",
+      "location": "request",
+      "endpoint": "POST /jobs/{jobKey}/completion",
+      "property": "priority",
+      "depth": 2
+    },
+    "POST /jobs/{jobKey}/completion > request > activateElements": {
+      "version": "8.8",
+      "type": "array",
+      "location": "request",
+      "endpoint": "POST /jobs/{jobKey}/completion",
+      "property": "activateElements",
+      "depth": 1
+    },
+    "POST /jobs/{jobKey}/completion > request > elementId": {
+      "version": "8.8",
+      "type": "string",
+      "location": "request",
+      "endpoint": "POST /jobs/{jobKey}/completion",
+      "property": "elementId",
+      "depth": 2
+    },
+    "POST /jobs/{jobKey}/completion > request > isCompletionConditionFulfilled": {
+      "version": "8.8",
+      "type": "boolean",
+      "location": "request",
+      "endpoint": "POST /jobs/{jobKey}/completion",
+      "property": "isCompletionConditionFulfilled",
+      "depth": 1
+    },
+    "POST /jobs/{jobKey}/completion > request > isCancelRemainingInstances": {
+      "version": "8.8",
+      "type": "boolean",
+      "location": "request",
+      "endpoint": "POST /jobs/{jobKey}/completion",
+      "property": "isCancelRemainingInstances",
+      "depth": 1
+    },
     "PATCH /jobs/{jobKey} > request > operationReference": {
       "version": "8.8",
       "type": "integer",
@@ -5366,6 +5582,38 @@
       "property": "page",
       "depth": 0
     },
+    "POST /tenants/{tenantId}/users/search > request > from": {
+      "version": "8.8",
+      "type": "integer",
+      "location": "request",
+      "endpoint": "POST /tenants/{tenantId}/users/search",
+      "property": "from",
+      "depth": 1
+    },
+    "POST /tenants/{tenantId}/users/search > request > limit": {
+      "version": "8.8",
+      "type": "integer",
+      "location": "request",
+      "endpoint": "POST /tenants/{tenantId}/users/search",
+      "property": "limit",
+      "depth": 1
+    },
+    "POST /tenants/{tenantId}/users/search > request > after": {
+      "version": "8.8",
+      "type": "string",
+      "location": "request",
+      "endpoint": "POST /tenants/{tenantId}/users/search",
+      "property": "after",
+      "depth": 1
+    },
+    "POST /tenants/{tenantId}/users/search > request > before": {
+      "version": "8.8",
+      "type": "string",
+      "location": "request",
+      "endpoint": "POST /tenants/{tenantId}/users/search",
+      "property": "before",
+      "depth": 1
+    },
     "POST /tenants/{tenantId}/users/search > response > items": {
       "version": "8.8",
       "type": "array",
@@ -5454,6 +5702,38 @@
       "property": "page",
       "depth": 0
     },
+    "POST /tenants/{tenantId}/clients/search > request > from": {
+      "version": "8.8",
+      "type": "integer",
+      "location": "request",
+      "endpoint": "POST /tenants/{tenantId}/clients/search",
+      "property": "from",
+      "depth": 1
+    },
+    "POST /tenants/{tenantId}/clients/search > request > limit": {
+      "version": "8.8",
+      "type": "integer",
+      "location": "request",
+      "endpoint": "POST /tenants/{tenantId}/clients/search",
+      "property": "limit",
+      "depth": 1
+    },
+    "POST /tenants/{tenantId}/clients/search > request > after": {
+      "version": "8.8",
+      "type": "string",
+      "location": "request",
+      "endpoint": "POST /tenants/{tenantId}/clients/search",
+      "property": "after",
+      "depth": 1
+    },
+    "POST /tenants/{tenantId}/clients/search > request > before": {
+      "version": "8.8",
+      "type": "string",
+      "location": "request",
+      "endpoint": "POST /tenants/{tenantId}/clients/search",
+      "property": "before",
+      "depth": 1
+    },
     "POST /tenants/{tenantId}/clients/search > response > items": {
       "version": "8.8",
       "type": "array",
@@ -5541,6 +5821,38 @@
       "endpoint": "POST /tenants/{tenantId}/groups/search",
       "property": "page",
       "depth": 0
+    },
+    "POST /tenants/{tenantId}/groups/search > request > from": {
+      "version": "8.8",
+      "type": "integer",
+      "location": "request",
+      "endpoint": "POST /tenants/{tenantId}/groups/search",
+      "property": "from",
+      "depth": 1
+    },
+    "POST /tenants/{tenantId}/groups/search > request > limit": {
+      "version": "8.8",
+      "type": "integer",
+      "location": "request",
+      "endpoint": "POST /tenants/{tenantId}/groups/search",
+      "property": "limit",
+      "depth": 1
+    },
+    "POST /tenants/{tenantId}/groups/search > request > after": {
+      "version": "8.8",
+      "type": "string",
+      "location": "request",
+      "endpoint": "POST /tenants/{tenantId}/groups/search",
+      "property": "after",
+      "depth": 1
+    },
+    "POST /tenants/{tenantId}/groups/search > request > before": {
+      "version": "8.8",
+      "type": "string",
+      "location": "request",
+      "endpoint": "POST /tenants/{tenantId}/groups/search",
+      "property": "before",
+      "depth": 1
     },
     "POST /tenants/{tenantId}/groups/search > response > items": {
       "version": "8.8",
@@ -5653,6 +5965,38 @@
       "endpoint": "POST /tenants/{tenantId}/roles/search",
       "property": "page",
       "depth": 0
+    },
+    "POST /tenants/{tenantId}/roles/search > request > from": {
+      "version": "8.8",
+      "type": "integer",
+      "location": "request",
+      "endpoint": "POST /tenants/{tenantId}/roles/search",
+      "property": "from",
+      "depth": 1
+    },
+    "POST /tenants/{tenantId}/roles/search > request > limit": {
+      "version": "8.8",
+      "type": "integer",
+      "location": "request",
+      "endpoint": "POST /tenants/{tenantId}/roles/search",
+      "property": "limit",
+      "depth": 1
+    },
+    "POST /tenants/{tenantId}/roles/search > request > after": {
+      "version": "8.8",
+      "type": "string",
+      "location": "request",
+      "endpoint": "POST /tenants/{tenantId}/roles/search",
+      "property": "after",
+      "depth": 1
+    },
+    "POST /tenants/{tenantId}/roles/search > request > before": {
+      "version": "8.8",
+      "type": "string",
+      "location": "request",
+      "endpoint": "POST /tenants/{tenantId}/roles/search",
+      "property": "before",
+      "depth": 1
     },
     "POST /tenants/{tenantId}/roles/search > response > items": {
       "version": "8.8",
@@ -5798,6 +6142,38 @@
       "property": "page",
       "depth": 0
     },
+    "POST /tenants/{tenantId}/mapping-rules/search > request > from": {
+      "version": "8.8",
+      "type": "integer",
+      "location": "request",
+      "endpoint": "POST /tenants/{tenantId}/mapping-rules/search",
+      "property": "from",
+      "depth": 1
+    },
+    "POST /tenants/{tenantId}/mapping-rules/search > request > limit": {
+      "version": "8.8",
+      "type": "integer",
+      "location": "request",
+      "endpoint": "POST /tenants/{tenantId}/mapping-rules/search",
+      "property": "limit",
+      "depth": 1
+    },
+    "POST /tenants/{tenantId}/mapping-rules/search > request > after": {
+      "version": "8.8",
+      "type": "string",
+      "location": "request",
+      "endpoint": "POST /tenants/{tenantId}/mapping-rules/search",
+      "property": "after",
+      "depth": 1
+    },
+    "POST /tenants/{tenantId}/mapping-rules/search > request > before": {
+      "version": "8.8",
+      "type": "string",
+      "location": "request",
+      "endpoint": "POST /tenants/{tenantId}/mapping-rules/search",
+      "property": "before",
+      "depth": 1
+    },
     "POST /tenants/{tenantId}/mapping-rules/search > response > items": {
       "version": "8.8",
       "type": "array",
@@ -5933,6 +6309,38 @@
       "endpoint": "POST /tenants/search",
       "property": "page",
       "depth": 0
+    },
+    "POST /tenants/search > request > from": {
+      "version": "8.8",
+      "type": "integer",
+      "location": "request",
+      "endpoint": "POST /tenants/search",
+      "property": "from",
+      "depth": 1
+    },
+    "POST /tenants/search > request > limit": {
+      "version": "8.8",
+      "type": "integer",
+      "location": "request",
+      "endpoint": "POST /tenants/search",
+      "property": "limit",
+      "depth": 1
+    },
+    "POST /tenants/search > request > after": {
+      "version": "8.8",
+      "type": "string",
+      "location": "request",
+      "endpoint": "POST /tenants/search",
+      "property": "after",
+      "depth": 1
+    },
+    "POST /tenants/search > request > before": {
+      "version": "8.8",
+      "type": "string",
+      "location": "request",
+      "endpoint": "POST /tenants/search",
+      "property": "before",
+      "depth": 1
     },
     "POST /tenants/search > response > items": {
       "version": "8.8",
@@ -6222,6 +6630,54 @@
       "property": "formKey",
       "depth": 0
     },
+    "POST /user-tasks/search > request > $eq": {
+      "version": "8.8",
+      "type": "string",
+      "location": "request",
+      "endpoint": "POST /user-tasks/search",
+      "property": "$eq",
+      "depth": 2
+    },
+    "POST /user-tasks/search > request > $neq": {
+      "version": "8.8",
+      "type": "string",
+      "location": "request",
+      "endpoint": "POST /user-tasks/search",
+      "property": "$neq",
+      "depth": 2
+    },
+    "POST /user-tasks/search > request > $exists": {
+      "version": "8.8",
+      "type": "boolean",
+      "location": "request",
+      "endpoint": "POST /user-tasks/search",
+      "property": "$exists",
+      "depth": 2
+    },
+    "POST /user-tasks/search > request > $in": {
+      "version": "8.8",
+      "type": "array",
+      "location": "request",
+      "endpoint": "POST /user-tasks/search",
+      "property": "$in",
+      "depth": 2
+    },
+    "POST /user-tasks/search > request > $like": {
+      "version": "8.8",
+      "type": "string",
+      "location": "request",
+      "endpoint": "POST /user-tasks/search",
+      "property": "$like",
+      "depth": 2
+    },
+    "POST /user-tasks/search > request > $notIn": {
+      "version": "8.8",
+      "type": "array",
+      "location": "request",
+      "endpoint": "POST /user-tasks/search",
+      "property": "$notIn",
+      "depth": 2
+    },
     "POST /user-tasks/search > request > priority": {
       "version": "8.8",
       "type": "object",
@@ -6229,6 +6685,38 @@
       "endpoint": "POST /user-tasks/search",
       "property": "priority",
       "depth": 1
+    },
+    "POST /user-tasks/search > request > $gt": {
+      "version": "8.8",
+      "type": "integer",
+      "location": "request",
+      "endpoint": "POST /user-tasks/search",
+      "property": "$gt",
+      "depth": 2
+    },
+    "POST /user-tasks/search > request > $gte": {
+      "version": "8.8",
+      "type": "integer",
+      "location": "request",
+      "endpoint": "POST /user-tasks/search",
+      "property": "$gte",
+      "depth": 2
+    },
+    "POST /user-tasks/search > request > $lt": {
+      "version": "8.8",
+      "type": "integer",
+      "location": "request",
+      "endpoint": "POST /user-tasks/search",
+      "property": "$lt",
+      "depth": 2
+    },
+    "POST /user-tasks/search > request > $lte": {
+      "version": "8.8",
+      "type": "integer",
+      "location": "request",
+      "endpoint": "POST /user-tasks/search",
+      "property": "$lte",
+      "depth": 2
     },
     "POST /user-tasks/search > request > name": {
       "version": "8.8",
@@ -6332,6 +6820,22 @@
       "location": "request",
       "endpoint": "POST /user-tasks/search",
       "property": "elementInstanceKey",
+      "depth": 1
+    },
+    "POST /user-tasks/search > request > after": {
+      "version": "8.8",
+      "type": "string",
+      "location": "request",
+      "endpoint": "POST /user-tasks/search",
+      "property": "after",
+      "depth": 1
+    },
+    "POST /user-tasks/search > request > before": {
+      "version": "8.8",
+      "type": "string",
+      "location": "request",
+      "endpoint": "POST /user-tasks/search",
+      "property": "before",
       "depth": 1
     },
     "POST /user-tasks/search > response > name": {
@@ -6446,6 +6950,54 @@
       "property": "name",
       "depth": 1
     },
+    "POST /user-tasks/{userTaskKey}/variables/search > request > $eq": {
+      "version": "8.8",
+      "type": "string",
+      "location": "request",
+      "endpoint": "POST /user-tasks/{userTaskKey}/variables/search",
+      "property": "$eq",
+      "depth": 2
+    },
+    "POST /user-tasks/{userTaskKey}/variables/search > request > $neq": {
+      "version": "8.8",
+      "type": "string",
+      "location": "request",
+      "endpoint": "POST /user-tasks/{userTaskKey}/variables/search",
+      "property": "$neq",
+      "depth": 2
+    },
+    "POST /user-tasks/{userTaskKey}/variables/search > request > $exists": {
+      "version": "8.8",
+      "type": "boolean",
+      "location": "request",
+      "endpoint": "POST /user-tasks/{userTaskKey}/variables/search",
+      "property": "$exists",
+      "depth": 2
+    },
+    "POST /user-tasks/{userTaskKey}/variables/search > request > $in": {
+      "version": "8.8",
+      "type": "array",
+      "location": "request",
+      "endpoint": "POST /user-tasks/{userTaskKey}/variables/search",
+      "property": "$in",
+      "depth": 2
+    },
+    "POST /user-tasks/{userTaskKey}/variables/search > request > $notIn": {
+      "version": "8.8",
+      "type": "array",
+      "location": "request",
+      "endpoint": "POST /user-tasks/{userTaskKey}/variables/search",
+      "property": "$notIn",
+      "depth": 2
+    },
+    "POST /user-tasks/{userTaskKey}/variables/search > request > $like": {
+      "version": "8.8",
+      "type": "string",
+      "location": "request",
+      "endpoint": "POST /user-tasks/{userTaskKey}/variables/search",
+      "property": "$like",
+      "depth": 2
+    },
     "POST /user-tasks/{userTaskKey}/variables/search > request > page": {
       "version": "8.8",
       "type": "object",
@@ -6453,6 +7005,38 @@
       "endpoint": "POST /user-tasks/{userTaskKey}/variables/search",
       "property": "page",
       "depth": 0
+    },
+    "POST /user-tasks/{userTaskKey}/variables/search > request > from": {
+      "version": "8.8",
+      "type": "integer",
+      "location": "request",
+      "endpoint": "POST /user-tasks/{userTaskKey}/variables/search",
+      "property": "from",
+      "depth": 1
+    },
+    "POST /user-tasks/{userTaskKey}/variables/search > request > limit": {
+      "version": "8.8",
+      "type": "integer",
+      "location": "request",
+      "endpoint": "POST /user-tasks/{userTaskKey}/variables/search",
+      "property": "limit",
+      "depth": 1
+    },
+    "POST /user-tasks/{userTaskKey}/variables/search > request > after": {
+      "version": "8.8",
+      "type": "string",
+      "location": "request",
+      "endpoint": "POST /user-tasks/{userTaskKey}/variables/search",
+      "property": "after",
+      "depth": 1
+    },
+    "POST /user-tasks/{userTaskKey}/variables/search > request > before": {
+      "version": "8.8",
+      "type": "string",
+      "location": "request",
+      "endpoint": "POST /user-tasks/{userTaskKey}/variables/search",
+      "property": "before",
+      "depth": 1
     },
     "POST /user-tasks/{userTaskKey}/variables/search > response > items": {
       "version": "8.8",
@@ -6622,6 +7206,54 @@
       "property": "name",
       "depth": 1
     },
+    "POST /user-tasks/{userTaskKey}/effective-variables/search > request > $eq": {
+      "version": "8.8",
+      "type": "string",
+      "location": "request",
+      "endpoint": "POST /user-tasks/{userTaskKey}/effective-variables/search",
+      "property": "$eq",
+      "depth": 2
+    },
+    "POST /user-tasks/{userTaskKey}/effective-variables/search > request > $neq": {
+      "version": "8.8",
+      "type": "string",
+      "location": "request",
+      "endpoint": "POST /user-tasks/{userTaskKey}/effective-variables/search",
+      "property": "$neq",
+      "depth": 2
+    },
+    "POST /user-tasks/{userTaskKey}/effective-variables/search > request > $exists": {
+      "version": "8.8",
+      "type": "boolean",
+      "location": "request",
+      "endpoint": "POST /user-tasks/{userTaskKey}/effective-variables/search",
+      "property": "$exists",
+      "depth": 2
+    },
+    "POST /user-tasks/{userTaskKey}/effective-variables/search > request > $in": {
+      "version": "8.8",
+      "type": "array",
+      "location": "request",
+      "endpoint": "POST /user-tasks/{userTaskKey}/effective-variables/search",
+      "property": "$in",
+      "depth": 2
+    },
+    "POST /user-tasks/{userTaskKey}/effective-variables/search > request > $notIn": {
+      "version": "8.8",
+      "type": "array",
+      "location": "request",
+      "endpoint": "POST /user-tasks/{userTaskKey}/effective-variables/search",
+      "property": "$notIn",
+      "depth": 2
+    },
+    "POST /user-tasks/{userTaskKey}/effective-variables/search > request > $like": {
+      "version": "8.8",
+      "type": "string",
+      "location": "request",
+      "endpoint": "POST /user-tasks/{userTaskKey}/effective-variables/search",
+      "property": "$like",
+      "depth": 2
+    },
     "POST /user-tasks/{userTaskKey}/effective-variables/search > response > items": {
       "version": "8.8",
       "type": "array",
@@ -6766,6 +7398,54 @@
       "property": "name",
       "depth": 1
     },
+    "POST /variables/search > request > $eq": {
+      "version": "8.8",
+      "type": "string",
+      "location": "request",
+      "endpoint": "POST /variables/search",
+      "property": "$eq",
+      "depth": 2
+    },
+    "POST /variables/search > request > $neq": {
+      "version": "8.8",
+      "type": "string",
+      "location": "request",
+      "endpoint": "POST /variables/search",
+      "property": "$neq",
+      "depth": 2
+    },
+    "POST /variables/search > request > $exists": {
+      "version": "8.8",
+      "type": "boolean",
+      "location": "request",
+      "endpoint": "POST /variables/search",
+      "property": "$exists",
+      "depth": 2
+    },
+    "POST /variables/search > request > $in": {
+      "version": "8.8",
+      "type": "array",
+      "location": "request",
+      "endpoint": "POST /variables/search",
+      "property": "$in",
+      "depth": 2
+    },
+    "POST /variables/search > request > $notIn": {
+      "version": "8.8",
+      "type": "array",
+      "location": "request",
+      "endpoint": "POST /variables/search",
+      "property": "$notIn",
+      "depth": 2
+    },
+    "POST /variables/search > request > $like": {
+      "version": "8.8",
+      "type": "string",
+      "location": "request",
+      "endpoint": "POST /variables/search",
+      "property": "$like",
+      "depth": 2
+    },
     "POST /variables/search > request > value": {
       "version": "8.8",
       "type": "object",
@@ -6821,6 +7501,38 @@
       "endpoint": "POST /variables/search",
       "property": "page",
       "depth": 0
+    },
+    "POST /variables/search > request > from": {
+      "version": "8.8",
+      "type": "integer",
+      "location": "request",
+      "endpoint": "POST /variables/search",
+      "property": "from",
+      "depth": 1
+    },
+    "POST /variables/search > request > limit": {
+      "version": "8.8",
+      "type": "integer",
+      "location": "request",
+      "endpoint": "POST /variables/search",
+      "property": "limit",
+      "depth": 1
+    },
+    "POST /variables/search > request > after": {
+      "version": "8.8",
+      "type": "string",
+      "location": "request",
+      "endpoint": "POST /variables/search",
+      "property": "after",
+      "depth": 1
+    },
+    "POST /variables/search > request > before": {
+      "version": "8.8",
+      "type": "string",
+      "location": "request",
+      "endpoint": "POST /variables/search",
+      "property": "before",
+      "depth": 1
     },
     "POST /variables/search > response > items": {
       "version": "8.8",
@@ -7014,6 +7726,54 @@
       "property": "name",
       "depth": 1
     },
+    "POST /process-definitions/search > request > $eq": {
+      "version": "8.8",
+      "type": "string",
+      "location": "request",
+      "endpoint": "POST /process-definitions/search",
+      "property": "$eq",
+      "depth": 2
+    },
+    "POST /process-definitions/search > request > $neq": {
+      "version": "8.8",
+      "type": "string",
+      "location": "request",
+      "endpoint": "POST /process-definitions/search",
+      "property": "$neq",
+      "depth": 2
+    },
+    "POST /process-definitions/search > request > $exists": {
+      "version": "8.8",
+      "type": "boolean",
+      "location": "request",
+      "endpoint": "POST /process-definitions/search",
+      "property": "$exists",
+      "depth": 2
+    },
+    "POST /process-definitions/search > request > $in": {
+      "version": "8.8",
+      "type": "array",
+      "location": "request",
+      "endpoint": "POST /process-definitions/search",
+      "property": "$in",
+      "depth": 2
+    },
+    "POST /process-definitions/search > request > $notIn": {
+      "version": "8.8",
+      "type": "array",
+      "location": "request",
+      "endpoint": "POST /process-definitions/search",
+      "property": "$notIn",
+      "depth": 2
+    },
+    "POST /process-definitions/search > request > $like": {
+      "version": "8.8",
+      "type": "string",
+      "location": "request",
+      "endpoint": "POST /process-definitions/search",
+      "property": "$like",
+      "depth": 2
+    },
     "POST /process-definitions/search > request > isLatestVersion": {
       "version": "8.8",
       "type": "boolean",
@@ -7085,6 +7845,38 @@
       "endpoint": "POST /process-definitions/search",
       "property": "page",
       "depth": 0
+    },
+    "POST /process-definitions/search > request > from": {
+      "version": "8.8",
+      "type": "integer",
+      "location": "request",
+      "endpoint": "POST /process-definitions/search",
+      "property": "from",
+      "depth": 1
+    },
+    "POST /process-definitions/search > request > limit": {
+      "version": "8.8",
+      "type": "integer",
+      "location": "request",
+      "endpoint": "POST /process-definitions/search",
+      "property": "limit",
+      "depth": 1
+    },
+    "POST /process-definitions/search > request > after": {
+      "version": "8.8",
+      "type": "string",
+      "location": "request",
+      "endpoint": "POST /process-definitions/search",
+      "property": "after",
+      "depth": 1
+    },
+    "POST /process-definitions/search > request > before": {
+      "version": "8.8",
+      "type": "string",
+      "location": "request",
+      "endpoint": "POST /process-definitions/search",
+      "property": "before",
+      "depth": 1
     },
     "POST /process-definitions/search > response > items": {
       "version": "8.8",
@@ -7318,6 +8110,70 @@
       "property": "startDate",
       "depth": 1
     },
+    "POST /process-definitions/{processDefinitionKey}/statistics/element-instances > request > $eq": {
+      "version": "8.8",
+      "type": "string",
+      "location": "request",
+      "endpoint": "POST /process-definitions/{processDefinitionKey}/statistics/element-instances",
+      "property": "$eq",
+      "depth": 2
+    },
+    "POST /process-definitions/{processDefinitionKey}/statistics/element-instances > request > $neq": {
+      "version": "8.8",
+      "type": "string",
+      "location": "request",
+      "endpoint": "POST /process-definitions/{processDefinitionKey}/statistics/element-instances",
+      "property": "$neq",
+      "depth": 2
+    },
+    "POST /process-definitions/{processDefinitionKey}/statistics/element-instances > request > $exists": {
+      "version": "8.8",
+      "type": "boolean",
+      "location": "request",
+      "endpoint": "POST /process-definitions/{processDefinitionKey}/statistics/element-instances",
+      "property": "$exists",
+      "depth": 2
+    },
+    "POST /process-definitions/{processDefinitionKey}/statistics/element-instances > request > $gt": {
+      "version": "8.8",
+      "type": "string",
+      "location": "request",
+      "endpoint": "POST /process-definitions/{processDefinitionKey}/statistics/element-instances",
+      "property": "$gt",
+      "depth": 2
+    },
+    "POST /process-definitions/{processDefinitionKey}/statistics/element-instances > request > $gte": {
+      "version": "8.8",
+      "type": "string",
+      "location": "request",
+      "endpoint": "POST /process-definitions/{processDefinitionKey}/statistics/element-instances",
+      "property": "$gte",
+      "depth": 2
+    },
+    "POST /process-definitions/{processDefinitionKey}/statistics/element-instances > request > $lt": {
+      "version": "8.8",
+      "type": "string",
+      "location": "request",
+      "endpoint": "POST /process-definitions/{processDefinitionKey}/statistics/element-instances",
+      "property": "$lt",
+      "depth": 2
+    },
+    "POST /process-definitions/{processDefinitionKey}/statistics/element-instances > request > $lte": {
+      "version": "8.8",
+      "type": "string",
+      "location": "request",
+      "endpoint": "POST /process-definitions/{processDefinitionKey}/statistics/element-instances",
+      "property": "$lte",
+      "depth": 2
+    },
+    "POST /process-definitions/{processDefinitionKey}/statistics/element-instances > request > $in": {
+      "version": "8.8",
+      "type": "array",
+      "location": "request",
+      "endpoint": "POST /process-definitions/{processDefinitionKey}/statistics/element-instances",
+      "property": "$in",
+      "depth": 2
+    },
     "POST /process-definitions/{processDefinitionKey}/statistics/element-instances > request > endDate": {
       "version": "8.8",
       "type": "object",
@@ -7334,6 +8190,14 @@
       "property": "state",
       "depth": 1
     },
+    "POST /process-definitions/{processDefinitionKey}/statistics/element-instances > request > $like": {
+      "version": "8.8",
+      "type": "string",
+      "location": "request",
+      "endpoint": "POST /process-definitions/{processDefinitionKey}/statistics/element-instances",
+      "property": "$like",
+      "depth": 2
+    },
     "POST /process-definitions/{processDefinitionKey}/statistics/element-instances > request > hasIncident": {
       "version": "8.8",
       "type": "boolean",
@@ -7349,6 +8213,14 @@
       "endpoint": "POST /process-definitions/{processDefinitionKey}/statistics/element-instances",
       "property": "tenantId",
       "depth": 1
+    },
+    "POST /process-definitions/{processDefinitionKey}/statistics/element-instances > request > $notIn": {
+      "version": "8.8",
+      "type": "array",
+      "location": "request",
+      "endpoint": "POST /process-definitions/{processDefinitionKey}/statistics/element-instances",
+      "property": "$notIn",
+      "depth": 2
     },
     "POST /process-definitions/{processDefinitionKey}/statistics/element-instances > request > variables": {
       "version": "8.8",
@@ -7525,6 +8397,38 @@
       "endpoint": "POST /process-definitions/{processDefinitionKey}/statistics/element-instances",
       "property": "completed",
       "depth": 1
+    },
+    "POST /process-instances > request > runtimeInstructions": {
+      "version": "8.8",
+      "type": "array",
+      "location": "request",
+      "endpoint": "POST /process-instances",
+      "property": "runtimeInstructions",
+      "depth": 0
+    },
+    "POST /process-instances > request > type": {
+      "version": "8.8",
+      "type": "string",
+      "location": "request",
+      "endpoint": "POST /process-instances",
+      "property": "type",
+      "depth": 1
+    },
+    "POST /process-instances > request > afterElementId": {
+      "version": "8.8",
+      "type": "string",
+      "location": "request",
+      "endpoint": "POST /process-instances",
+      "property": "afterElementId",
+      "depth": 1
+    },
+    "POST /process-instances > request > tags": {
+      "version": "8.8",
+      "type": "array",
+      "location": "request",
+      "endpoint": "POST /process-instances",
+      "property": "tags",
+      "depth": 0
     },
     "POST /process-instances > response > tags": {
       "version": "8.8",
@@ -7758,6 +8662,54 @@
       "property": "processDefinitionId",
       "depth": 1
     },
+    "POST /process-instances/search > request > $eq": {
+      "version": "8.8",
+      "type": "string",
+      "location": "request",
+      "endpoint": "POST /process-instances/search",
+      "property": "$eq",
+      "depth": 2
+    },
+    "POST /process-instances/search > request > $neq": {
+      "version": "8.8",
+      "type": "string",
+      "location": "request",
+      "endpoint": "POST /process-instances/search",
+      "property": "$neq",
+      "depth": 2
+    },
+    "POST /process-instances/search > request > $exists": {
+      "version": "8.8",
+      "type": "boolean",
+      "location": "request",
+      "endpoint": "POST /process-instances/search",
+      "property": "$exists",
+      "depth": 2
+    },
+    "POST /process-instances/search > request > $in": {
+      "version": "8.8",
+      "type": "array",
+      "location": "request",
+      "endpoint": "POST /process-instances/search",
+      "property": "$in",
+      "depth": 2
+    },
+    "POST /process-instances/search > request > $notIn": {
+      "version": "8.8",
+      "type": "array",
+      "location": "request",
+      "endpoint": "POST /process-instances/search",
+      "property": "$notIn",
+      "depth": 2
+    },
+    "POST /process-instances/search > request > $like": {
+      "version": "8.8",
+      "type": "string",
+      "location": "request",
+      "endpoint": "POST /process-instances/search",
+      "property": "$like",
+      "depth": 2
+    },
     "POST /process-instances/search > request > processDefinitionName": {
       "version": "8.8",
       "type": "object",
@@ -7765,6 +8717,38 @@
       "endpoint": "POST /process-instances/search",
       "property": "processDefinitionName",
       "depth": 1
+    },
+    "POST /process-instances/search > request > $gt": {
+      "version": "8.8",
+      "type": "integer",
+      "location": "request",
+      "endpoint": "POST /process-instances/search",
+      "property": "$gt",
+      "depth": 2
+    },
+    "POST /process-instances/search > request > $gte": {
+      "version": "8.8",
+      "type": "integer",
+      "location": "request",
+      "endpoint": "POST /process-instances/search",
+      "property": "$gte",
+      "depth": 2
+    },
+    "POST /process-instances/search > request > $lt": {
+      "version": "8.8",
+      "type": "integer",
+      "location": "request",
+      "endpoint": "POST /process-instances/search",
+      "property": "$lt",
+      "depth": 2
+    },
+    "POST /process-instances/search > request > $lte": {
+      "version": "8.8",
+      "type": "integer",
+      "location": "request",
+      "endpoint": "POST /process-instances/search",
+      "property": "$lte",
+      "depth": 2
     },
     "POST /process-instances/search > request > processDefinitionVersionTag": {
       "version": "8.8",
@@ -7902,6 +8886,22 @@
       "property": "$or",
       "depth": 1
     },
+    "POST /process-instances/search > request > after": {
+      "version": "8.8",
+      "type": "string",
+      "location": "request",
+      "endpoint": "POST /process-instances/search",
+      "property": "after",
+      "depth": 1
+    },
+    "POST /process-instances/search > request > before": {
+      "version": "8.8",
+      "type": "string",
+      "location": "request",
+      "endpoint": "POST /process-instances/search",
+      "property": "before",
+      "depth": 1
+    },
     "POST /process-instances/search > response > processDefinitionVersionTag": {
       "version": "8.8",
       "type": "string",
@@ -8005,6 +9005,38 @@
       "endpoint": "POST /process-instances/{processInstanceKey}/incidents/search",
       "property": "page",
       "depth": 0
+    },
+    "POST /process-instances/{processInstanceKey}/incidents/search > request > from": {
+      "version": "8.8",
+      "type": "integer",
+      "location": "request",
+      "endpoint": "POST /process-instances/{processInstanceKey}/incidents/search",
+      "property": "from",
+      "depth": 1
+    },
+    "POST /process-instances/{processInstanceKey}/incidents/search > request > limit": {
+      "version": "8.8",
+      "type": "integer",
+      "location": "request",
+      "endpoint": "POST /process-instances/{processInstanceKey}/incidents/search",
+      "property": "limit",
+      "depth": 1
+    },
+    "POST /process-instances/{processInstanceKey}/incidents/search > request > after": {
+      "version": "8.8",
+      "type": "string",
+      "location": "request",
+      "endpoint": "POST /process-instances/{processInstanceKey}/incidents/search",
+      "property": "after",
+      "depth": 1
+    },
+    "POST /process-instances/{processInstanceKey}/incidents/search > request > before": {
+      "version": "8.8",
+      "type": "string",
+      "location": "request",
+      "endpoint": "POST /process-instances/{processInstanceKey}/incidents/search",
+      "property": "before",
+      "depth": 1
     },
     "POST /process-instances/{processInstanceKey}/incidents/search > response > items": {
       "version": "8.8",
@@ -8166,6 +9198,54 @@
       "property": "processDefinitionId",
       "depth": 1
     },
+    "POST /process-instances/cancellation > request > $eq": {
+      "version": "8.8",
+      "type": "string",
+      "location": "request",
+      "endpoint": "POST /process-instances/cancellation",
+      "property": "$eq",
+      "depth": 2
+    },
+    "POST /process-instances/cancellation > request > $neq": {
+      "version": "8.8",
+      "type": "string",
+      "location": "request",
+      "endpoint": "POST /process-instances/cancellation",
+      "property": "$neq",
+      "depth": 2
+    },
+    "POST /process-instances/cancellation > request > $exists": {
+      "version": "8.8",
+      "type": "boolean",
+      "location": "request",
+      "endpoint": "POST /process-instances/cancellation",
+      "property": "$exists",
+      "depth": 2
+    },
+    "POST /process-instances/cancellation > request > $in": {
+      "version": "8.8",
+      "type": "array",
+      "location": "request",
+      "endpoint": "POST /process-instances/cancellation",
+      "property": "$in",
+      "depth": 2
+    },
+    "POST /process-instances/cancellation > request > $notIn": {
+      "version": "8.8",
+      "type": "array",
+      "location": "request",
+      "endpoint": "POST /process-instances/cancellation",
+      "property": "$notIn",
+      "depth": 2
+    },
+    "POST /process-instances/cancellation > request > $like": {
+      "version": "8.8",
+      "type": "string",
+      "location": "request",
+      "endpoint": "POST /process-instances/cancellation",
+      "property": "$like",
+      "depth": 2
+    },
     "POST /process-instances/cancellation > request > processDefinitionName": {
       "version": "8.8",
       "type": "object",
@@ -8181,6 +9261,38 @@
       "endpoint": "POST /process-instances/cancellation",
       "property": "processDefinitionVersion",
       "depth": 1
+    },
+    "POST /process-instances/cancellation > request > $gt": {
+      "version": "8.8",
+      "type": "integer",
+      "location": "request",
+      "endpoint": "POST /process-instances/cancellation",
+      "property": "$gt",
+      "depth": 2
+    },
+    "POST /process-instances/cancellation > request > $gte": {
+      "version": "8.8",
+      "type": "integer",
+      "location": "request",
+      "endpoint": "POST /process-instances/cancellation",
+      "property": "$gte",
+      "depth": 2
+    },
+    "POST /process-instances/cancellation > request > $lt": {
+      "version": "8.8",
+      "type": "integer",
+      "location": "request",
+      "endpoint": "POST /process-instances/cancellation",
+      "property": "$lt",
+      "depth": 2
+    },
+    "POST /process-instances/cancellation > request > $lte": {
+      "version": "8.8",
+      "type": "integer",
+      "location": "request",
+      "endpoint": "POST /process-instances/cancellation",
+      "property": "$lte",
+      "depth": 2
     },
     "POST /process-instances/cancellation > request > processDefinitionVersionTag": {
       "version": "8.8",
@@ -8398,6 +9510,54 @@
       "property": "processDefinitionId",
       "depth": 1
     },
+    "POST /process-instances/incident-resolution > request > $eq": {
+      "version": "8.8",
+      "type": "string",
+      "location": "request",
+      "endpoint": "POST /process-instances/incident-resolution",
+      "property": "$eq",
+      "depth": 2
+    },
+    "POST /process-instances/incident-resolution > request > $neq": {
+      "version": "8.8",
+      "type": "string",
+      "location": "request",
+      "endpoint": "POST /process-instances/incident-resolution",
+      "property": "$neq",
+      "depth": 2
+    },
+    "POST /process-instances/incident-resolution > request > $exists": {
+      "version": "8.8",
+      "type": "boolean",
+      "location": "request",
+      "endpoint": "POST /process-instances/incident-resolution",
+      "property": "$exists",
+      "depth": 2
+    },
+    "POST /process-instances/incident-resolution > request > $in": {
+      "version": "8.8",
+      "type": "array",
+      "location": "request",
+      "endpoint": "POST /process-instances/incident-resolution",
+      "property": "$in",
+      "depth": 2
+    },
+    "POST /process-instances/incident-resolution > request > $notIn": {
+      "version": "8.8",
+      "type": "array",
+      "location": "request",
+      "endpoint": "POST /process-instances/incident-resolution",
+      "property": "$notIn",
+      "depth": 2
+    },
+    "POST /process-instances/incident-resolution > request > $like": {
+      "version": "8.8",
+      "type": "string",
+      "location": "request",
+      "endpoint": "POST /process-instances/incident-resolution",
+      "property": "$like",
+      "depth": 2
+    },
     "POST /process-instances/incident-resolution > request > processDefinitionName": {
       "version": "8.8",
       "type": "object",
@@ -8413,6 +9573,38 @@
       "endpoint": "POST /process-instances/incident-resolution",
       "property": "processDefinitionVersion",
       "depth": 1
+    },
+    "POST /process-instances/incident-resolution > request > $gt": {
+      "version": "8.8",
+      "type": "integer",
+      "location": "request",
+      "endpoint": "POST /process-instances/incident-resolution",
+      "property": "$gt",
+      "depth": 2
+    },
+    "POST /process-instances/incident-resolution > request > $gte": {
+      "version": "8.8",
+      "type": "integer",
+      "location": "request",
+      "endpoint": "POST /process-instances/incident-resolution",
+      "property": "$gte",
+      "depth": 2
+    },
+    "POST /process-instances/incident-resolution > request > $lt": {
+      "version": "8.8",
+      "type": "integer",
+      "location": "request",
+      "endpoint": "POST /process-instances/incident-resolution",
+      "property": "$lt",
+      "depth": 2
+    },
+    "POST /process-instances/incident-resolution > request > $lte": {
+      "version": "8.8",
+      "type": "integer",
+      "location": "request",
+      "endpoint": "POST /process-instances/incident-resolution",
+      "property": "$lte",
+      "depth": 2
     },
     "POST /process-instances/incident-resolution > request > processDefinitionVersionTag": {
       "version": "8.8",
@@ -8630,6 +9822,54 @@
       "property": "processDefinitionId",
       "depth": 1
     },
+    "POST /process-instances/migration > request > $eq": {
+      "version": "8.8",
+      "type": "string",
+      "location": "request",
+      "endpoint": "POST /process-instances/migration",
+      "property": "$eq",
+      "depth": 2
+    },
+    "POST /process-instances/migration > request > $neq": {
+      "version": "8.8",
+      "type": "string",
+      "location": "request",
+      "endpoint": "POST /process-instances/migration",
+      "property": "$neq",
+      "depth": 2
+    },
+    "POST /process-instances/migration > request > $exists": {
+      "version": "8.8",
+      "type": "boolean",
+      "location": "request",
+      "endpoint": "POST /process-instances/migration",
+      "property": "$exists",
+      "depth": 2
+    },
+    "POST /process-instances/migration > request > $in": {
+      "version": "8.8",
+      "type": "array",
+      "location": "request",
+      "endpoint": "POST /process-instances/migration",
+      "property": "$in",
+      "depth": 2
+    },
+    "POST /process-instances/migration > request > $notIn": {
+      "version": "8.8",
+      "type": "array",
+      "location": "request",
+      "endpoint": "POST /process-instances/migration",
+      "property": "$notIn",
+      "depth": 2
+    },
+    "POST /process-instances/migration > request > $like": {
+      "version": "8.8",
+      "type": "string",
+      "location": "request",
+      "endpoint": "POST /process-instances/migration",
+      "property": "$like",
+      "depth": 2
+    },
     "POST /process-instances/migration > request > processDefinitionName": {
       "version": "8.8",
       "type": "object",
@@ -8645,6 +9885,38 @@
       "endpoint": "POST /process-instances/migration",
       "property": "processDefinitionVersion",
       "depth": 1
+    },
+    "POST /process-instances/migration > request > $gt": {
+      "version": "8.8",
+      "type": "integer",
+      "location": "request",
+      "endpoint": "POST /process-instances/migration",
+      "property": "$gt",
+      "depth": 2
+    },
+    "POST /process-instances/migration > request > $gte": {
+      "version": "8.8",
+      "type": "integer",
+      "location": "request",
+      "endpoint": "POST /process-instances/migration",
+      "property": "$gte",
+      "depth": 2
+    },
+    "POST /process-instances/migration > request > $lt": {
+      "version": "8.8",
+      "type": "integer",
+      "location": "request",
+      "endpoint": "POST /process-instances/migration",
+      "property": "$lt",
+      "depth": 2
+    },
+    "POST /process-instances/migration > request > $lte": {
+      "version": "8.8",
+      "type": "integer",
+      "location": "request",
+      "endpoint": "POST /process-instances/migration",
+      "property": "$lte",
+      "depth": 2
     },
     "POST /process-instances/migration > request > processDefinitionVersionTag": {
       "version": "8.8",
@@ -8902,6 +10174,54 @@
       "property": "processDefinitionId",
       "depth": 1
     },
+    "POST /process-instances/modification > request > $eq": {
+      "version": "8.8",
+      "type": "string",
+      "location": "request",
+      "endpoint": "POST /process-instances/modification",
+      "property": "$eq",
+      "depth": 2
+    },
+    "POST /process-instances/modification > request > $neq": {
+      "version": "8.8",
+      "type": "string",
+      "location": "request",
+      "endpoint": "POST /process-instances/modification",
+      "property": "$neq",
+      "depth": 2
+    },
+    "POST /process-instances/modification > request > $exists": {
+      "version": "8.8",
+      "type": "boolean",
+      "location": "request",
+      "endpoint": "POST /process-instances/modification",
+      "property": "$exists",
+      "depth": 2
+    },
+    "POST /process-instances/modification > request > $in": {
+      "version": "8.8",
+      "type": "array",
+      "location": "request",
+      "endpoint": "POST /process-instances/modification",
+      "property": "$in",
+      "depth": 2
+    },
+    "POST /process-instances/modification > request > $notIn": {
+      "version": "8.8",
+      "type": "array",
+      "location": "request",
+      "endpoint": "POST /process-instances/modification",
+      "property": "$notIn",
+      "depth": 2
+    },
+    "POST /process-instances/modification > request > $like": {
+      "version": "8.8",
+      "type": "string",
+      "location": "request",
+      "endpoint": "POST /process-instances/modification",
+      "property": "$like",
+      "depth": 2
+    },
     "POST /process-instances/modification > request > processDefinitionName": {
       "version": "8.8",
       "type": "object",
@@ -8917,6 +10237,38 @@
       "endpoint": "POST /process-instances/modification",
       "property": "processDefinitionVersion",
       "depth": 1
+    },
+    "POST /process-instances/modification > request > $gt": {
+      "version": "8.8",
+      "type": "integer",
+      "location": "request",
+      "endpoint": "POST /process-instances/modification",
+      "property": "$gt",
+      "depth": 2
+    },
+    "POST /process-instances/modification > request > $gte": {
+      "version": "8.8",
+      "type": "integer",
+      "location": "request",
+      "endpoint": "POST /process-instances/modification",
+      "property": "$gte",
+      "depth": 2
+    },
+    "POST /process-instances/modification > request > $lt": {
+      "version": "8.8",
+      "type": "integer",
+      "location": "request",
+      "endpoint": "POST /process-instances/modification",
+      "property": "$lt",
+      "depth": 2
+    },
+    "POST /process-instances/modification > request > $lte": {
+      "version": "8.8",
+      "type": "integer",
+      "location": "request",
+      "endpoint": "POST /process-instances/modification",
+      "property": "$lte",
+      "depth": 2
     },
     "POST /process-instances/modification > request > processDefinitionVersionTag": {
       "version": "8.8",
@@ -9190,6 +10542,46 @@
       "property": "state",
       "depth": 1
     },
+    "POST /element-instances/search > request > $eq": {
+      "version": "8.8",
+      "type": "string",
+      "location": "request",
+      "endpoint": "POST /element-instances/search",
+      "property": "$eq",
+      "depth": 2
+    },
+    "POST /element-instances/search > request > $neq": {
+      "version": "8.8",
+      "type": "string",
+      "location": "request",
+      "endpoint": "POST /element-instances/search",
+      "property": "$neq",
+      "depth": 2
+    },
+    "POST /element-instances/search > request > $exists": {
+      "version": "8.8",
+      "type": "boolean",
+      "location": "request",
+      "endpoint": "POST /element-instances/search",
+      "property": "$exists",
+      "depth": 2
+    },
+    "POST /element-instances/search > request > $in": {
+      "version": "8.8",
+      "type": "array",
+      "location": "request",
+      "endpoint": "POST /element-instances/search",
+      "property": "$in",
+      "depth": 2
+    },
+    "POST /element-instances/search > request > $like": {
+      "version": "8.8",
+      "type": "string",
+      "location": "request",
+      "endpoint": "POST /element-instances/search",
+      "property": "$like",
+      "depth": 2
+    },
     "POST /element-instances/search > request > type": {
       "version": "8.8",
       "type": "string",
@@ -9270,6 +10662,38 @@
       "property": "startDate",
       "depth": 1
     },
+    "POST /element-instances/search > request > $gt": {
+      "version": "8.8",
+      "type": "string",
+      "location": "request",
+      "endpoint": "POST /element-instances/search",
+      "property": "$gt",
+      "depth": 2
+    },
+    "POST /element-instances/search > request > $gte": {
+      "version": "8.8",
+      "type": "string",
+      "location": "request",
+      "endpoint": "POST /element-instances/search",
+      "property": "$gte",
+      "depth": 2
+    },
+    "POST /element-instances/search > request > $lt": {
+      "version": "8.8",
+      "type": "string",
+      "location": "request",
+      "endpoint": "POST /element-instances/search",
+      "property": "$lt",
+      "depth": 2
+    },
+    "POST /element-instances/search > request > $lte": {
+      "version": "8.8",
+      "type": "string",
+      "location": "request",
+      "endpoint": "POST /element-instances/search",
+      "property": "$lte",
+      "depth": 2
+    },
     "POST /element-instances/search > request > endDate": {
       "version": "8.8",
       "type": "object",
@@ -9293,6 +10717,38 @@
       "endpoint": "POST /element-instances/search",
       "property": "page",
       "depth": 0
+    },
+    "POST /element-instances/search > request > from": {
+      "version": "8.8",
+      "type": "integer",
+      "location": "request",
+      "endpoint": "POST /element-instances/search",
+      "property": "from",
+      "depth": 1
+    },
+    "POST /element-instances/search > request > limit": {
+      "version": "8.8",
+      "type": "integer",
+      "location": "request",
+      "endpoint": "POST /element-instances/search",
+      "property": "limit",
+      "depth": 1
+    },
+    "POST /element-instances/search > request > after": {
+      "version": "8.8",
+      "type": "string",
+      "location": "request",
+      "endpoint": "POST /element-instances/search",
+      "property": "after",
+      "depth": 1
+    },
+    "POST /element-instances/search > request > before": {
+      "version": "8.8",
+      "type": "string",
+      "location": "request",
+      "endpoint": "POST /element-instances/search",
+      "property": "before",
+      "depth": 1
     },
     "POST /element-instances/search > response > items": {
       "version": "8.8",
@@ -9574,6 +11030,22 @@
       "property": "decisionRequirementsKey",
       "depth": 1
     },
+    "POST /decision-definitions/search > request > after": {
+      "version": "8.8",
+      "type": "string",
+      "location": "request",
+      "endpoint": "POST /decision-definitions/search",
+      "property": "after",
+      "depth": 1
+    },
+    "POST /decision-definitions/search > request > before": {
+      "version": "8.8",
+      "type": "string",
+      "location": "request",
+      "endpoint": "POST /decision-definitions/search",
+      "property": "before",
+      "depth": 1
+    },
     "POST /decision-definitions/search > response > name": {
       "version": "8.8",
       "type": "string",
@@ -9678,6 +11150,22 @@
       "property": "resourceName",
       "depth": 1
     },
+    "POST /decision-requirements/search > request > after": {
+      "version": "8.8",
+      "type": "string",
+      "location": "request",
+      "endpoint": "POST /decision-requirements/search",
+      "property": "after",
+      "depth": 1
+    },
+    "POST /decision-requirements/search > request > before": {
+      "version": "8.8",
+      "type": "string",
+      "location": "request",
+      "endpoint": "POST /decision-requirements/search",
+      "property": "before",
+      "depth": 1
+    },
     "POST /decision-requirements/search > response > hasMoreTotalItems": {
       "version": "8.8",
       "type": "boolean",
@@ -9766,6 +11254,70 @@
       "property": "evaluationDate",
       "depth": 1
     },
+    "POST /decision-instances/search > request > $eq": {
+      "version": "8.8",
+      "type": "string",
+      "location": "request",
+      "endpoint": "POST /decision-instances/search",
+      "property": "$eq",
+      "depth": 2
+    },
+    "POST /decision-instances/search > request > $neq": {
+      "version": "8.8",
+      "type": "string",
+      "location": "request",
+      "endpoint": "POST /decision-instances/search",
+      "property": "$neq",
+      "depth": 2
+    },
+    "POST /decision-instances/search > request > $exists": {
+      "version": "8.8",
+      "type": "boolean",
+      "location": "request",
+      "endpoint": "POST /decision-instances/search",
+      "property": "$exists",
+      "depth": 2
+    },
+    "POST /decision-instances/search > request > $gt": {
+      "version": "8.8",
+      "type": "string",
+      "location": "request",
+      "endpoint": "POST /decision-instances/search",
+      "property": "$gt",
+      "depth": 2
+    },
+    "POST /decision-instances/search > request > $gte": {
+      "version": "8.8",
+      "type": "string",
+      "location": "request",
+      "endpoint": "POST /decision-instances/search",
+      "property": "$gte",
+      "depth": 2
+    },
+    "POST /decision-instances/search > request > $lt": {
+      "version": "8.8",
+      "type": "string",
+      "location": "request",
+      "endpoint": "POST /decision-instances/search",
+      "property": "$lt",
+      "depth": 2
+    },
+    "POST /decision-instances/search > request > $lte": {
+      "version": "8.8",
+      "type": "string",
+      "location": "request",
+      "endpoint": "POST /decision-instances/search",
+      "property": "$lte",
+      "depth": 2
+    },
+    "POST /decision-instances/search > request > $in": {
+      "version": "8.8",
+      "type": "array",
+      "location": "request",
+      "endpoint": "POST /decision-instances/search",
+      "property": "$in",
+      "depth": 2
+    },
     "POST /decision-instances/search > request > decisionEvaluationKey": {
       "version": "8.8",
       "type": "string",
@@ -9798,12 +11350,36 @@
       "property": "decisionDefinitionKey",
       "depth": 1
     },
+    "POST /decision-instances/search > request > $notIn": {
+      "version": "8.8",
+      "type": "array",
+      "location": "request",
+      "endpoint": "POST /decision-instances/search",
+      "property": "$notIn",
+      "depth": 2
+    },
     "POST /decision-instances/search > request > elementInstanceKey": {
       "version": "8.8",
       "type": "object",
       "location": "request",
       "endpoint": "POST /decision-instances/search",
       "property": "elementInstanceKey",
+      "depth": 1
+    },
+    "POST /decision-instances/search > request > after": {
+      "version": "8.8",
+      "type": "string",
+      "location": "request",
+      "endpoint": "POST /decision-instances/search",
+      "property": "after",
+      "depth": 1
+    },
+    "POST /decision-instances/search > request > before": {
+      "version": "8.8",
+      "type": "string",
+      "location": "request",
+      "endpoint": "POST /decision-instances/search",
+      "property": "before",
       "depth": 1
     },
     "POST /decision-instances/search > response > decisionEvaluationInstanceKey": {
@@ -10286,6 +11862,38 @@
       "property": "page",
       "depth": 0
     },
+    "POST /authorizations/search > request > from": {
+      "version": "8.8",
+      "type": "integer",
+      "location": "request",
+      "endpoint": "POST /authorizations/search",
+      "property": "from",
+      "depth": 1
+    },
+    "POST /authorizations/search > request > limit": {
+      "version": "8.8",
+      "type": "integer",
+      "location": "request",
+      "endpoint": "POST /authorizations/search",
+      "property": "limit",
+      "depth": 1
+    },
+    "POST /authorizations/search > request > after": {
+      "version": "8.8",
+      "type": "string",
+      "location": "request",
+      "endpoint": "POST /authorizations/search",
+      "property": "after",
+      "depth": 1
+    },
+    "POST /authorizations/search > request > before": {
+      "version": "8.8",
+      "type": "string",
+      "location": "request",
+      "endpoint": "POST /authorizations/search",
+      "property": "before",
+      "depth": 1
+    },
     "POST /authorizations/search > response > items": {
       "version": "8.8",
       "type": "array",
@@ -10526,6 +12134,38 @@
       "property": "page",
       "depth": 0
     },
+    "POST /roles/{roleId}/users/search > request > from": {
+      "version": "8.8",
+      "type": "integer",
+      "location": "request",
+      "endpoint": "POST /roles/{roleId}/users/search",
+      "property": "from",
+      "depth": 1
+    },
+    "POST /roles/{roleId}/users/search > request > limit": {
+      "version": "8.8",
+      "type": "integer",
+      "location": "request",
+      "endpoint": "POST /roles/{roleId}/users/search",
+      "property": "limit",
+      "depth": 1
+    },
+    "POST /roles/{roleId}/users/search > request > after": {
+      "version": "8.8",
+      "type": "string",
+      "location": "request",
+      "endpoint": "POST /roles/{roleId}/users/search",
+      "property": "after",
+      "depth": 1
+    },
+    "POST /roles/{roleId}/users/search > request > before": {
+      "version": "8.8",
+      "type": "string",
+      "location": "request",
+      "endpoint": "POST /roles/{roleId}/users/search",
+      "property": "before",
+      "depth": 1
+    },
     "POST /roles/{roleId}/users/search > response > items": {
       "version": "8.8",
       "type": "array",
@@ -10613,6 +12253,38 @@
       "endpoint": "POST /roles/{roleId}/clients/search",
       "property": "page",
       "depth": 0
+    },
+    "POST /roles/{roleId}/clients/search > request > from": {
+      "version": "8.8",
+      "type": "integer",
+      "location": "request",
+      "endpoint": "POST /roles/{roleId}/clients/search",
+      "property": "from",
+      "depth": 1
+    },
+    "POST /roles/{roleId}/clients/search > request > limit": {
+      "version": "8.8",
+      "type": "integer",
+      "location": "request",
+      "endpoint": "POST /roles/{roleId}/clients/search",
+      "property": "limit",
+      "depth": 1
+    },
+    "POST /roles/{roleId}/clients/search > request > after": {
+      "version": "8.8",
+      "type": "string",
+      "location": "request",
+      "endpoint": "POST /roles/{roleId}/clients/search",
+      "property": "after",
+      "depth": 1
+    },
+    "POST /roles/{roleId}/clients/search > request > before": {
+      "version": "8.8",
+      "type": "string",
+      "location": "request",
+      "endpoint": "POST /roles/{roleId}/clients/search",
+      "property": "before",
+      "depth": 1
     },
     "POST /roles/{roleId}/clients/search > response > items": {
       "version": "8.8",
@@ -10726,6 +12398,38 @@
       "property": "page",
       "depth": 0
     },
+    "POST /roles/search > request > from": {
+      "version": "8.8",
+      "type": "integer",
+      "location": "request",
+      "endpoint": "POST /roles/search",
+      "property": "from",
+      "depth": 1
+    },
+    "POST /roles/search > request > limit": {
+      "version": "8.8",
+      "type": "integer",
+      "location": "request",
+      "endpoint": "POST /roles/search",
+      "property": "limit",
+      "depth": 1
+    },
+    "POST /roles/search > request > after": {
+      "version": "8.8",
+      "type": "string",
+      "location": "request",
+      "endpoint": "POST /roles/search",
+      "property": "after",
+      "depth": 1
+    },
+    "POST /roles/search > request > before": {
+      "version": "8.8",
+      "type": "string",
+      "location": "request",
+      "endpoint": "POST /roles/search",
+      "property": "before",
+      "depth": 1
+    },
     "POST /roles/search > response > items": {
       "version": "8.8",
       "type": "array",
@@ -10829,6 +12533,38 @@
       "endpoint": "POST /roles/{roleId}/groups/search",
       "property": "page",
       "depth": 0
+    },
+    "POST /roles/{roleId}/groups/search > request > from": {
+      "version": "8.8",
+      "type": "integer",
+      "location": "request",
+      "endpoint": "POST /roles/{roleId}/groups/search",
+      "property": "from",
+      "depth": 1
+    },
+    "POST /roles/{roleId}/groups/search > request > limit": {
+      "version": "8.8",
+      "type": "integer",
+      "location": "request",
+      "endpoint": "POST /roles/{roleId}/groups/search",
+      "property": "limit",
+      "depth": 1
+    },
+    "POST /roles/{roleId}/groups/search > request > after": {
+      "version": "8.8",
+      "type": "string",
+      "location": "request",
+      "endpoint": "POST /roles/{roleId}/groups/search",
+      "property": "after",
+      "depth": 1
+    },
+    "POST /roles/{roleId}/groups/search > request > before": {
+      "version": "8.8",
+      "type": "string",
+      "location": "request",
+      "endpoint": "POST /roles/{roleId}/groups/search",
+      "property": "before",
+      "depth": 1
     },
     "POST /roles/{roleId}/groups/search > response > items": {
       "version": "8.8",
@@ -10957,6 +12693,38 @@
       "endpoint": "POST /roles/{roleId}/mapping-rules/search",
       "property": "page",
       "depth": 0
+    },
+    "POST /roles/{roleId}/mapping-rules/search > request > from": {
+      "version": "8.8",
+      "type": "integer",
+      "location": "request",
+      "endpoint": "POST /roles/{roleId}/mapping-rules/search",
+      "property": "from",
+      "depth": 1
+    },
+    "POST /roles/{roleId}/mapping-rules/search > request > limit": {
+      "version": "8.8",
+      "type": "integer",
+      "location": "request",
+      "endpoint": "POST /roles/{roleId}/mapping-rules/search",
+      "property": "limit",
+      "depth": 1
+    },
+    "POST /roles/{roleId}/mapping-rules/search > request > after": {
+      "version": "8.8",
+      "type": "string",
+      "location": "request",
+      "endpoint": "POST /roles/{roleId}/mapping-rules/search",
+      "property": "after",
+      "depth": 1
+    },
+    "POST /roles/{roleId}/mapping-rules/search > request > before": {
+      "version": "8.8",
+      "type": "string",
+      "location": "request",
+      "endpoint": "POST /roles/{roleId}/mapping-rules/search",
+      "property": "before",
+      "depth": 1
     },
     "POST /roles/{roleId}/mapping-rules/search > response > items": {
       "version": "8.8",
@@ -11182,6 +12950,38 @@
       "property": "page",
       "depth": 0
     },
+    "POST /groups/{groupId}/users/search > request > from": {
+      "version": "8.8",
+      "type": "integer",
+      "location": "request",
+      "endpoint": "POST /groups/{groupId}/users/search",
+      "property": "from",
+      "depth": 1
+    },
+    "POST /groups/{groupId}/users/search > request > limit": {
+      "version": "8.8",
+      "type": "integer",
+      "location": "request",
+      "endpoint": "POST /groups/{groupId}/users/search",
+      "property": "limit",
+      "depth": 1
+    },
+    "POST /groups/{groupId}/users/search > request > after": {
+      "version": "8.8",
+      "type": "string",
+      "location": "request",
+      "endpoint": "POST /groups/{groupId}/users/search",
+      "property": "after",
+      "depth": 1
+    },
+    "POST /groups/{groupId}/users/search > request > before": {
+      "version": "8.8",
+      "type": "string",
+      "location": "request",
+      "endpoint": "POST /groups/{groupId}/users/search",
+      "property": "before",
+      "depth": 1
+    },
     "POST /groups/{groupId}/users/search > response > items": {
       "version": "8.8",
       "type": "array",
@@ -11309,6 +13109,38 @@
       "endpoint": "POST /groups/{groupId}/mapping-rules/search",
       "property": "page",
       "depth": 0
+    },
+    "POST /groups/{groupId}/mapping-rules/search > request > from": {
+      "version": "8.8",
+      "type": "integer",
+      "location": "request",
+      "endpoint": "POST /groups/{groupId}/mapping-rules/search",
+      "property": "from",
+      "depth": 1
+    },
+    "POST /groups/{groupId}/mapping-rules/search > request > limit": {
+      "version": "8.8",
+      "type": "integer",
+      "location": "request",
+      "endpoint": "POST /groups/{groupId}/mapping-rules/search",
+      "property": "limit",
+      "depth": 1
+    },
+    "POST /groups/{groupId}/mapping-rules/search > request > after": {
+      "version": "8.8",
+      "type": "string",
+      "location": "request",
+      "endpoint": "POST /groups/{groupId}/mapping-rules/search",
+      "property": "after",
+      "depth": 1
+    },
+    "POST /groups/{groupId}/mapping-rules/search > request > before": {
+      "version": "8.8",
+      "type": "string",
+      "location": "request",
+      "endpoint": "POST /groups/{groupId}/mapping-rules/search",
+      "property": "before",
+      "depth": 1
     },
     "POST /groups/{groupId}/mapping-rules/search > response > items": {
       "version": "8.8",
@@ -11446,6 +13278,38 @@
       "property": "page",
       "depth": 0
     },
+    "POST /groups/{groupId}/roles/search > request > from": {
+      "version": "8.8",
+      "type": "integer",
+      "location": "request",
+      "endpoint": "POST /groups/{groupId}/roles/search",
+      "property": "from",
+      "depth": 1
+    },
+    "POST /groups/{groupId}/roles/search > request > limit": {
+      "version": "8.8",
+      "type": "integer",
+      "location": "request",
+      "endpoint": "POST /groups/{groupId}/roles/search",
+      "property": "limit",
+      "depth": 1
+    },
+    "POST /groups/{groupId}/roles/search > request > after": {
+      "version": "8.8",
+      "type": "string",
+      "location": "request",
+      "endpoint": "POST /groups/{groupId}/roles/search",
+      "property": "after",
+      "depth": 1
+    },
+    "POST /groups/{groupId}/roles/search > request > before": {
+      "version": "8.8",
+      "type": "string",
+      "location": "request",
+      "endpoint": "POST /groups/{groupId}/roles/search",
+      "property": "before",
+      "depth": 1
+    },
     "POST /groups/{groupId}/roles/search > response > items": {
       "version": "8.8",
       "type": "array",
@@ -11550,6 +13414,38 @@
       "property": "page",
       "depth": 0
     },
+    "POST /groups/{groupId}/clients/search > request > from": {
+      "version": "8.8",
+      "type": "integer",
+      "location": "request",
+      "endpoint": "POST /groups/{groupId}/clients/search",
+      "property": "from",
+      "depth": 1
+    },
+    "POST /groups/{groupId}/clients/search > request > limit": {
+      "version": "8.8",
+      "type": "integer",
+      "location": "request",
+      "endpoint": "POST /groups/{groupId}/clients/search",
+      "property": "limit",
+      "depth": 1
+    },
+    "POST /groups/{groupId}/clients/search > request > after": {
+      "version": "8.8",
+      "type": "string",
+      "location": "request",
+      "endpoint": "POST /groups/{groupId}/clients/search",
+      "property": "after",
+      "depth": 1
+    },
+    "POST /groups/{groupId}/clients/search > request > before": {
+      "version": "8.8",
+      "type": "string",
+      "location": "request",
+      "endpoint": "POST /groups/{groupId}/clients/search",
+      "property": "before",
+      "depth": 1
+    },
     "POST /groups/{groupId}/clients/search > response > items": {
       "version": "8.8",
       "type": "array",
@@ -11646,6 +13542,54 @@
       "property": "groupId",
       "depth": 1
     },
+    "POST /groups/search > request > $eq": {
+      "version": "8.8",
+      "type": "string",
+      "location": "request",
+      "endpoint": "POST /groups/search",
+      "property": "$eq",
+      "depth": 2
+    },
+    "POST /groups/search > request > $neq": {
+      "version": "8.8",
+      "type": "string",
+      "location": "request",
+      "endpoint": "POST /groups/search",
+      "property": "$neq",
+      "depth": 2
+    },
+    "POST /groups/search > request > $exists": {
+      "version": "8.8",
+      "type": "boolean",
+      "location": "request",
+      "endpoint": "POST /groups/search",
+      "property": "$exists",
+      "depth": 2
+    },
+    "POST /groups/search > request > $in": {
+      "version": "8.8",
+      "type": "array",
+      "location": "request",
+      "endpoint": "POST /groups/search",
+      "property": "$in",
+      "depth": 2
+    },
+    "POST /groups/search > request > $notIn": {
+      "version": "8.8",
+      "type": "array",
+      "location": "request",
+      "endpoint": "POST /groups/search",
+      "property": "$notIn",
+      "depth": 2
+    },
+    "POST /groups/search > request > $like": {
+      "version": "8.8",
+      "type": "string",
+      "location": "request",
+      "endpoint": "POST /groups/search",
+      "property": "$like",
+      "depth": 2
+    },
     "POST /groups/search > request > name": {
       "version": "8.8",
       "type": "string",
@@ -11661,6 +13605,38 @@
       "endpoint": "POST /groups/search",
       "property": "page",
       "depth": 0
+    },
+    "POST /groups/search > request > from": {
+      "version": "8.8",
+      "type": "integer",
+      "location": "request",
+      "endpoint": "POST /groups/search",
+      "property": "from",
+      "depth": 1
+    },
+    "POST /groups/search > request > limit": {
+      "version": "8.8",
+      "type": "integer",
+      "location": "request",
+      "endpoint": "POST /groups/search",
+      "property": "limit",
+      "depth": 1
+    },
+    "POST /groups/search > request > after": {
+      "version": "8.8",
+      "type": "string",
+      "location": "request",
+      "endpoint": "POST /groups/search",
+      "property": "after",
+      "depth": 1
+    },
+    "POST /groups/search > request > before": {
+      "version": "8.8",
+      "type": "string",
+      "location": "request",
+      "endpoint": "POST /groups/search",
+      "property": "before",
+      "depth": 1
     },
     "POST /groups/search > response > items": {
       "version": "8.8",
@@ -11958,6 +13934,38 @@
       "property": "page",
       "depth": 0
     },
+    "POST /mapping-rules/search > request > from": {
+      "version": "8.8",
+      "type": "integer",
+      "location": "request",
+      "endpoint": "POST /mapping-rules/search",
+      "property": "from",
+      "depth": 1
+    },
+    "POST /mapping-rules/search > request > limit": {
+      "version": "8.8",
+      "type": "integer",
+      "location": "request",
+      "endpoint": "POST /mapping-rules/search",
+      "property": "limit",
+      "depth": 1
+    },
+    "POST /mapping-rules/search > request > after": {
+      "version": "8.8",
+      "type": "string",
+      "location": "request",
+      "endpoint": "POST /mapping-rules/search",
+      "property": "after",
+      "depth": 1
+    },
+    "POST /mapping-rules/search > request > before": {
+      "version": "8.8",
+      "type": "string",
+      "location": "request",
+      "endpoint": "POST /mapping-rules/search",
+      "property": "before",
+      "depth": 1
+    },
     "POST /mapping-rules/search > response > items": {
       "version": "8.8",
       "type": "array",
@@ -12078,6 +14086,54 @@
       "property": "correlationKey",
       "depth": 1
     },
+    "POST /correlated-message-subscriptions/search > request > $eq": {
+      "version": "8.8",
+      "type": "string",
+      "location": "request",
+      "endpoint": "POST /correlated-message-subscriptions/search",
+      "property": "$eq",
+      "depth": 2
+    },
+    "POST /correlated-message-subscriptions/search > request > $neq": {
+      "version": "8.8",
+      "type": "string",
+      "location": "request",
+      "endpoint": "POST /correlated-message-subscriptions/search",
+      "property": "$neq",
+      "depth": 2
+    },
+    "POST /correlated-message-subscriptions/search > request > $exists": {
+      "version": "8.8",
+      "type": "boolean",
+      "location": "request",
+      "endpoint": "POST /correlated-message-subscriptions/search",
+      "property": "$exists",
+      "depth": 2
+    },
+    "POST /correlated-message-subscriptions/search > request > $in": {
+      "version": "8.8",
+      "type": "array",
+      "location": "request",
+      "endpoint": "POST /correlated-message-subscriptions/search",
+      "property": "$in",
+      "depth": 2
+    },
+    "POST /correlated-message-subscriptions/search > request > $notIn": {
+      "version": "8.8",
+      "type": "array",
+      "location": "request",
+      "endpoint": "POST /correlated-message-subscriptions/search",
+      "property": "$notIn",
+      "depth": 2
+    },
+    "POST /correlated-message-subscriptions/search > request > $like": {
+      "version": "8.8",
+      "type": "string",
+      "location": "request",
+      "endpoint": "POST /correlated-message-subscriptions/search",
+      "property": "$like",
+      "depth": 2
+    },
     "POST /correlated-message-subscriptions/search > request > correlationTime": {
       "version": "8.8",
       "type": "object",
@@ -12085,6 +14141,38 @@
       "endpoint": "POST /correlated-message-subscriptions/search",
       "property": "correlationTime",
       "depth": 1
+    },
+    "POST /correlated-message-subscriptions/search > request > $gt": {
+      "version": "8.8",
+      "type": "string",
+      "location": "request",
+      "endpoint": "POST /correlated-message-subscriptions/search",
+      "property": "$gt",
+      "depth": 2
+    },
+    "POST /correlated-message-subscriptions/search > request > $gte": {
+      "version": "8.8",
+      "type": "string",
+      "location": "request",
+      "endpoint": "POST /correlated-message-subscriptions/search",
+      "property": "$gte",
+      "depth": 2
+    },
+    "POST /correlated-message-subscriptions/search > request > $lt": {
+      "version": "8.8",
+      "type": "string",
+      "location": "request",
+      "endpoint": "POST /correlated-message-subscriptions/search",
+      "property": "$lt",
+      "depth": 2
+    },
+    "POST /correlated-message-subscriptions/search > request > $lte": {
+      "version": "8.8",
+      "type": "string",
+      "location": "request",
+      "endpoint": "POST /correlated-message-subscriptions/search",
+      "property": "$lte",
+      "depth": 2
     },
     "POST /correlated-message-subscriptions/search > request > elementId": {
       "version": "8.8",
@@ -12173,6 +14261,38 @@
       "endpoint": "POST /correlated-message-subscriptions/search",
       "property": "page",
       "depth": 0
+    },
+    "POST /correlated-message-subscriptions/search > request > from": {
+      "version": "8.8",
+      "type": "integer",
+      "location": "request",
+      "endpoint": "POST /correlated-message-subscriptions/search",
+      "property": "from",
+      "depth": 1
+    },
+    "POST /correlated-message-subscriptions/search > request > limit": {
+      "version": "8.8",
+      "type": "integer",
+      "location": "request",
+      "endpoint": "POST /correlated-message-subscriptions/search",
+      "property": "limit",
+      "depth": 1
+    },
+    "POST /correlated-message-subscriptions/search > request > after": {
+      "version": "8.8",
+      "type": "string",
+      "location": "request",
+      "endpoint": "POST /correlated-message-subscriptions/search",
+      "property": "after",
+      "depth": 1
+    },
+    "POST /correlated-message-subscriptions/search > request > before": {
+      "version": "8.8",
+      "type": "string",
+      "location": "request",
+      "endpoint": "POST /correlated-message-subscriptions/search",
+      "property": "before",
+      "depth": 1
     },
     "POST /correlated-message-subscriptions/search > response > items": {
       "version": "8.8",
@@ -12358,6 +14478,46 @@
       "property": "messageSubscriptionKey",
       "depth": 1
     },
+    "POST /message-subscriptions/search > request > $eq": {
+      "version": "8.8",
+      "type": "string",
+      "location": "request",
+      "endpoint": "POST /message-subscriptions/search",
+      "property": "$eq",
+      "depth": 2
+    },
+    "POST /message-subscriptions/search > request > $neq": {
+      "version": "8.8",
+      "type": "string",
+      "location": "request",
+      "endpoint": "POST /message-subscriptions/search",
+      "property": "$neq",
+      "depth": 2
+    },
+    "POST /message-subscriptions/search > request > $exists": {
+      "version": "8.8",
+      "type": "boolean",
+      "location": "request",
+      "endpoint": "POST /message-subscriptions/search",
+      "property": "$exists",
+      "depth": 2
+    },
+    "POST /message-subscriptions/search > request > $in": {
+      "version": "8.8",
+      "type": "array",
+      "location": "request",
+      "endpoint": "POST /message-subscriptions/search",
+      "property": "$in",
+      "depth": 2
+    },
+    "POST /message-subscriptions/search > request > $notIn": {
+      "version": "8.8",
+      "type": "array",
+      "location": "request",
+      "endpoint": "POST /message-subscriptions/search",
+      "property": "$notIn",
+      "depth": 2
+    },
     "POST /message-subscriptions/search > request > processDefinitionId": {
       "version": "8.8",
       "type": "object",
@@ -12365,6 +14525,14 @@
       "endpoint": "POST /message-subscriptions/search",
       "property": "processDefinitionId",
       "depth": 1
+    },
+    "POST /message-subscriptions/search > request > $like": {
+      "version": "8.8",
+      "type": "string",
+      "location": "request",
+      "endpoint": "POST /message-subscriptions/search",
+      "property": "$like",
+      "depth": 2
     },
     "POST /message-subscriptions/search > request > processInstanceKey": {
       "version": "8.8",
@@ -12406,6 +14574,38 @@
       "property": "lastUpdatedDate",
       "depth": 1
     },
+    "POST /message-subscriptions/search > request > $gt": {
+      "version": "8.8",
+      "type": "string",
+      "location": "request",
+      "endpoint": "POST /message-subscriptions/search",
+      "property": "$gt",
+      "depth": 2
+    },
+    "POST /message-subscriptions/search > request > $gte": {
+      "version": "8.8",
+      "type": "string",
+      "location": "request",
+      "endpoint": "POST /message-subscriptions/search",
+      "property": "$gte",
+      "depth": 2
+    },
+    "POST /message-subscriptions/search > request > $lt": {
+      "version": "8.8",
+      "type": "string",
+      "location": "request",
+      "endpoint": "POST /message-subscriptions/search",
+      "property": "$lt",
+      "depth": 2
+    },
+    "POST /message-subscriptions/search > request > $lte": {
+      "version": "8.8",
+      "type": "string",
+      "location": "request",
+      "endpoint": "POST /message-subscriptions/search",
+      "property": "$lte",
+      "depth": 2
+    },
     "POST /message-subscriptions/search > request > messageName": {
       "version": "8.8",
       "type": "object",
@@ -12437,6 +14637,38 @@
       "endpoint": "POST /message-subscriptions/search",
       "property": "page",
       "depth": 0
+    },
+    "POST /message-subscriptions/search > request > from": {
+      "version": "8.8",
+      "type": "integer",
+      "location": "request",
+      "endpoint": "POST /message-subscriptions/search",
+      "property": "from",
+      "depth": 1
+    },
+    "POST /message-subscriptions/search > request > limit": {
+      "version": "8.8",
+      "type": "integer",
+      "location": "request",
+      "endpoint": "POST /message-subscriptions/search",
+      "property": "limit",
+      "depth": 1
+    },
+    "POST /message-subscriptions/search > request > after": {
+      "version": "8.8",
+      "type": "string",
+      "location": "request",
+      "endpoint": "POST /message-subscriptions/search",
+      "property": "after",
+      "depth": 1
+    },
+    "POST /message-subscriptions/search > request > before": {
+      "version": "8.8",
+      "type": "string",
+      "location": "request",
+      "endpoint": "POST /message-subscriptions/search",
+      "property": "before",
+      "depth": 1
     },
     "POST /message-subscriptions/search > response > items": {
       "version": "8.8",
@@ -12758,6 +14990,54 @@
       "property": "username",
       "depth": 1
     },
+    "POST /users/search > request > $eq": {
+      "version": "8.8",
+      "type": "string",
+      "location": "request",
+      "endpoint": "POST /users/search",
+      "property": "$eq",
+      "depth": 2
+    },
+    "POST /users/search > request > $neq": {
+      "version": "8.8",
+      "type": "string",
+      "location": "request",
+      "endpoint": "POST /users/search",
+      "property": "$neq",
+      "depth": 2
+    },
+    "POST /users/search > request > $exists": {
+      "version": "8.8",
+      "type": "boolean",
+      "location": "request",
+      "endpoint": "POST /users/search",
+      "property": "$exists",
+      "depth": 2
+    },
+    "POST /users/search > request > $in": {
+      "version": "8.8",
+      "type": "array",
+      "location": "request",
+      "endpoint": "POST /users/search",
+      "property": "$in",
+      "depth": 2
+    },
+    "POST /users/search > request > $notIn": {
+      "version": "8.8",
+      "type": "array",
+      "location": "request",
+      "endpoint": "POST /users/search",
+      "property": "$notIn",
+      "depth": 2
+    },
+    "POST /users/search > request > $like": {
+      "version": "8.8",
+      "type": "string",
+      "location": "request",
+      "endpoint": "POST /users/search",
+      "property": "$like",
+      "depth": 2
+    },
     "POST /users/search > request > name": {
       "version": "8.8",
       "type": "object",
@@ -12781,6 +15061,38 @@
       "endpoint": "POST /users/search",
       "property": "page",
       "depth": 0
+    },
+    "POST /users/search > request > from": {
+      "version": "8.8",
+      "type": "integer",
+      "location": "request",
+      "endpoint": "POST /users/search",
+      "property": "from",
+      "depth": 1
+    },
+    "POST /users/search > request > limit": {
+      "version": "8.8",
+      "type": "integer",
+      "location": "request",
+      "endpoint": "POST /users/search",
+      "property": "limit",
+      "depth": 1
+    },
+    "POST /users/search > request > after": {
+      "version": "8.8",
+      "type": "string",
+      "location": "request",
+      "endpoint": "POST /users/search",
+      "property": "after",
+      "depth": 1
+    },
+    "POST /users/search > request > before": {
+      "version": "8.8",
+      "type": "string",
+      "location": "request",
+      "endpoint": "POST /users/search",
+      "property": "before",
+      "depth": 1
     },
     "POST /users/search > response > items": {
       "version": "8.8",
@@ -12990,6 +15302,70 @@
       "property": "elementId",
       "depth": 1
     },
+    "POST /incidents/search > request > $eq": {
+      "version": "8.8",
+      "type": "string",
+      "location": "request",
+      "endpoint": "POST /incidents/search",
+      "property": "$eq",
+      "depth": 2
+    },
+    "POST /incidents/search > request > $neq": {
+      "version": "8.8",
+      "type": "string",
+      "location": "request",
+      "endpoint": "POST /incidents/search",
+      "property": "$neq",
+      "depth": 2
+    },
+    "POST /incidents/search > request > $exists": {
+      "version": "8.8",
+      "type": "boolean",
+      "location": "request",
+      "endpoint": "POST /incidents/search",
+      "property": "$exists",
+      "depth": 2
+    },
+    "POST /incidents/search > request > $gt": {
+      "version": "8.8",
+      "type": "string",
+      "location": "request",
+      "endpoint": "POST /incidents/search",
+      "property": "$gt",
+      "depth": 2
+    },
+    "POST /incidents/search > request > $gte": {
+      "version": "8.8",
+      "type": "string",
+      "location": "request",
+      "endpoint": "POST /incidents/search",
+      "property": "$gte",
+      "depth": 2
+    },
+    "POST /incidents/search > request > $lt": {
+      "version": "8.8",
+      "type": "string",
+      "location": "request",
+      "endpoint": "POST /incidents/search",
+      "property": "$lt",
+      "depth": 2
+    },
+    "POST /incidents/search > request > $lte": {
+      "version": "8.8",
+      "type": "string",
+      "location": "request",
+      "endpoint": "POST /incidents/search",
+      "property": "$lte",
+      "depth": 2
+    },
+    "POST /incidents/search > request > $in": {
+      "version": "8.8",
+      "type": "array",
+      "location": "request",
+      "endpoint": "POST /incidents/search",
+      "property": "$in",
+      "depth": 2
+    },
     "POST /incidents/search > request > incidentKey": {
       "version": "8.8",
       "type": "string",
@@ -13028,6 +15404,22 @@
       "location": "request",
       "endpoint": "POST /incidents/search",
       "property": "jobKey",
+      "depth": 1
+    },
+    "POST /incidents/search > request > after": {
+      "version": "8.8",
+      "type": "string",
+      "location": "request",
+      "endpoint": "POST /incidents/search",
+      "property": "after",
+      "depth": 1
+    },
+    "POST /incidents/search > request > before": {
+      "version": "8.8",
+      "type": "string",
+      "location": "request",
+      "endpoint": "POST /incidents/search",
+      "property": "before",
       "depth": 1
     },
     "POST /incidents/search > response > elementId": {
@@ -13350,6 +15742,46 @@
       "property": "batchOperationKey",
       "depth": 1
     },
+    "POST /batch-operations/search > request > $eq": {
+      "version": "8.8",
+      "type": "string",
+      "location": "request",
+      "endpoint": "POST /batch-operations/search",
+      "property": "$eq",
+      "depth": 2
+    },
+    "POST /batch-operations/search > request > $neq": {
+      "version": "8.8",
+      "type": "string",
+      "location": "request",
+      "endpoint": "POST /batch-operations/search",
+      "property": "$neq",
+      "depth": 2
+    },
+    "POST /batch-operations/search > request > $exists": {
+      "version": "8.8",
+      "type": "boolean",
+      "location": "request",
+      "endpoint": "POST /batch-operations/search",
+      "property": "$exists",
+      "depth": 2
+    },
+    "POST /batch-operations/search > request > $in": {
+      "version": "8.8",
+      "type": "array",
+      "location": "request",
+      "endpoint": "POST /batch-operations/search",
+      "property": "$in",
+      "depth": 2
+    },
+    "POST /batch-operations/search > request > $notIn": {
+      "version": "8.8",
+      "type": "array",
+      "location": "request",
+      "endpoint": "POST /batch-operations/search",
+      "property": "$notIn",
+      "depth": 2
+    },
     "POST /batch-operations/search > request > operationType": {
       "version": "8.8",
       "type": "object",
@@ -13357,6 +15789,14 @@
       "endpoint": "POST /batch-operations/search",
       "property": "operationType",
       "depth": 1
+    },
+    "POST /batch-operations/search > request > $like": {
+      "version": "8.8",
+      "type": "string",
+      "location": "request",
+      "endpoint": "POST /batch-operations/search",
+      "property": "$like",
+      "depth": 2
     },
     "POST /batch-operations/search > request > state": {
       "version": "8.8",
@@ -13373,6 +15813,38 @@
       "endpoint": "POST /batch-operations/search",
       "property": "page",
       "depth": 0
+    },
+    "POST /batch-operations/search > request > from": {
+      "version": "8.8",
+      "type": "integer",
+      "location": "request",
+      "endpoint": "POST /batch-operations/search",
+      "property": "from",
+      "depth": 1
+    },
+    "POST /batch-operations/search > request > limit": {
+      "version": "8.8",
+      "type": "integer",
+      "location": "request",
+      "endpoint": "POST /batch-operations/search",
+      "property": "limit",
+      "depth": 1
+    },
+    "POST /batch-operations/search > request > after": {
+      "version": "8.8",
+      "type": "string",
+      "location": "request",
+      "endpoint": "POST /batch-operations/search",
+      "property": "after",
+      "depth": 1
+    },
+    "POST /batch-operations/search > request > before": {
+      "version": "8.8",
+      "type": "string",
+      "location": "request",
+      "endpoint": "POST /batch-operations/search",
+      "property": "before",
+      "depth": 1
     },
     "POST /batch-operations/search > response > items": {
       "version": "8.8",
@@ -13558,6 +16030,46 @@
       "property": "batchOperationKey",
       "depth": 1
     },
+    "POST /batch-operation-items/search > request > $eq": {
+      "version": "8.8",
+      "type": "string",
+      "location": "request",
+      "endpoint": "POST /batch-operation-items/search",
+      "property": "$eq",
+      "depth": 2
+    },
+    "POST /batch-operation-items/search > request > $neq": {
+      "version": "8.8",
+      "type": "string",
+      "location": "request",
+      "endpoint": "POST /batch-operation-items/search",
+      "property": "$neq",
+      "depth": 2
+    },
+    "POST /batch-operation-items/search > request > $exists": {
+      "version": "8.8",
+      "type": "boolean",
+      "location": "request",
+      "endpoint": "POST /batch-operation-items/search",
+      "property": "$exists",
+      "depth": 2
+    },
+    "POST /batch-operation-items/search > request > $in": {
+      "version": "8.8",
+      "type": "array",
+      "location": "request",
+      "endpoint": "POST /batch-operation-items/search",
+      "property": "$in",
+      "depth": 2
+    },
+    "POST /batch-operation-items/search > request > $notIn": {
+      "version": "8.8",
+      "type": "array",
+      "location": "request",
+      "endpoint": "POST /batch-operation-items/search",
+      "property": "$notIn",
+      "depth": 2
+    },
     "POST /batch-operation-items/search > request > itemKey": {
       "version": "8.8",
       "type": "object",
@@ -13582,6 +16094,14 @@
       "property": "state",
       "depth": 1
     },
+    "POST /batch-operation-items/search > request > $like": {
+      "version": "8.8",
+      "type": "string",
+      "location": "request",
+      "endpoint": "POST /batch-operation-items/search",
+      "property": "$like",
+      "depth": 2
+    },
     "POST /batch-operation-items/search > request > page": {
       "version": "8.8",
       "type": "object",
@@ -13589,6 +16109,38 @@
       "endpoint": "POST /batch-operation-items/search",
       "property": "page",
       "depth": 0
+    },
+    "POST /batch-operation-items/search > request > from": {
+      "version": "8.8",
+      "type": "integer",
+      "location": "request",
+      "endpoint": "POST /batch-operation-items/search",
+      "property": "from",
+      "depth": 1
+    },
+    "POST /batch-operation-items/search > request > limit": {
+      "version": "8.8",
+      "type": "integer",
+      "location": "request",
+      "endpoint": "POST /batch-operation-items/search",
+      "property": "limit",
+      "depth": 1
+    },
+    "POST /batch-operation-items/search > request > after": {
+      "version": "8.8",
+      "type": "string",
+      "location": "request",
+      "endpoint": "POST /batch-operation-items/search",
+      "property": "after",
+      "depth": 1
+    },
+    "POST /batch-operation-items/search > request > before": {
+      "version": "8.8",
+      "type": "string",
+      "location": "request",
+      "endpoint": "POST /batch-operation-items/search",
+      "property": "before",
+      "depth": 1
     },
     "POST /batch-operation-items/search > response > items": {
       "version": "8.8",
@@ -13734,6 +16286,46 @@
       "property": "auditLogKey",
       "depth": 1
     },
+    "POST /audit-logs/search > request > $eq": {
+      "version": "8.9",
+      "type": "string",
+      "location": "request",
+      "endpoint": "POST /audit-logs/search",
+      "property": "$eq",
+      "depth": 2
+    },
+    "POST /audit-logs/search > request > $neq": {
+      "version": "8.9",
+      "type": "string",
+      "location": "request",
+      "endpoint": "POST /audit-logs/search",
+      "property": "$neq",
+      "depth": 2
+    },
+    "POST /audit-logs/search > request > $exists": {
+      "version": "8.9",
+      "type": "boolean",
+      "location": "request",
+      "endpoint": "POST /audit-logs/search",
+      "property": "$exists",
+      "depth": 2
+    },
+    "POST /audit-logs/search > request > $in": {
+      "version": "8.9",
+      "type": "array",
+      "location": "request",
+      "endpoint": "POST /audit-logs/search",
+      "property": "$in",
+      "depth": 2
+    },
+    "POST /audit-logs/search > request > $notIn": {
+      "version": "8.9",
+      "type": "array",
+      "location": "request",
+      "endpoint": "POST /audit-logs/search",
+      "property": "$notIn",
+      "depth": 2
+    },
     "POST /audit-logs/search > request > processDefinitionKey": {
       "version": "8.9",
       "type": "object",
@@ -13766,6 +16358,14 @@
       "property": "operationType",
       "depth": 1
     },
+    "POST /audit-logs/search > request > $like": {
+      "version": "8.9",
+      "type": "string",
+      "location": "request",
+      "endpoint": "POST /audit-logs/search",
+      "property": "$like",
+      "depth": 2
+    },
     "POST /audit-logs/search > request > result": {
       "version": "8.9",
       "type": "object",
@@ -13781,6 +16381,38 @@
       "endpoint": "POST /audit-logs/search",
       "property": "timestamp",
       "depth": 1
+    },
+    "POST /audit-logs/search > request > $gt": {
+      "version": "8.9",
+      "type": "string",
+      "location": "request",
+      "endpoint": "POST /audit-logs/search",
+      "property": "$gt",
+      "depth": 2
+    },
+    "POST /audit-logs/search > request > $gte": {
+      "version": "8.9",
+      "type": "string",
+      "location": "request",
+      "endpoint": "POST /audit-logs/search",
+      "property": "$gte",
+      "depth": 2
+    },
+    "POST /audit-logs/search > request > $lt": {
+      "version": "8.9",
+      "type": "string",
+      "location": "request",
+      "endpoint": "POST /audit-logs/search",
+      "property": "$lt",
+      "depth": 2
+    },
+    "POST /audit-logs/search > request > $lte": {
+      "version": "8.9",
+      "type": "string",
+      "location": "request",
+      "endpoint": "POST /audit-logs/search",
+      "property": "$lte",
+      "depth": 2
     },
     "POST /audit-logs/search > request > actorId": {
       "version": "8.9",
@@ -13965,6 +16597,38 @@
       "endpoint": "POST /audit-logs/search",
       "property": "page",
       "depth": 0
+    },
+    "POST /audit-logs/search > request > limit": {
+      "version": "8.9",
+      "type": "integer",
+      "location": "request",
+      "endpoint": "POST /audit-logs/search",
+      "property": "limit",
+      "depth": 1
+    },
+    "POST /audit-logs/search > request > from": {
+      "version": "8.9",
+      "type": "integer",
+      "location": "request",
+      "endpoint": "POST /audit-logs/search",
+      "property": "from",
+      "depth": 1
+    },
+    "POST /audit-logs/search > request > after": {
+      "version": "8.9",
+      "type": "string",
+      "location": "request",
+      "endpoint": "POST /audit-logs/search",
+      "property": "after",
+      "depth": 1
+    },
+    "POST /audit-logs/search > request > before": {
+      "version": "8.9",
+      "type": "string",
+      "location": "request",
+      "endpoint": "POST /audit-logs/search",
+      "property": "before",
+      "depth": 1
     },
     "POST /audit-logs/search > response > items": {
       "version": "8.9",
@@ -14510,6 +17174,14 @@
       "property": "entityDescription",
       "depth": 0
     },
+    "POST /authorizations > request > resourcePropertyName": {
+      "version": "8.9",
+      "type": "string",
+      "location": "request",
+      "endpoint": "POST /authorizations",
+      "property": "resourcePropertyName",
+      "depth": 0
+    },
     "POST /authorizations/search > request > resourcePropertyNames": {
       "version": "8.9",
       "type": "array",
@@ -14531,6 +17203,14 @@
       "type": "string",
       "location": "response",
       "endpoint": "GET /authorizations/{authorizationKey}",
+      "property": "resourcePropertyName",
+      "depth": 0
+    },
+    "PUT /authorizations/{authorizationKey} > request > resourcePropertyName": {
+      "version": "8.9",
+      "type": "string",
+      "location": "request",
+      "endpoint": "PUT /authorizations/{authorizationKey}",
       "property": "resourcePropertyName",
       "depth": 0
     },
@@ -14758,6 +17438,54 @@
       "property": "name",
       "depth": 1
     },
+    "POST /cluster-variables/search > request > $eq": {
+      "version": "8.9",
+      "type": "string",
+      "location": "request",
+      "endpoint": "POST /cluster-variables/search",
+      "property": "$eq",
+      "depth": 2
+    },
+    "POST /cluster-variables/search > request > $neq": {
+      "version": "8.9",
+      "type": "string",
+      "location": "request",
+      "endpoint": "POST /cluster-variables/search",
+      "property": "$neq",
+      "depth": 2
+    },
+    "POST /cluster-variables/search > request > $exists": {
+      "version": "8.9",
+      "type": "boolean",
+      "location": "request",
+      "endpoint": "POST /cluster-variables/search",
+      "property": "$exists",
+      "depth": 2
+    },
+    "POST /cluster-variables/search > request > $in": {
+      "version": "8.9",
+      "type": "array",
+      "location": "request",
+      "endpoint": "POST /cluster-variables/search",
+      "property": "$in",
+      "depth": 2
+    },
+    "POST /cluster-variables/search > request > $notIn": {
+      "version": "8.9",
+      "type": "array",
+      "location": "request",
+      "endpoint": "POST /cluster-variables/search",
+      "property": "$notIn",
+      "depth": 2
+    },
+    "POST /cluster-variables/search > request > $like": {
+      "version": "8.9",
+      "type": "string",
+      "location": "request",
+      "endpoint": "POST /cluster-variables/search",
+      "property": "$like",
+      "depth": 2
+    },
     "POST /cluster-variables/search > request > value": {
       "version": "8.9",
       "type": "object",
@@ -14797,6 +17525,38 @@
       "endpoint": "POST /cluster-variables/search",
       "property": "page",
       "depth": 0
+    },
+    "POST /cluster-variables/search > request > limit": {
+      "version": "8.9",
+      "type": "integer",
+      "location": "request",
+      "endpoint": "POST /cluster-variables/search",
+      "property": "limit",
+      "depth": 1
+    },
+    "POST /cluster-variables/search > request > from": {
+      "version": "8.9",
+      "type": "integer",
+      "location": "request",
+      "endpoint": "POST /cluster-variables/search",
+      "property": "from",
+      "depth": 1
+    },
+    "POST /cluster-variables/search > request > after": {
+      "version": "8.9",
+      "type": "string",
+      "location": "request",
+      "endpoint": "POST /cluster-variables/search",
+      "property": "after",
+      "depth": 1
+    },
+    "POST /cluster-variables/search > request > before": {
+      "version": "8.9",
+      "type": "string",
+      "location": "request",
+      "endpoint": "POST /cluster-variables/search",
+      "property": "before",
+      "depth": 1
     },
     "POST /cluster-variables/search > response > items": {
       "version": "8.9",
@@ -15134,6 +17894,14 @@
       "property": "decisionRequirementsVersion",
       "depth": 0
     },
+    "POST /decision-instances/search > request > $like": {
+      "version": "8.9",
+      "type": "string",
+      "location": "request",
+      "endpoint": "POST /decision-instances/search",
+      "property": "$like",
+      "depth": 2
+    },
     "POST /decision-instances/search > request > rootDecisionDefinitionKey": {
       "version": "8.9",
       "type": "object",
@@ -15206,6 +17974,46 @@
       "property": "decisionEvaluationInstanceKey",
       "depth": 1
     },
+    "POST /decision-instances/deletion > request > $eq": {
+      "version": "8.9",
+      "type": "string",
+      "location": "request",
+      "endpoint": "POST /decision-instances/deletion",
+      "property": "$eq",
+      "depth": 2
+    },
+    "POST /decision-instances/deletion > request > $neq": {
+      "version": "8.9",
+      "type": "string",
+      "location": "request",
+      "endpoint": "POST /decision-instances/deletion",
+      "property": "$neq",
+      "depth": 2
+    },
+    "POST /decision-instances/deletion > request > $exists": {
+      "version": "8.9",
+      "type": "boolean",
+      "location": "request",
+      "endpoint": "POST /decision-instances/deletion",
+      "property": "$exists",
+      "depth": 2
+    },
+    "POST /decision-instances/deletion > request > $in": {
+      "version": "8.9",
+      "type": "array",
+      "location": "request",
+      "endpoint": "POST /decision-instances/deletion",
+      "property": "$in",
+      "depth": 2
+    },
+    "POST /decision-instances/deletion > request > $notIn": {
+      "version": "8.9",
+      "type": "array",
+      "location": "request",
+      "endpoint": "POST /decision-instances/deletion",
+      "property": "$notIn",
+      "depth": 2
+    },
     "POST /decision-instances/deletion > request > state": {
       "version": "8.9",
       "type": "object",
@@ -15213,6 +18021,14 @@
       "endpoint": "POST /decision-instances/deletion",
       "property": "state",
       "depth": 1
+    },
+    "POST /decision-instances/deletion > request > $like": {
+      "version": "8.9",
+      "type": "string",
+      "location": "request",
+      "endpoint": "POST /decision-instances/deletion",
+      "property": "$like",
+      "depth": 2
     },
     "POST /decision-instances/deletion > request > evaluationFailure": {
       "version": "8.9",
@@ -15229,6 +18045,38 @@
       "endpoint": "POST /decision-instances/deletion",
       "property": "evaluationDate",
       "depth": 1
+    },
+    "POST /decision-instances/deletion > request > $gt": {
+      "version": "8.9",
+      "type": "string",
+      "location": "request",
+      "endpoint": "POST /decision-instances/deletion",
+      "property": "$gt",
+      "depth": 2
+    },
+    "POST /decision-instances/deletion > request > $gte": {
+      "version": "8.9",
+      "type": "string",
+      "location": "request",
+      "endpoint": "POST /decision-instances/deletion",
+      "property": "$gte",
+      "depth": 2
+    },
+    "POST /decision-instances/deletion > request > $lt": {
+      "version": "8.9",
+      "type": "string",
+      "location": "request",
+      "endpoint": "POST /decision-instances/deletion",
+      "property": "$lt",
+      "depth": 2
+    },
+    "POST /decision-instances/deletion > request > $lte": {
+      "version": "8.9",
+      "type": "string",
+      "location": "request",
+      "endpoint": "POST /decision-instances/deletion",
+      "property": "$lte",
+      "depth": 2
     },
     "POST /decision-instances/deletion > request > decisionDefinitionId": {
       "version": "8.9",
@@ -15422,6 +18270,54 @@
       "property": "processDefinitionId",
       "depth": 1
     },
+    "POST /element-instances/{elementInstanceKey}/incidents/search > request > $eq": {
+      "version": "8.9",
+      "type": "string",
+      "location": "request",
+      "endpoint": "POST /element-instances/{elementInstanceKey}/incidents/search",
+      "property": "$eq",
+      "depth": 2
+    },
+    "POST /element-instances/{elementInstanceKey}/incidents/search > request > $neq": {
+      "version": "8.9",
+      "type": "string",
+      "location": "request",
+      "endpoint": "POST /element-instances/{elementInstanceKey}/incidents/search",
+      "property": "$neq",
+      "depth": 2
+    },
+    "POST /element-instances/{elementInstanceKey}/incidents/search > request > $exists": {
+      "version": "8.9",
+      "type": "boolean",
+      "location": "request",
+      "endpoint": "POST /element-instances/{elementInstanceKey}/incidents/search",
+      "property": "$exists",
+      "depth": 2
+    },
+    "POST /element-instances/{elementInstanceKey}/incidents/search > request > $in": {
+      "version": "8.9",
+      "type": "array",
+      "location": "request",
+      "endpoint": "POST /element-instances/{elementInstanceKey}/incidents/search",
+      "property": "$in",
+      "depth": 2
+    },
+    "POST /element-instances/{elementInstanceKey}/incidents/search > request > $notIn": {
+      "version": "8.9",
+      "type": "array",
+      "location": "request",
+      "endpoint": "POST /element-instances/{elementInstanceKey}/incidents/search",
+      "property": "$notIn",
+      "depth": 2
+    },
+    "POST /element-instances/{elementInstanceKey}/incidents/search > request > $like": {
+      "version": "8.9",
+      "type": "string",
+      "location": "request",
+      "endpoint": "POST /element-instances/{elementInstanceKey}/incidents/search",
+      "property": "$like",
+      "depth": 2
+    },
     "POST /element-instances/{elementInstanceKey}/incidents/search > request > errorType": {
       "version": "8.9",
       "type": "object",
@@ -15453,6 +18349,38 @@
       "endpoint": "POST /element-instances/{elementInstanceKey}/incidents/search",
       "property": "creationTime",
       "depth": 1
+    },
+    "POST /element-instances/{elementInstanceKey}/incidents/search > request > $gt": {
+      "version": "8.9",
+      "type": "string",
+      "location": "request",
+      "endpoint": "POST /element-instances/{elementInstanceKey}/incidents/search",
+      "property": "$gt",
+      "depth": 2
+    },
+    "POST /element-instances/{elementInstanceKey}/incidents/search > request > $gte": {
+      "version": "8.9",
+      "type": "string",
+      "location": "request",
+      "endpoint": "POST /element-instances/{elementInstanceKey}/incidents/search",
+      "property": "$gte",
+      "depth": 2
+    },
+    "POST /element-instances/{elementInstanceKey}/incidents/search > request > $lt": {
+      "version": "8.9",
+      "type": "string",
+      "location": "request",
+      "endpoint": "POST /element-instances/{elementInstanceKey}/incidents/search",
+      "property": "$lt",
+      "depth": 2
+    },
+    "POST /element-instances/{elementInstanceKey}/incidents/search > request > $lte": {
+      "version": "8.9",
+      "type": "string",
+      "location": "request",
+      "endpoint": "POST /element-instances/{elementInstanceKey}/incidents/search",
+      "property": "$lte",
+      "depth": 2
     },
     "POST /element-instances/{elementInstanceKey}/incidents/search > request > state": {
       "version": "8.9",
@@ -15517,6 +18445,38 @@
       "endpoint": "POST /element-instances/{elementInstanceKey}/incidents/search",
       "property": "page",
       "depth": 0
+    },
+    "POST /element-instances/{elementInstanceKey}/incidents/search > request > limit": {
+      "version": "8.9",
+      "type": "integer",
+      "location": "request",
+      "endpoint": "POST /element-instances/{elementInstanceKey}/incidents/search",
+      "property": "limit",
+      "depth": 1
+    },
+    "POST /element-instances/{elementInstanceKey}/incidents/search > request > from": {
+      "version": "8.9",
+      "type": "integer",
+      "location": "request",
+      "endpoint": "POST /element-instances/{elementInstanceKey}/incidents/search",
+      "property": "from",
+      "depth": 1
+    },
+    "POST /element-instances/{elementInstanceKey}/incidents/search > request > after": {
+      "version": "8.9",
+      "type": "string",
+      "location": "request",
+      "endpoint": "POST /element-instances/{elementInstanceKey}/incidents/search",
+      "property": "after",
+      "depth": 1
+    },
+    "POST /element-instances/{elementInstanceKey}/incidents/search > request > before": {
+      "version": "8.9",
+      "type": "string",
+      "location": "request",
+      "endpoint": "POST /element-instances/{elementInstanceKey}/incidents/search",
+      "property": "before",
+      "depth": 1
     },
     "POST /element-instances/{elementInstanceKey}/incidents/search > response > items": {
       "version": "8.9",
@@ -16022,6 +18982,54 @@
       "property": "id",
       "depth": 1
     },
+    "POST /global-task-listeners/search > request > $eq": {
+      "version": "8.9",
+      "type": "string",
+      "location": "request",
+      "endpoint": "POST /global-task-listeners/search",
+      "property": "$eq",
+      "depth": 2
+    },
+    "POST /global-task-listeners/search > request > $neq": {
+      "version": "8.9",
+      "type": "string",
+      "location": "request",
+      "endpoint": "POST /global-task-listeners/search",
+      "property": "$neq",
+      "depth": 2
+    },
+    "POST /global-task-listeners/search > request > $exists": {
+      "version": "8.9",
+      "type": "boolean",
+      "location": "request",
+      "endpoint": "POST /global-task-listeners/search",
+      "property": "$exists",
+      "depth": 2
+    },
+    "POST /global-task-listeners/search > request > $in": {
+      "version": "8.9",
+      "type": "array",
+      "location": "request",
+      "endpoint": "POST /global-task-listeners/search",
+      "property": "$in",
+      "depth": 2
+    },
+    "POST /global-task-listeners/search > request > $notIn": {
+      "version": "8.9",
+      "type": "array",
+      "location": "request",
+      "endpoint": "POST /global-task-listeners/search",
+      "property": "$notIn",
+      "depth": 2
+    },
+    "POST /global-task-listeners/search > request > $like": {
+      "version": "8.9",
+      "type": "string",
+      "location": "request",
+      "endpoint": "POST /global-task-listeners/search",
+      "property": "$like",
+      "depth": 2
+    },
     "POST /global-task-listeners/search > request > type": {
       "version": "8.9",
       "type": "object",
@@ -16037,6 +19045,38 @@
       "endpoint": "POST /global-task-listeners/search",
       "property": "retries",
       "depth": 1
+    },
+    "POST /global-task-listeners/search > request > $gt": {
+      "version": "8.9",
+      "type": "integer",
+      "location": "request",
+      "endpoint": "POST /global-task-listeners/search",
+      "property": "$gt",
+      "depth": 2
+    },
+    "POST /global-task-listeners/search > request > $gte": {
+      "version": "8.9",
+      "type": "integer",
+      "location": "request",
+      "endpoint": "POST /global-task-listeners/search",
+      "property": "$gte",
+      "depth": 2
+    },
+    "POST /global-task-listeners/search > request > $lt": {
+      "version": "8.9",
+      "type": "integer",
+      "location": "request",
+      "endpoint": "POST /global-task-listeners/search",
+      "property": "$lt",
+      "depth": 2
+    },
+    "POST /global-task-listeners/search > request > $lte": {
+      "version": "8.9",
+      "type": "integer",
+      "location": "request",
+      "endpoint": "POST /global-task-listeners/search",
+      "property": "$lte",
+      "depth": 2
     },
     "POST /global-task-listeners/search > request > eventTypes": {
       "version": "8.9",
@@ -16077,6 +19117,38 @@
       "endpoint": "POST /global-task-listeners/search",
       "property": "page",
       "depth": 0
+    },
+    "POST /global-task-listeners/search > request > limit": {
+      "version": "8.9",
+      "type": "integer",
+      "location": "request",
+      "endpoint": "POST /global-task-listeners/search",
+      "property": "limit",
+      "depth": 1
+    },
+    "POST /global-task-listeners/search > request > from": {
+      "version": "8.9",
+      "type": "integer",
+      "location": "request",
+      "endpoint": "POST /global-task-listeners/search",
+      "property": "from",
+      "depth": 1
+    },
+    "POST /global-task-listeners/search > request > after": {
+      "version": "8.9",
+      "type": "string",
+      "location": "request",
+      "endpoint": "POST /global-task-listeners/search",
+      "property": "after",
+      "depth": 1
+    },
+    "POST /global-task-listeners/search > request > before": {
+      "version": "8.9",
+      "type": "string",
+      "location": "request",
+      "endpoint": "POST /global-task-listeners/search",
+      "property": "before",
+      "depth": 1
     },
     "POST /global-task-listeners/search > response > items": {
       "version": "8.9",
@@ -16181,6 +19253,22 @@
       "endpoint": "POST /global-task-listeners/search",
       "property": "endCursor",
       "depth": 1
+    },
+    "POST /incidents/search > request > $notIn": {
+      "version": "8.9",
+      "type": "array",
+      "location": "request",
+      "endpoint": "POST /incidents/search",
+      "property": "$notIn",
+      "depth": 2
+    },
+    "POST /incidents/search > request > $like": {
+      "version": "8.9",
+      "type": "string",
+      "location": "request",
+      "endpoint": "POST /incidents/search",
+      "property": "$like",
+      "depth": 2
     },
     "POST /incidents/search > response > rootProcessInstanceKey": {
       "version": "8.9",
@@ -16613,6 +19701,54 @@
       "endpoint": "POST /jobs/statistics/by-types",
       "property": "jobType",
       "depth": 1
+    },
+    "POST /jobs/statistics/by-types > request > $eq": {
+      "version": "8.9",
+      "type": "string",
+      "location": "request",
+      "endpoint": "POST /jobs/statistics/by-types",
+      "property": "$eq",
+      "depth": 2
+    },
+    "POST /jobs/statistics/by-types > request > $neq": {
+      "version": "8.9",
+      "type": "string",
+      "location": "request",
+      "endpoint": "POST /jobs/statistics/by-types",
+      "property": "$neq",
+      "depth": 2
+    },
+    "POST /jobs/statistics/by-types > request > $exists": {
+      "version": "8.9",
+      "type": "boolean",
+      "location": "request",
+      "endpoint": "POST /jobs/statistics/by-types",
+      "property": "$exists",
+      "depth": 2
+    },
+    "POST /jobs/statistics/by-types > request > $in": {
+      "version": "8.9",
+      "type": "array",
+      "location": "request",
+      "endpoint": "POST /jobs/statistics/by-types",
+      "property": "$in",
+      "depth": 2
+    },
+    "POST /jobs/statistics/by-types > request > $notIn": {
+      "version": "8.9",
+      "type": "array",
+      "location": "request",
+      "endpoint": "POST /jobs/statistics/by-types",
+      "property": "$notIn",
+      "depth": 2
+    },
+    "POST /jobs/statistics/by-types > request > $like": {
+      "version": "8.9",
+      "type": "string",
+      "location": "request",
+      "endpoint": "POST /jobs/statistics/by-types",
+      "property": "$like",
+      "depth": 2
     },
     "POST /jobs/statistics/by-types > request > page": {
       "version": "8.9",
@@ -17094,6 +20230,54 @@
       "property": "errorCode",
       "depth": 1
     },
+    "POST /jobs/statistics/errors > request > $eq": {
+      "version": "8.9",
+      "type": "string",
+      "location": "request",
+      "endpoint": "POST /jobs/statistics/errors",
+      "property": "$eq",
+      "depth": 2
+    },
+    "POST /jobs/statistics/errors > request > $neq": {
+      "version": "8.9",
+      "type": "string",
+      "location": "request",
+      "endpoint": "POST /jobs/statistics/errors",
+      "property": "$neq",
+      "depth": 2
+    },
+    "POST /jobs/statistics/errors > request > $exists": {
+      "version": "8.9",
+      "type": "boolean",
+      "location": "request",
+      "endpoint": "POST /jobs/statistics/errors",
+      "property": "$exists",
+      "depth": 2
+    },
+    "POST /jobs/statistics/errors > request > $in": {
+      "version": "8.9",
+      "type": "array",
+      "location": "request",
+      "endpoint": "POST /jobs/statistics/errors",
+      "property": "$in",
+      "depth": 2
+    },
+    "POST /jobs/statistics/errors > request > $notIn": {
+      "version": "8.9",
+      "type": "array",
+      "location": "request",
+      "endpoint": "POST /jobs/statistics/errors",
+      "property": "$notIn",
+      "depth": 2
+    },
+    "POST /jobs/statistics/errors > request > $like": {
+      "version": "8.9",
+      "type": "string",
+      "location": "request",
+      "endpoint": "POST /jobs/statistics/errors",
+      "property": "$like",
+      "depth": 2
+    },
     "POST /jobs/statistics/errors > request > errorMessage": {
       "version": "8.9",
       "type": "object",
@@ -17254,6 +20438,46 @@
       "property": "messageSubscriptionKey",
       "depth": 1
     },
+    "POST /process-definitions/statistics/message-subscriptions > request > $eq": {
+      "version": "8.9",
+      "type": "string",
+      "location": "request",
+      "endpoint": "POST /process-definitions/statistics/message-subscriptions",
+      "property": "$eq",
+      "depth": 2
+    },
+    "POST /process-definitions/statistics/message-subscriptions > request > $neq": {
+      "version": "8.9",
+      "type": "string",
+      "location": "request",
+      "endpoint": "POST /process-definitions/statistics/message-subscriptions",
+      "property": "$neq",
+      "depth": 2
+    },
+    "POST /process-definitions/statistics/message-subscriptions > request > $exists": {
+      "version": "8.9",
+      "type": "boolean",
+      "location": "request",
+      "endpoint": "POST /process-definitions/statistics/message-subscriptions",
+      "property": "$exists",
+      "depth": 2
+    },
+    "POST /process-definitions/statistics/message-subscriptions > request > $in": {
+      "version": "8.9",
+      "type": "array",
+      "location": "request",
+      "endpoint": "POST /process-definitions/statistics/message-subscriptions",
+      "property": "$in",
+      "depth": 2
+    },
+    "POST /process-definitions/statistics/message-subscriptions > request > $notIn": {
+      "version": "8.9",
+      "type": "array",
+      "location": "request",
+      "endpoint": "POST /process-definitions/statistics/message-subscriptions",
+      "property": "$notIn",
+      "depth": 2
+    },
     "POST /process-definitions/statistics/message-subscriptions > request > processDefinitionKey": {
       "version": "8.9",
       "type": "object",
@@ -17269,6 +20493,14 @@
       "endpoint": "POST /process-definitions/statistics/message-subscriptions",
       "property": "processDefinitionId",
       "depth": 1
+    },
+    "POST /process-definitions/statistics/message-subscriptions > request > $like": {
+      "version": "8.9",
+      "type": "string",
+      "location": "request",
+      "endpoint": "POST /process-definitions/statistics/message-subscriptions",
+      "property": "$like",
+      "depth": 2
     },
     "POST /process-definitions/statistics/message-subscriptions > request > processInstanceKey": {
       "version": "8.9",
@@ -17309,6 +20541,38 @@
       "endpoint": "POST /process-definitions/statistics/message-subscriptions",
       "property": "lastUpdatedDate",
       "depth": 1
+    },
+    "POST /process-definitions/statistics/message-subscriptions > request > $gt": {
+      "version": "8.9",
+      "type": "string",
+      "location": "request",
+      "endpoint": "POST /process-definitions/statistics/message-subscriptions",
+      "property": "$gt",
+      "depth": 2
+    },
+    "POST /process-definitions/statistics/message-subscriptions > request > $gte": {
+      "version": "8.9",
+      "type": "string",
+      "location": "request",
+      "endpoint": "POST /process-definitions/statistics/message-subscriptions",
+      "property": "$gte",
+      "depth": 2
+    },
+    "POST /process-definitions/statistics/message-subscriptions > request > $lt": {
+      "version": "8.9",
+      "type": "string",
+      "location": "request",
+      "endpoint": "POST /process-definitions/statistics/message-subscriptions",
+      "property": "$lt",
+      "depth": 2
+    },
+    "POST /process-definitions/statistics/message-subscriptions > request > $lte": {
+      "version": "8.9",
+      "type": "string",
+      "location": "request",
+      "endpoint": "POST /process-definitions/statistics/message-subscriptions",
+      "property": "$lte",
+      "depth": 2
     },
     "POST /process-definitions/statistics/message-subscriptions > request > messageName": {
       "version": "8.9",
@@ -17750,6 +21014,14 @@
       "property": "endCursor",
       "depth": 1
     },
+    "POST /process-instances > request > businessId": {
+      "version": "8.9",
+      "type": "string",
+      "location": "request",
+      "endpoint": "POST /process-instances",
+      "property": "businessId",
+      "depth": 0
+    },
     "POST /process-instances > response > businessId": {
       "version": "8.9",
       "type": "string",
@@ -17790,6 +21062,54 @@
       "property": "processDefinitionId",
       "depth": 1
     },
+    "POST /process-instances/deletion > request > $eq": {
+      "version": "8.9",
+      "type": "string",
+      "location": "request",
+      "endpoint": "POST /process-instances/deletion",
+      "property": "$eq",
+      "depth": 2
+    },
+    "POST /process-instances/deletion > request > $neq": {
+      "version": "8.9",
+      "type": "string",
+      "location": "request",
+      "endpoint": "POST /process-instances/deletion",
+      "property": "$neq",
+      "depth": 2
+    },
+    "POST /process-instances/deletion > request > $exists": {
+      "version": "8.9",
+      "type": "boolean",
+      "location": "request",
+      "endpoint": "POST /process-instances/deletion",
+      "property": "$exists",
+      "depth": 2
+    },
+    "POST /process-instances/deletion > request > $in": {
+      "version": "8.9",
+      "type": "array",
+      "location": "request",
+      "endpoint": "POST /process-instances/deletion",
+      "property": "$in",
+      "depth": 2
+    },
+    "POST /process-instances/deletion > request > $notIn": {
+      "version": "8.9",
+      "type": "array",
+      "location": "request",
+      "endpoint": "POST /process-instances/deletion",
+      "property": "$notIn",
+      "depth": 2
+    },
+    "POST /process-instances/deletion > request > $like": {
+      "version": "8.9",
+      "type": "string",
+      "location": "request",
+      "endpoint": "POST /process-instances/deletion",
+      "property": "$like",
+      "depth": 2
+    },
     "POST /process-instances/deletion > request > processDefinitionName": {
       "version": "8.9",
       "type": "object",
@@ -17805,6 +21125,38 @@
       "endpoint": "POST /process-instances/deletion",
       "property": "processDefinitionVersion",
       "depth": 1
+    },
+    "POST /process-instances/deletion > request > $gt": {
+      "version": "8.9",
+      "type": "integer",
+      "location": "request",
+      "endpoint": "POST /process-instances/deletion",
+      "property": "$gt",
+      "depth": 2
+    },
+    "POST /process-instances/deletion > request > $gte": {
+      "version": "8.9",
+      "type": "integer",
+      "location": "request",
+      "endpoint": "POST /process-instances/deletion",
+      "property": "$gte",
+      "depth": 2
+    },
+    "POST /process-instances/deletion > request > $lt": {
+      "version": "8.9",
+      "type": "integer",
+      "location": "request",
+      "endpoint": "POST /process-instances/deletion",
+      "property": "$lt",
+      "depth": 2
+    },
+    "POST /process-instances/deletion > request > $lte": {
+      "version": "8.9",
+      "type": "integer",
+      "location": "request",
+      "endpoint": "POST /process-instances/deletion",
+      "property": "$lte",
+      "depth": 2
     },
     "POST /process-instances/deletion > request > processDefinitionVersionTag": {
       "version": "8.9",
@@ -18150,6 +21502,54 @@
       "property": "processDefinitionId",
       "depth": 1
     },
+    "POST /process-instances/{processInstanceKey}/incidents/search > request > $eq": {
+      "version": "8.9",
+      "type": "string",
+      "location": "request",
+      "endpoint": "POST /process-instances/{processInstanceKey}/incidents/search",
+      "property": "$eq",
+      "depth": 2
+    },
+    "POST /process-instances/{processInstanceKey}/incidents/search > request > $neq": {
+      "version": "8.9",
+      "type": "string",
+      "location": "request",
+      "endpoint": "POST /process-instances/{processInstanceKey}/incidents/search",
+      "property": "$neq",
+      "depth": 2
+    },
+    "POST /process-instances/{processInstanceKey}/incidents/search > request > $exists": {
+      "version": "8.9",
+      "type": "boolean",
+      "location": "request",
+      "endpoint": "POST /process-instances/{processInstanceKey}/incidents/search",
+      "property": "$exists",
+      "depth": 2
+    },
+    "POST /process-instances/{processInstanceKey}/incidents/search > request > $in": {
+      "version": "8.9",
+      "type": "array",
+      "location": "request",
+      "endpoint": "POST /process-instances/{processInstanceKey}/incidents/search",
+      "property": "$in",
+      "depth": 2
+    },
+    "POST /process-instances/{processInstanceKey}/incidents/search > request > $notIn": {
+      "version": "8.9",
+      "type": "array",
+      "location": "request",
+      "endpoint": "POST /process-instances/{processInstanceKey}/incidents/search",
+      "property": "$notIn",
+      "depth": 2
+    },
+    "POST /process-instances/{processInstanceKey}/incidents/search > request > $like": {
+      "version": "8.9",
+      "type": "string",
+      "location": "request",
+      "endpoint": "POST /process-instances/{processInstanceKey}/incidents/search",
+      "property": "$like",
+      "depth": 2
+    },
     "POST /process-instances/{processInstanceKey}/incidents/search > request > errorType": {
       "version": "8.9",
       "type": "object",
@@ -18181,6 +21581,38 @@
       "endpoint": "POST /process-instances/{processInstanceKey}/incidents/search",
       "property": "creationTime",
       "depth": 1
+    },
+    "POST /process-instances/{processInstanceKey}/incidents/search > request > $gt": {
+      "version": "8.9",
+      "type": "string",
+      "location": "request",
+      "endpoint": "POST /process-instances/{processInstanceKey}/incidents/search",
+      "property": "$gt",
+      "depth": 2
+    },
+    "POST /process-instances/{processInstanceKey}/incidents/search > request > $gte": {
+      "version": "8.9",
+      "type": "string",
+      "location": "request",
+      "endpoint": "POST /process-instances/{processInstanceKey}/incidents/search",
+      "property": "$gte",
+      "depth": 2
+    },
+    "POST /process-instances/{processInstanceKey}/incidents/search > request > $lt": {
+      "version": "8.9",
+      "type": "string",
+      "location": "request",
+      "endpoint": "POST /process-instances/{processInstanceKey}/incidents/search",
+      "property": "$lt",
+      "depth": 2
+    },
+    "POST /process-instances/{processInstanceKey}/incidents/search > request > $lte": {
+      "version": "8.9",
+      "type": "string",
+      "location": "request",
+      "endpoint": "POST /process-instances/{processInstanceKey}/incidents/search",
+      "property": "$lte",
+      "depth": 2
     },
     "POST /process-instances/{processInstanceKey}/incidents/search > request > state": {
       "version": "8.9",
@@ -18262,6 +21694,30 @@
       "property": "sourceElementInstruction",
       "depth": 1
     },
+    "POST /process-instances/{processInstanceKey}/modification > request > sourceType": {
+      "version": "8.9",
+      "type": "string",
+      "location": "request",
+      "endpoint": "POST /process-instances/{processInstanceKey}/modification",
+      "property": "sourceType",
+      "depth": 2
+    },
+    "POST /process-instances/{processInstanceKey}/modification > request > sourceElementId": {
+      "version": "8.9",
+      "type": "string",
+      "location": "request",
+      "endpoint": "POST /process-instances/{processInstanceKey}/modification",
+      "property": "sourceElementId",
+      "depth": 2
+    },
+    "POST /process-instances/{processInstanceKey}/modification > request > sourceElementInstanceKey": {
+      "version": "8.9",
+      "type": "string",
+      "location": "request",
+      "endpoint": "POST /process-instances/{processInstanceKey}/modification",
+      "property": "sourceElementInstanceKey",
+      "depth": 2
+    },
     "POST /process-instances/{processInstanceKey}/modification > request > targetElementId": {
       "version": "8.9",
       "type": "string",
@@ -18277,6 +21733,14 @@
       "endpoint": "POST /process-instances/{processInstanceKey}/modification",
       "property": "ancestorScopeInstruction",
       "depth": 1
+    },
+    "POST /process-instances/{processInstanceKey}/modification > request > ancestorScopeType": {
+      "version": "8.9",
+      "type": "string",
+      "location": "request",
+      "endpoint": "POST /process-instances/{processInstanceKey}/modification",
+      "property": "ancestorScopeType",
+      "depth": 2
     },
     "GET /process-instances/{processInstanceKey}/sequence-flows > response > rootProcessInstanceKey": {
       "version": "8.9",
@@ -18470,6 +21934,46 @@
       "property": "operationType",
       "depth": 1
     },
+    "POST /user-tasks/{userTaskKey}/audit-logs/search > request > $eq": {
+      "version": "8.9",
+      "type": "string",
+      "location": "request",
+      "endpoint": "POST /user-tasks/{userTaskKey}/audit-logs/search",
+      "property": "$eq",
+      "depth": 2
+    },
+    "POST /user-tasks/{userTaskKey}/audit-logs/search > request > $neq": {
+      "version": "8.9",
+      "type": "string",
+      "location": "request",
+      "endpoint": "POST /user-tasks/{userTaskKey}/audit-logs/search",
+      "property": "$neq",
+      "depth": 2
+    },
+    "POST /user-tasks/{userTaskKey}/audit-logs/search > request > $exists": {
+      "version": "8.9",
+      "type": "boolean",
+      "location": "request",
+      "endpoint": "POST /user-tasks/{userTaskKey}/audit-logs/search",
+      "property": "$exists",
+      "depth": 2
+    },
+    "POST /user-tasks/{userTaskKey}/audit-logs/search > request > $in": {
+      "version": "8.9",
+      "type": "array",
+      "location": "request",
+      "endpoint": "POST /user-tasks/{userTaskKey}/audit-logs/search",
+      "property": "$in",
+      "depth": 2
+    },
+    "POST /user-tasks/{userTaskKey}/audit-logs/search > request > $like": {
+      "version": "8.9",
+      "type": "string",
+      "location": "request",
+      "endpoint": "POST /user-tasks/{userTaskKey}/audit-logs/search",
+      "property": "$like",
+      "depth": 2
+    },
     "POST /user-tasks/{userTaskKey}/audit-logs/search > request > result": {
       "version": "8.9",
       "type": "object",
@@ -18485,6 +21989,38 @@
       "endpoint": "POST /user-tasks/{userTaskKey}/audit-logs/search",
       "property": "timestamp",
       "depth": 1
+    },
+    "POST /user-tasks/{userTaskKey}/audit-logs/search > request > $gt": {
+      "version": "8.9",
+      "type": "string",
+      "location": "request",
+      "endpoint": "POST /user-tasks/{userTaskKey}/audit-logs/search",
+      "property": "$gt",
+      "depth": 2
+    },
+    "POST /user-tasks/{userTaskKey}/audit-logs/search > request > $gte": {
+      "version": "8.9",
+      "type": "string",
+      "location": "request",
+      "endpoint": "POST /user-tasks/{userTaskKey}/audit-logs/search",
+      "property": "$gte",
+      "depth": 2
+    },
+    "POST /user-tasks/{userTaskKey}/audit-logs/search > request > $lt": {
+      "version": "8.9",
+      "type": "string",
+      "location": "request",
+      "endpoint": "POST /user-tasks/{userTaskKey}/audit-logs/search",
+      "property": "$lt",
+      "depth": 2
+    },
+    "POST /user-tasks/{userTaskKey}/audit-logs/search > request > $lte": {
+      "version": "8.9",
+      "type": "string",
+      "location": "request",
+      "endpoint": "POST /user-tasks/{userTaskKey}/audit-logs/search",
+      "property": "$lte",
+      "depth": 2
     },
     "POST /user-tasks/{userTaskKey}/audit-logs/search > request > actorType": {
       "version": "8.9",
@@ -18502,6 +22038,14 @@
       "property": "actorId",
       "depth": 1
     },
+    "POST /user-tasks/{userTaskKey}/audit-logs/search > request > $notIn": {
+      "version": "8.9",
+      "type": "array",
+      "location": "request",
+      "endpoint": "POST /user-tasks/{userTaskKey}/audit-logs/search",
+      "property": "$notIn",
+      "depth": 2
+    },
     "POST /user-tasks/{userTaskKey}/audit-logs/search > request > page": {
       "version": "8.9",
       "type": "object",
@@ -18509,6 +22053,38 @@
       "endpoint": "POST /user-tasks/{userTaskKey}/audit-logs/search",
       "property": "page",
       "depth": 0
+    },
+    "POST /user-tasks/{userTaskKey}/audit-logs/search > request > limit": {
+      "version": "8.9",
+      "type": "integer",
+      "location": "request",
+      "endpoint": "POST /user-tasks/{userTaskKey}/audit-logs/search",
+      "property": "limit",
+      "depth": 1
+    },
+    "POST /user-tasks/{userTaskKey}/audit-logs/search > request > from": {
+      "version": "8.9",
+      "type": "integer",
+      "location": "request",
+      "endpoint": "POST /user-tasks/{userTaskKey}/audit-logs/search",
+      "property": "from",
+      "depth": 1
+    },
+    "POST /user-tasks/{userTaskKey}/audit-logs/search > request > after": {
+      "version": "8.9",
+      "type": "string",
+      "location": "request",
+      "endpoint": "POST /user-tasks/{userTaskKey}/audit-logs/search",
+      "property": "after",
+      "depth": 1
+    },
+    "POST /user-tasks/{userTaskKey}/audit-logs/search > request > before": {
+      "version": "8.9",
+      "type": "string",
+      "location": "request",
+      "endpoint": "POST /user-tasks/{userTaskKey}/audit-logs/search",
+      "property": "before",
+      "depth": 1
     },
     "POST /user-tasks/{userTaskKey}/audit-logs/search > response > items": {
       "version": "8.9",
