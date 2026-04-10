@@ -16,8 +16,8 @@
  *     ...
  *   },
  *   properties: {
- *     "POST /path > request > fieldName": { version: "8.7", type: "string", location: "request" },
- *     "GET /path > response > fieldName": { version: "8.8", type: "object", location: "response" },
+ *     "POST /path > request > fieldName": { version: "8.7", location: "request" },
+ *     "GET /path > response > fieldName": { version: "8.8", location: "response" },
  *     ...
  *   },
  *   deletedOperations: {
@@ -96,7 +96,7 @@ function extractProperties(spec, schema, depth = 0, maxDepth = 3) {
       const resolvedProp = resolveSchema(spec, propSchema);
       const type = resolvedProp?.type || (resolvedProp?.enum ? 'enum' : 'object');
       if (!props.has(name)) {
-        props.set(name, { type, depth });
+        props.set(name, { depth });
       }
 
       // Recurse into nested objects (but not too deep)
@@ -205,7 +205,6 @@ function extractSpecData(spec) {
       for (const [propName, propInfo] of reqProps) {
         const propKey = `${opKey} > request > ${propName}`;
         properties.set(propKey, {
-          type: propInfo.type,
           location: 'request',
           endpoint: opKey,
           property: propName,
@@ -218,7 +217,6 @@ function extractSpecData(spec) {
       for (const [propName, propInfo] of resProps) {
         const propKey = `${opKey} > response > ${propName}`;
         properties.set(propKey, {
-          type: propInfo.type,
           location: 'response',
           endpoint: opKey,
           property: propName,

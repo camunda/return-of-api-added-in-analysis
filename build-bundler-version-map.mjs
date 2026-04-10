@@ -69,14 +69,20 @@ function extractProperties(spec, schema, depth = 0, maxDepth = 3) {
       const resolvedProp = resolveSchema(spec, propSchema);
       const type = resolvedProp?.type || (resolvedProp?.enum ? 'enum' : 'object');
       if (!props.has(name)) {
-        props.set(name, { type, depth });
+        props.set(name, { depth });
       }
 
+      // Recurse into nested objects (but not too deep)
       if (depth < maxDepth && (type === 'object' || type === 'array')) {
-        let innerSchema = resolvedProp;
-        if (type === 'array' && resolvedProp?.items) {
-          innerSchema = resolvedProp.items;
+        // Use the original propSchema (not resolvedProp) so extractProperties
+        // can walk $ref, allOf, and sibling properties correctly.
+        let innerSchema = propSchema.$ref ? resolveRef(spec, propSchema.$ref) : resolvedProp;
+        if (type === 'array') {
+          // For arrays, we need to get to the items schema
+          const arraySchema = propSchema.$ref ? resolveRef(spec, propSchema.$ref) : resolvedProp;
+          innerSchema = arraySchema?.items || resolvedProp?.items;
         }
+        if (!innerSchema) continue;
         const nested = extractProperties(spec, innerSchema, depth + 1, maxDepth);
         for (const [nestedName, nestedInfo] of nested) {
           if (!props.has(nestedName)) {
@@ -87,12 +93,27 @@ function extractProperties(spec, schema, depth = 0, maxDepth = 3) {
     }
   }
 
+  // allOf composition — handle any length (including 1 with sibling properties)
   if (schema.allOf) {
     for (const sub of schema.allOf) {
       const subProps = extractProperties(spec, sub, depth, maxDepth);
       for (const [name, info] of subProps) {
         if (!props.has(name)) {
           props.set(name, info);
+        }
+      }
+    }
+  }
+
+  // oneOf / anyOf — merge properties from all branches
+  for (const keyword of ['oneOf', 'anyOf']) {
+    if (schema[keyword]) {
+      for (const sub of schema[keyword]) {
+        const subProps = extractProperties(spec, sub, depth, maxDepth);
+        for (const [name, info] of subProps) {
+          if (!props.has(name)) {
+            props.set(name, info);
+          }
         }
       }
     }
@@ -154,7 +175,6 @@ function extractSpecData(spec) {
       for (const [propName, propInfo] of reqProps) {
         const propKey = `${opKey} > request > ${propName}`;
         properties.set(propKey, {
-          type: propInfo.type,
           location: 'request',
           endpoint: opKey,
           property: propName,
@@ -166,7 +186,6 @@ function extractSpecData(spec) {
       for (const [propName, propInfo] of resProps) {
         const propKey = `${opKey} > response > ${propName}`;
         properties.set(propKey, {
-          type: propInfo.type,
           location: 'response',
           endpoint: opKey,
           property: propName,
