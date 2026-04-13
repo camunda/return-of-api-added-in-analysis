@@ -26,7 +26,7 @@
  *   }
  * }
  */
-import { readFileSync, writeFileSync, existsSync } from 'fs';
+import { readFileSync, writeFileSync, existsSync, mkdirSync } from 'fs';
 import { parse } from 'yaml';
 
 const VERSIONS = ['8.5', '8.6', '8.7', '8.8', '8.9'];
@@ -321,6 +321,7 @@ for (const [v, count] of Object.entries(propsByVersion).sort()) {
 }
 
 // Write output
+mkdirSync('output', { recursive: true });
 writeFileSync('output/version-map.json', JSON.stringify(versionMap, null, 2));
 console.log(`\nVersion map written to output/version-map.json`);
 console.log(`  ${Object.keys(versionMap.operations).length} operations`);
