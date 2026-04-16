@@ -147,14 +147,17 @@ function extractProperties(spec, schema, depth = 0, maxDepth = 3, basePath = [])
 /**
  * Extract request body properties for an operation.
  */
-function getRequestProperties(spec, operation, operationBasePath) {
+function getRequestProperties(spec, operation, operationBasePath, upstreamRequestRef) {
   const body = operation.requestBody;
   if (!body) return new Map();
   const contentType = body.content?.['application/json'] ? 'application/json' : 'multipart/form-data';
   const content = body.content?.[contentType];
   if (!content?.schema) return new Map();
-  const schemaBasePath = content.schema.$ref
-    ? (refToPath(content.schema.$ref) || [...operationBasePath, 'requestBody', 'content', contentType, 'schema'])
+  // Use the bundled spec's $ref first; fall back to the upstream ref when
+  // the bundler inlined the schema (losing the original $ref).
+  const ref = content.schema.$ref || upstreamRequestRef;
+  const schemaBasePath = ref
+    ? (refToPath(ref) || [...operationBasePath, 'requestBody', 'content', contentType, 'schema'])
     : [...operationBasePath, 'requestBody', 'content', contentType, 'schema'];
   return extractProperties(spec, content.schema, 0, 3, schemaBasePath);
 }
@@ -162,7 +165,7 @@ function getRequestProperties(spec, operation, operationBasePath) {
 /**
  * Extract response properties for an operation (from the success response).
  */
-function getResponseProperties(spec, operation, operationBasePath) {
+function getResponseProperties(spec, operation, operationBasePath, upstreamResponseRef) {
   const responses = operation.responses;
   if (!responses) return new Map();
 
@@ -174,8 +177,11 @@ function getResponseProperties(spec, operation, operationBasePath) {
   const response = responses[successCode];
   const content = response?.content?.['application/json'];
   if (!content?.schema) return new Map();
-  const schemaBasePath = content.schema.$ref
-    ? (refToPath(content.schema.$ref) || [...operationBasePath, 'responses', successCode, 'content', 'application/json', 'schema'])
+  // Use the bundled spec's $ref first; fall back to the upstream ref when
+  // the bundler inlined the schema (losing the original $ref).
+  const ref = content.schema.$ref || upstreamResponseRef;
+  const schemaBasePath = ref
+    ? (refToPath(ref) || [...operationBasePath, 'responses', successCode, 'content', 'application/json', 'schema'])
     : [...operationBasePath, 'responses', successCode, 'content', 'application/json', 'schema'];
   return extractProperties(spec, content.schema, 0, 3, schemaBasePath);
 }
@@ -196,8 +202,11 @@ function getSchemaFileForPath(pathArr, schemaFileMap) {
  * Extract all operations and their properties from a spec object.
  * When schemaFileMap and operationFileMap are provided, cross-file property
  * paths are prefixed with the source filename.
+ * operationSchemaRefMap: Map<opKey, { requestRef, responseRef }> — original
+ * $ref strings from the upstream YAML files, used as fallback when the
+ * bundler inlined schemas.
  */
-function extractSpecData(spec, operationFileMap, schemaFileMap) {
+function extractSpecData(spec, operationFileMap, schemaFileMap, operationSchemaRefMap) {
   const operations = new Map();
   const properties = new Map();
 
@@ -219,7 +228,8 @@ function extractSpecData(spec, operationFileMap, schemaFileMap) {
         path: operationBasePath,
       });
 
-      const reqProps = getRequestProperties(spec, operation, operationBasePath);
+      const upstreamRefs = operationSchemaRefMap?.get(opKey);
+      const reqProps = getRequestProperties(spec, operation, operationBasePath, upstreamRefs?.requestRef);
       for (const [propName, propInfo] of reqProps) {
         const propKey = `${opKey} > request > ${propName}`;
         const schemaFile = getSchemaFileForPath(propInfo.path, schemaFileMap);
@@ -235,7 +245,7 @@ function extractSpecData(spec, operationFileMap, schemaFileMap) {
         });
       }
 
-      const resProps = getResponseProperties(spec, operation, operationBasePath);
+      const resProps = getResponseProperties(spec, operation, operationBasePath, upstreamRefs?.responseRef);
       for (const [propName, propInfo] of resProps) {
         const propKey = `${opKey} > response > ${propName}`;
         const schemaFile = getSchemaFileForPath(propInfo.path, schemaFileMap);
@@ -295,10 +305,11 @@ async function main() {
     const spec = result.spec;
     console.log(`    Bundled: ${result.stats.pathCount} paths, ${result.stats.schemaCount} schemas`);
 
-    // Build operation → source file map and schema → source file map
-    // by scanning upstream YAML files
+    // Build operation → source file map, schema → source file map,
+    // and operation → original schema $ref map by scanning upstream YAML files
     const operationFileMap = new Map();
     const schemaFileMap = new Map();
+    const operationSchemaRefMap = new Map();
     try {
       const files = readdirSync(outputDir).filter(f => f.endsWith('.yaml'));
       for (const file of files) {
@@ -313,6 +324,28 @@ async function main() {
                   const opKey = `${method.toUpperCase()} ${path}`;
                   if (!operationFileMap.has(opKey)) {
                     operationFileMap.set(opKey, file);
+                  }
+                  // Record original $ref for request/response schemas.
+                  // These may be lost when the bundler inlines schemas.
+                  // Normalize cross-file refs like "file.yaml#/..." to "#/..."
+                  // since the bundled spec uses local refs.
+                  if (!operationSchemaRefMap.has(opKey)) {
+                    const op = pathItem[method];
+                    const normalizeRef = (r) => r ? '#' + r.split('#').pop() : null;
+                    const reqRef = normalizeRef(
+                      op.requestBody?.content?.['application/json']?.schema?.$ref
+                      || op.requestBody?.content?.['multipart/form-data']?.schema?.$ref
+                    );
+                    const responses = op.responses || {};
+                    const successCode = Object.keys(responses).find(
+                      (c) => c === '200' || c === '201' || c === '204'
+                    ) || Object.keys(responses).find((c) => c.startsWith('2'));
+                    const resRef = successCode
+                      ? normalizeRef(responses[successCode]?.content?.['application/json']?.schema?.$ref)
+                      : null;
+                    if (reqRef || resRef) {
+                      operationSchemaRefMap.set(opKey, { requestRef: reqRef, responseRef: resRef });
+                    }
                   }
                 }
               }
@@ -342,7 +375,8 @@ async function main() {
     const { operations, properties } = extractSpecData(
       spec,
       isMultiFile ? operationFileMap : null,
-      isMultiFile ? schemaFileMap : null
+      isMultiFile ? schemaFileMap : null,
+      isMultiFile ? operationSchemaRefMap : null
     );
 
     // Record operations first seen in this version

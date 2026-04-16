@@ -32812,14 +32812,9 @@
       "property": "operationReference",
       "depth": 0,
       "path": [
-        "decision-instances.yaml",
-        "paths",
-        "/decision-instances/{decisionEvaluationKey}/deletion",
-        "post",
-        "requestBody",
-        "content",
-        "application/json",
-        "schema",
+        "components",
+        "schemas",
+        "DeleteDecisionInstanceRequest",
         "properties",
         "operationReference"
       ]
@@ -39311,14 +39306,9 @@
       "property": "operationReference",
       "depth": 0,
       "path": [
-        "process-instances.yaml",
-        "paths",
-        "/process-instances/{processInstanceKey}/deletion",
-        "post",
-        "requestBody",
-        "content",
-        "application/json",
-        "schema",
+        "components",
+        "schemas",
+        "DeleteProcessInstanceRequest",
         "properties",
         "operationReference"
       ]

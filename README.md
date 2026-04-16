@@ -50,3 +50,20 @@ Both flows produce identical output (185 operations, 2,262 properties, 2 deleted
     }
   }
 }
+
+## Comparing Version Maps
+
+Use `json-diff` to compare the two version map outputs:
+
+```bash
+# Full diff
+npx json-diff output/version-map.json output/bundler-version-map.json
+
+# Diff only operations
+npx json-diff <(node -e "process.stdout.write(JSON.stringify(require('./output/version-map.json').operations))") \
+              <(node -e "process.stdout.write(JSON.stringify(require('./output/bundler-version-map.json').operations))")
+
+# Diff only properties
+npx json-diff <(node -e "process.stdout.write(JSON.stringify(require('./output/version-map.json').properties))") \
+              <(node -e "process.stdout.write(JSON.stringify(require('./output/bundler-version-map.json').properties))")
+```
