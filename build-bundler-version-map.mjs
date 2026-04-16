@@ -210,10 +210,13 @@ function extractSpecData(spec, operationFileMap, schemaFileMap) {
 
       const opKey = `${method.toUpperCase()} ${path}`;
       const opSourceFile = operationFileMap?.get(opKey) || null;
-      const operationBasePath = ['paths', path, method];
+      const operationBasePath = opSourceFile
+        ? [opSourceFile, 'paths', path, method]
+        : ['paths', path, method];
       operations.set(opKey, {
         summary: operation.summary || '',
         operationId: operation.operationId || '',
+        path: operationBasePath,
       });
 
       const reqProps = getRequestProperties(spec, operation, operationBasePath);
@@ -259,6 +262,9 @@ async function main() {
   console.log('Building version map from camunda-schema-bundler output...\n');
 
   const versionMap = {
+    metadata: {
+      multiFileVersions: [],
+    },
     operations: {},
     properties: {},
     deletedOperations: {},
@@ -330,6 +336,9 @@ async function main() {
     // while multi-file specs (8.9+) have many domain-specific YAML files.
     const uniqueSchemaFiles = new Set(schemaFileMap.values());
     const isMultiFile = uniqueSchemaFiles.size > 2;
+    if (isMultiFile) {
+      versionMap.metadata.multiFileVersions.push(version);
+    }
     const { operations, properties } = extractSpecData(
       spec,
       isMultiFile ? operationFileMap : null,
@@ -343,6 +352,7 @@ async function main() {
         versionMap.operations[opKey] = {
           version,
           summary: opData.summary,
+          path: opData.path,
         };
         newOps++;
       }

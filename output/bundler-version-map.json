@@ -1,744 +1,1710 @@
 {
+  "metadata": {
+    "multiFileVersions": [
+      "8.9"
+    ]
+  },
   "operations": {
     "GET /topology": {
       "version": "8.5",
-      "summary": "Get cluster topology."
+      "summary": "Get cluster topology.",
+      "path": [
+        "paths",
+        "/topology",
+        "get"
+      ]
     },
     "POST /user-tasks/{userTaskKey}/completion": {
       "version": "8.5",
-      "summary": "Complete a user task."
+      "summary": "Complete a user task.",
+      "path": [
+        "paths",
+        "/user-tasks/{userTaskKey}/completion",
+        "post"
+      ]
     },
     "POST /user-tasks/{userTaskKey}/assignment": {
       "version": "8.5",
-      "summary": "Assigns a user task."
+      "summary": "Assigns a user task.",
+      "path": [
+        "paths",
+        "/user-tasks/{userTaskKey}/assignment",
+        "post"
+      ]
     },
     "PATCH /user-tasks/{userTaskKey}": {
       "version": "8.5",
-      "summary": "Update a user task."
+      "summary": "Update a user task.",
+      "path": [
+        "paths",
+        "/user-tasks/{userTaskKey}",
+        "patch"
+      ]
     },
     "DELETE /user-tasks/{userTaskKey}/assignee": {
       "version": "8.5",
-      "summary": "Remove the assignee of a task."
+      "summary": "Remove the assignee of a task.",
+      "path": [
+        "paths",
+        "/user-tasks/{userTaskKey}/assignee",
+        "delete"
+      ]
     },
     "GET /license": {
       "version": "8.6",
-      "summary": "Get status of Camunda license"
+      "summary": "Get status of Camunda license",
+      "path": [
+        "paths",
+        "/license",
+        "get"
+      ]
     },
     "POST /jobs/activation": {
       "version": "8.6",
-      "summary": "Activate jobs"
+      "summary": "Activate jobs",
+      "path": [
+        "paths",
+        "/jobs/activation",
+        "post"
+      ]
     },
     "POST /jobs/{jobKey}/failure": {
       "version": "8.6",
-      "summary": "Fail job"
+      "summary": "Fail job",
+      "path": [
+        "paths",
+        "/jobs/{jobKey}/failure",
+        "post"
+      ]
     },
     "POST /jobs/{jobKey}/error": {
       "version": "8.6",
-      "summary": "Throw error for job"
+      "summary": "Throw error for job",
+      "path": [
+        "paths",
+        "/jobs/{jobKey}/error",
+        "post"
+      ]
     },
     "POST /jobs/{jobKey}/completion": {
       "version": "8.6",
-      "summary": "Complete job"
+      "summary": "Complete job",
+      "path": [
+        "paths",
+        "/jobs/{jobKey}/completion",
+        "post"
+      ]
     },
     "PATCH /jobs/{jobKey}": {
       "version": "8.6",
-      "summary": "Update a job"
+      "summary": "Update a job",
+      "path": [
+        "paths",
+        "/jobs/{jobKey}",
+        "patch"
+      ]
     },
     "POST /incidents/{incidentKey}/resolution": {
       "version": "8.6",
-      "summary": "Resolve incident"
+      "summary": "Resolve incident",
+      "path": [
+        "paths",
+        "/incidents/{incidentKey}/resolution",
+        "post"
+      ]
     },
     "POST /user-tasks/search": {
       "version": "8.6",
-      "summary": "Query user tasks (alpha)"
+      "summary": "Query user tasks (alpha)",
+      "path": [
+        "paths",
+        "/user-tasks/search",
+        "post"
+      ]
     },
     "PUT /clock": {
       "version": "8.6",
-      "summary": "Pin internal clock (alpha)"
+      "summary": "Pin internal clock (alpha)",
+      "path": [
+        "paths",
+        "/clock",
+        "put"
+      ]
     },
     "POST /clock/reset": {
       "version": "8.6",
-      "summary": "Reset internal clock (alpha)"
+      "summary": "Reset internal clock (alpha)",
+      "path": [
+        "paths",
+        "/clock/reset",
+        "post"
+      ]
     },
     "POST /process-instances": {
       "version": "8.6",
-      "summary": "Create process instance"
+      "summary": "Create process instance",
+      "path": [
+        "paths",
+        "/process-instances",
+        "post"
+      ]
     },
     "POST /process-instances/search": {
       "version": "8.6",
-      "summary": "Query process instances (alpha)"
+      "summary": "Query process instances (alpha)",
+      "path": [
+        "paths",
+        "/process-instances/search",
+        "post"
+      ]
     },
     "POST /process-instances/{processInstanceKey}/cancellation": {
       "version": "8.6",
-      "summary": "Cancel process instance"
+      "summary": "Cancel process instance",
+      "path": [
+        "paths",
+        "/process-instances/{processInstanceKey}/cancellation",
+        "post"
+      ]
     },
     "POST /process-instances/{processInstanceKey}/migration": {
       "version": "8.6",
-      "summary": "Migrate process instance"
+      "summary": "Migrate process instance",
+      "path": [
+        "paths",
+        "/process-instances/{processInstanceKey}/migration",
+        "post"
+      ]
     },
     "POST /process-instances/{processInstanceKey}/modification": {
       "version": "8.6",
-      "summary": "Modify process instance"
+      "summary": "Modify process instance",
+      "path": [
+        "paths",
+        "/process-instances/{processInstanceKey}/modification",
+        "post"
+      ]
     },
     "POST /flownode-instances/search": {
       "version": "8.6",
-      "summary": "Query flow node instances (alpha)"
+      "summary": "Query flow node instances (alpha)",
+      "path": [
+        "paths",
+        "/flownode-instances/search",
+        "post"
+      ]
     },
     "POST /decision-definitions/search": {
       "version": "8.6",
-      "summary": "Query decision definitions (alpha)"
+      "summary": "Query decision definitions (alpha)",
+      "path": [
+        "paths",
+        "/decision-definitions/search",
+        "post"
+      ]
     },
     "GET /decision-definitions/{decisionDefinitionKey}/xml": {
       "version": "8.6",
-      "summary": "Get decision definition XML (alpha)"
+      "summary": "Get decision definition XML (alpha)",
+      "path": [
+        "paths",
+        "/decision-definitions/{decisionDefinitionKey}/xml",
+        "get"
+      ]
     },
     "POST /decision-requirements/search": {
       "version": "8.6",
-      "summary": "Query decision requirements (alpha)"
+      "summary": "Query decision requirements (alpha)",
+      "path": [
+        "paths",
+        "/decision-requirements/search",
+        "post"
+      ]
     },
     "POST /decision-instances/search": {
       "version": "8.6",
-      "summary": "Query decision instances (alpha)"
+      "summary": "Query decision instances (alpha)",
+      "path": [
+        "paths",
+        "/decision-instances/search",
+        "post"
+      ]
     },
     "POST /decision-definitions/evaluation": {
       "version": "8.6",
-      "summary": "Evaluate decision"
+      "summary": "Evaluate decision",
+      "path": [
+        "paths",
+        "/decision-definitions/evaluation",
+        "post"
+      ]
     },
     "POST /messages/publication": {
       "version": "8.6",
-      "summary": "Publish a message"
+      "summary": "Publish a message",
+      "path": [
+        "paths",
+        "/messages/publication",
+        "post"
+      ]
     },
     "POST /messages/correlation": {
       "version": "8.6",
-      "summary": "Correlate a message"
+      "summary": "Correlate a message",
+      "path": [
+        "paths",
+        "/messages/correlation",
+        "post"
+      ]
     },
     "POST /documents": {
       "version": "8.6",
-      "summary": "Upload document (alpha)"
+      "summary": "Upload document (alpha)",
+      "path": [
+        "paths",
+        "/documents",
+        "post"
+      ]
     },
     "GET /documents/{documentId}": {
       "version": "8.6",
-      "summary": "Download document (alpha)"
+      "summary": "Download document (alpha)",
+      "path": [
+        "paths",
+        "/documents/{documentId}",
+        "get"
+      ]
     },
     "DELETE /documents/{documentId}": {
       "version": "8.6",
-      "summary": "Delete document (alpha)"
+      "summary": "Delete document (alpha)",
+      "path": [
+        "paths",
+        "/documents/{documentId}",
+        "delete"
+      ]
     },
     "POST /document/{documentId}/links": {
       "version": "8.6",
-      "summary": "Create document link (alpha)"
+      "summary": "Create document link (alpha)",
+      "path": [
+        "paths",
+        "/document/{documentId}/links",
+        "post"
+      ]
     },
     "POST /incidents/search": {
       "version": "8.6",
-      "summary": "Query incidents (alpha)"
+      "summary": "Query incidents (alpha)",
+      "path": [
+        "paths",
+        "/incidents/search",
+        "post"
+      ]
     },
     "GET /incidents/{incidentKey}": {
       "version": "8.6",
-      "summary": "Get incident by key (alpha)"
+      "summary": "Get incident by key (alpha)",
+      "path": [
+        "paths",
+        "/incidents/{incidentKey}",
+        "get"
+      ]
     },
     "POST /deployments": {
       "version": "8.6",
-      "summary": "Deploy resources"
+      "summary": "Deploy resources",
+      "path": [
+        "paths",
+        "/deployments",
+        "post"
+      ]
     },
     "POST /resources/{resourceKey}/deletion": {
       "version": "8.6",
-      "summary": "Delete resource"
+      "summary": "Delete resource",
+      "path": [
+        "paths",
+        "/resources/{resourceKey}/deletion",
+        "post"
+      ]
     },
     "PUT /element-instances/{elementInstanceKey}/variables": {
       "version": "8.6",
-      "summary": "Update element instance variables"
+      "summary": "Update element instance variables",
+      "path": [
+        "paths",
+        "/element-instances/{elementInstanceKey}/variables",
+        "put"
+      ]
     },
     "POST /signals/broadcast": {
       "version": "8.6",
-      "summary": "Broadcast signal"
+      "summary": "Broadcast signal",
+      "path": [
+        "paths",
+        "/signals/broadcast",
+        "post"
+      ]
     },
     "POST /documents/batch": {
       "version": "8.7",
-      "summary": "Upload multiple documents"
+      "summary": "Upload multiple documents",
+      "path": [
+        "paths",
+        "/documents/batch",
+        "post"
+      ]
     },
     "POST /documents/{documentId}/links": {
       "version": "8.7",
-      "summary": "Create document link"
+      "summary": "Create document link",
+      "path": [
+        "paths",
+        "/documents/{documentId}/links",
+        "post"
+      ]
     },
     "GET /resources/{resourceKey}": {
       "version": "8.7",
-      "summary": "Get resource"
+      "summary": "Get resource",
+      "path": [
+        "paths",
+        "/resources/{resourceKey}",
+        "get"
+      ]
     },
     "GET /resources/{resourceKey}/content": {
       "version": "8.7",
-      "summary": "Get resource content"
+      "summary": "Get resource content",
+      "path": [
+        "paths",
+        "/resources/{resourceKey}/content",
+        "get"
+      ]
     },
     "GET /status": {
       "version": "8.8",
-      "summary": "Get cluster status"
+      "summary": "Get cluster status",
+      "path": [
+        "paths",
+        "/status",
+        "get"
+      ]
     },
     "GET /authentication/me": {
       "version": "8.8",
-      "summary": "Get current user"
+      "summary": "Get current user",
+      "path": [
+        "paths",
+        "/authentication/me",
+        "get"
+      ]
     },
     "POST /jobs/search": {
       "version": "8.8",
-      "summary": "Search jobs"
+      "summary": "Search jobs",
+      "path": [
+        "paths",
+        "/jobs/search",
+        "post"
+      ]
     },
     "POST /tenants": {
       "version": "8.8",
-      "summary": "Create tenant"
+      "summary": "Create tenant",
+      "path": [
+        "paths",
+        "/tenants",
+        "post"
+      ]
     },
     "GET /tenants/{tenantId}": {
       "version": "8.8",
-      "summary": "Get tenant"
+      "summary": "Get tenant",
+      "path": [
+        "paths",
+        "/tenants/{tenantId}",
+        "get"
+      ]
     },
     "PUT /tenants/{tenantId}": {
       "version": "8.8",
-      "summary": "Update tenant"
+      "summary": "Update tenant",
+      "path": [
+        "paths",
+        "/tenants/{tenantId}",
+        "put"
+      ]
     },
     "DELETE /tenants/{tenantId}": {
       "version": "8.8",
-      "summary": "Delete tenant"
+      "summary": "Delete tenant",
+      "path": [
+        "paths",
+        "/tenants/{tenantId}",
+        "delete"
+      ]
     },
     "PUT /tenants/{tenantId}/users/{username}": {
       "version": "8.8",
-      "summary": "Assign a user to a tenant"
+      "summary": "Assign a user to a tenant",
+      "path": [
+        "paths",
+        "/tenants/{tenantId}/users/{username}",
+        "put"
+      ]
     },
     "DELETE /tenants/{tenantId}/users/{username}": {
       "version": "8.8",
-      "summary": "Unassign a user from a tenant"
+      "summary": "Unassign a user from a tenant",
+      "path": [
+        "paths",
+        "/tenants/{tenantId}/users/{username}",
+        "delete"
+      ]
     },
     "POST /tenants/{tenantId}/users/search": {
       "version": "8.8",
-      "summary": "Search users for tenant"
+      "summary": "Search users for tenant",
+      "path": [
+        "paths",
+        "/tenants/{tenantId}/users/search",
+        "post"
+      ]
     },
     "POST /tenants/{tenantId}/clients/search": {
       "version": "8.8",
-      "summary": "Search clients for tenant"
+      "summary": "Search clients for tenant",
+      "path": [
+        "paths",
+        "/tenants/{tenantId}/clients/search",
+        "post"
+      ]
     },
     "POST /tenants/{tenantId}/groups/search": {
       "version": "8.8",
-      "summary": "Search groups for tenant"
+      "summary": "Search groups for tenant",
+      "path": [
+        "paths",
+        "/tenants/{tenantId}/groups/search",
+        "post"
+      ]
     },
     "POST /tenants/{tenantId}/roles/search": {
       "version": "8.8",
-      "summary": "Search roles for tenant"
+      "summary": "Search roles for tenant",
+      "path": [
+        "paths",
+        "/tenants/{tenantId}/roles/search",
+        "post"
+      ]
     },
     "PUT /tenants/{tenantId}/clients/{clientId}": {
       "version": "8.8",
-      "summary": "Assign a client to a tenant"
+      "summary": "Assign a client to a tenant",
+      "path": [
+        "paths",
+        "/tenants/{tenantId}/clients/{clientId}",
+        "put"
+      ]
     },
     "DELETE /tenants/{tenantId}/clients/{clientId}": {
       "version": "8.8",
-      "summary": "Unassign a client from a tenant"
+      "summary": "Unassign a client from a tenant",
+      "path": [
+        "paths",
+        "/tenants/{tenantId}/clients/{clientId}",
+        "delete"
+      ]
     },
     "PUT /tenants/{tenantId}/mapping-rules/{mappingRuleId}": {
       "version": "8.8",
-      "summary": "Assign a mapping rule to a tenant"
+      "summary": "Assign a mapping rule to a tenant",
+      "path": [
+        "paths",
+        "/tenants/{tenantId}/mapping-rules/{mappingRuleId}",
+        "put"
+      ]
     },
     "DELETE /tenants/{tenantId}/mapping-rules/{mappingRuleId}": {
       "version": "8.8",
-      "summary": "Unassign a mapping rule from a tenant"
+      "summary": "Unassign a mapping rule from a tenant",
+      "path": [
+        "paths",
+        "/tenants/{tenantId}/mapping-rules/{mappingRuleId}",
+        "delete"
+      ]
     },
     "POST /tenants/{tenantId}/mapping-rules/search": {
       "version": "8.8",
-      "summary": "Search mapping rules for tenant"
+      "summary": "Search mapping rules for tenant",
+      "path": [
+        "paths",
+        "/tenants/{tenantId}/mapping-rules/search",
+        "post"
+      ]
     },
     "PUT /tenants/{tenantId}/groups/{groupId}": {
       "version": "8.8",
-      "summary": "Assign a group to a tenant"
+      "summary": "Assign a group to a tenant",
+      "path": [
+        "paths",
+        "/tenants/{tenantId}/groups/{groupId}",
+        "put"
+      ]
     },
     "DELETE /tenants/{tenantId}/groups/{groupId}": {
       "version": "8.8",
-      "summary": "Unassign a group from a tenant"
+      "summary": "Unassign a group from a tenant",
+      "path": [
+        "paths",
+        "/tenants/{tenantId}/groups/{groupId}",
+        "delete"
+      ]
     },
     "PUT /tenants/{tenantId}/roles/{roleId}": {
       "version": "8.8",
-      "summary": "Assign a role to a tenant"
+      "summary": "Assign a role to a tenant",
+      "path": [
+        "paths",
+        "/tenants/{tenantId}/roles/{roleId}",
+        "put"
+      ]
     },
     "DELETE /tenants/{tenantId}/roles/{roleId}": {
       "version": "8.8",
-      "summary": "Unassign a role from a tenant"
+      "summary": "Unassign a role from a tenant",
+      "path": [
+        "paths",
+        "/tenants/{tenantId}/roles/{roleId}",
+        "delete"
+      ]
     },
     "POST /tenants/search": {
       "version": "8.8",
-      "summary": "Search tenants"
+      "summary": "Search tenants",
+      "path": [
+        "paths",
+        "/tenants/search",
+        "post"
+      ]
     },
     "GET /user-tasks/{userTaskKey}": {
       "version": "8.8",
-      "summary": "Get user task"
+      "summary": "Get user task",
+      "path": [
+        "paths",
+        "/user-tasks/{userTaskKey}",
+        "get"
+      ]
     },
     "GET /user-tasks/{userTaskKey}/form": {
       "version": "8.8",
-      "summary": "Get user task form"
+      "summary": "Get user task form",
+      "path": [
+        "paths",
+        "/user-tasks/{userTaskKey}/form",
+        "get"
+      ]
     },
     "POST /user-tasks/{userTaskKey}/variables/search": {
       "version": "8.8",
-      "summary": "Search user task variables"
+      "summary": "Search user task variables",
+      "path": [
+        "paths",
+        "/user-tasks/{userTaskKey}/variables/search",
+        "post"
+      ]
     },
     "POST /user-tasks/{userTaskKey}/effective-variables/search": {
       "version": "8.8",
-      "summary": "Search user task effective variables"
+      "summary": "Search user task effective variables",
+      "path": [
+        "paths",
+        "/user-tasks/{userTaskKey}/effective-variables/search",
+        "post"
+      ]
     },
     "POST /variables/search": {
       "version": "8.8",
-      "summary": "Search variables"
+      "summary": "Search variables",
+      "path": [
+        "paths",
+        "/variables/search",
+        "post"
+      ]
     },
     "GET /variables/{variableKey}": {
       "version": "8.8",
-      "summary": "Get variable"
+      "summary": "Get variable",
+      "path": [
+        "paths",
+        "/variables/{variableKey}",
+        "get"
+      ]
     },
     "POST /process-definitions/search": {
       "version": "8.8",
-      "summary": "Search process definitions"
+      "summary": "Search process definitions",
+      "path": [
+        "paths",
+        "/process-definitions/search",
+        "post"
+      ]
     },
     "GET /process-definitions/{processDefinitionKey}": {
       "version": "8.8",
-      "summary": "Get process definition"
+      "summary": "Get process definition",
+      "path": [
+        "paths",
+        "/process-definitions/{processDefinitionKey}",
+        "get"
+      ]
     },
     "GET /process-definitions/{processDefinitionKey}/xml": {
       "version": "8.8",
-      "summary": "Get process definition XML"
+      "summary": "Get process definition XML",
+      "path": [
+        "paths",
+        "/process-definitions/{processDefinitionKey}/xml",
+        "get"
+      ]
     },
     "GET /process-definitions/{processDefinitionKey}/form": {
       "version": "8.8",
-      "summary": "Get process start form"
+      "summary": "Get process start form",
+      "path": [
+        "paths",
+        "/process-definitions/{processDefinitionKey}/form",
+        "get"
+      ]
     },
     "POST /process-definitions/{processDefinitionKey}/statistics/element-instances": {
       "version": "8.8",
-      "summary": "Get process definition statistics"
+      "summary": "Get process definition statistics",
+      "path": [
+        "paths",
+        "/process-definitions/{processDefinitionKey}/statistics/element-instances",
+        "post"
+      ]
     },
     "GET /process-instances/{processInstanceKey}": {
       "version": "8.8",
-      "summary": "Get process instance"
+      "summary": "Get process instance",
+      "path": [
+        "paths",
+        "/process-instances/{processInstanceKey}",
+        "get"
+      ]
     },
     "GET /process-instances/{processInstanceKey}/sequence-flows": {
       "version": "8.8",
-      "summary": "Get process instance sequence flows"
+      "summary": "Get process instance sequence flows",
+      "path": [
+        "paths",
+        "/process-instances/{processInstanceKey}/sequence-flows",
+        "get"
+      ]
     },
     "GET /process-instances/{processInstanceKey}/statistics/element-instances": {
       "version": "8.8",
-      "summary": "Get process instance statistics"
+      "summary": "Get process instance statistics",
+      "path": [
+        "paths",
+        "/process-instances/{processInstanceKey}/statistics/element-instances",
+        "get"
+      ]
     },
     "POST /process-instances/{processInstanceKey}/incidents/search": {
       "version": "8.8",
-      "summary": "Search for incidents associated with a process instance"
+      "summary": "Search for incidents associated with a process instance",
+      "path": [
+        "paths",
+        "/process-instances/{processInstanceKey}/incidents/search",
+        "post"
+      ]
     },
     "POST /process-instances/cancellation": {
       "version": "8.8",
-      "summary": "Create a batch operation to cancel process instances"
+      "summary": "Create a batch operation to cancel process instances",
+      "path": [
+        "paths",
+        "/process-instances/cancellation",
+        "post"
+      ]
     },
     "POST /process-instances/incident-resolution": {
       "version": "8.8",
-      "summary": "Create a batch operation to resolve incidents of process instances"
+      "summary": "Create a batch operation to resolve incidents of process instances",
+      "path": [
+        "paths",
+        "/process-instances/incident-resolution",
+        "post"
+      ]
     },
     "POST /process-instances/migration": {
       "version": "8.8",
-      "summary": "Create a batch operation to migrate process instances"
+      "summary": "Create a batch operation to migrate process instances",
+      "path": [
+        "paths",
+        "/process-instances/migration",
+        "post"
+      ]
     },
     "POST /process-instances/modification": {
       "version": "8.8",
-      "summary": "Create a batch operation to modify process instances"
+      "summary": "Create a batch operation to modify process instances",
+      "path": [
+        "paths",
+        "/process-instances/modification",
+        "post"
+      ]
     },
     "GET /process-instances/{processInstanceKey}/call-hierarchy": {
       "version": "8.8",
-      "summary": "Get call hierarchy for process instance"
+      "summary": "Get call hierarchy for process instance",
+      "path": [
+        "paths",
+        "/process-instances/{processInstanceKey}/call-hierarchy",
+        "get"
+      ]
     },
     "POST /element-instances/search": {
       "version": "8.8",
-      "summary": "Search element instances"
+      "summary": "Search element instances",
+      "path": [
+        "paths",
+        "/element-instances/search",
+        "post"
+      ]
     },
     "GET /element-instances/{elementInstanceKey}": {
       "version": "8.8",
-      "summary": "Get element instance"
+      "summary": "Get element instance",
+      "path": [
+        "paths",
+        "/element-instances/{elementInstanceKey}",
+        "get"
+      ]
     },
     "GET /decision-definitions/{decisionDefinitionKey}": {
       "version": "8.8",
-      "summary": "Get decision definition"
+      "summary": "Get decision definition",
+      "path": [
+        "paths",
+        "/decision-definitions/{decisionDefinitionKey}",
+        "get"
+      ]
     },
     "GET /decision-requirements/{decisionRequirementsKey}": {
       "version": "8.8",
-      "summary": "Get decision requirements"
+      "summary": "Get decision requirements",
+      "path": [
+        "paths",
+        "/decision-requirements/{decisionRequirementsKey}",
+        "get"
+      ]
     },
     "GET /decision-requirements/{decisionRequirementsKey}/xml": {
       "version": "8.8",
-      "summary": "Get decision requirements XML"
+      "summary": "Get decision requirements XML",
+      "path": [
+        "paths",
+        "/decision-requirements/{decisionRequirementsKey}/xml",
+        "get"
+      ]
     },
     "GET /decision-instances/{decisionEvaluationInstanceKey}": {
       "version": "8.8",
-      "summary": "Get decision instance"
+      "summary": "Get decision instance",
+      "path": [
+        "paths",
+        "/decision-instances/{decisionEvaluationInstanceKey}",
+        "get"
+      ]
     },
     "POST /authorizations": {
       "version": "8.8",
-      "summary": "Create authorization"
+      "summary": "Create authorization",
+      "path": [
+        "paths",
+        "/authorizations",
+        "post"
+      ]
     },
     "GET /authorizations/{authorizationKey}": {
       "version": "8.8",
-      "summary": "Get authorization"
+      "summary": "Get authorization",
+      "path": [
+        "paths",
+        "/authorizations/{authorizationKey}",
+        "get"
+      ]
     },
     "PUT /authorizations/{authorizationKey}": {
       "version": "8.8",
-      "summary": "Update authorization"
+      "summary": "Update authorization",
+      "path": [
+        "paths",
+        "/authorizations/{authorizationKey}",
+        "put"
+      ]
     },
     "DELETE /authorizations/{authorizationKey}": {
       "version": "8.8",
-      "summary": "Delete authorization"
+      "summary": "Delete authorization",
+      "path": [
+        "paths",
+        "/authorizations/{authorizationKey}",
+        "delete"
+      ]
     },
     "POST /authorizations/search": {
       "version": "8.8",
-      "summary": "Search authorizations"
+      "summary": "Search authorizations",
+      "path": [
+        "paths",
+        "/authorizations/search",
+        "post"
+      ]
     },
     "POST /roles": {
       "version": "8.8",
-      "summary": "Create role"
+      "summary": "Create role",
+      "path": [
+        "paths",
+        "/roles",
+        "post"
+      ]
     },
     "GET /roles/{roleId}": {
       "version": "8.8",
-      "summary": "Get role"
+      "summary": "Get role",
+      "path": [
+        "paths",
+        "/roles/{roleId}",
+        "get"
+      ]
     },
     "PUT /roles/{roleId}": {
       "version": "8.8",
-      "summary": "Update role"
+      "summary": "Update role",
+      "path": [
+        "paths",
+        "/roles/{roleId}",
+        "put"
+      ]
     },
     "DELETE /roles/{roleId}": {
       "version": "8.8",
-      "summary": "Delete role"
+      "summary": "Delete role",
+      "path": [
+        "paths",
+        "/roles/{roleId}",
+        "delete"
+      ]
     },
     "POST /roles/{roleId}/users/search": {
       "version": "8.8",
-      "summary": "Search role users"
+      "summary": "Search role users",
+      "path": [
+        "paths",
+        "/roles/{roleId}/users/search",
+        "post"
+      ]
     },
     "POST /roles/{roleId}/clients/search": {
       "version": "8.8",
-      "summary": "Search role clients"
+      "summary": "Search role clients",
+      "path": [
+        "paths",
+        "/roles/{roleId}/clients/search",
+        "post"
+      ]
     },
     "PUT /roles/{roleId}/users/{username}": {
       "version": "8.8",
-      "summary": "Assign a role to a user"
+      "summary": "Assign a role to a user",
+      "path": [
+        "paths",
+        "/roles/{roleId}/users/{username}",
+        "put"
+      ]
     },
     "DELETE /roles/{roleId}/users/{username}": {
       "version": "8.8",
-      "summary": "Unassign a role from a user"
+      "summary": "Unassign a role from a user",
+      "path": [
+        "paths",
+        "/roles/{roleId}/users/{username}",
+        "delete"
+      ]
     },
     "PUT /roles/{roleId}/clients/{clientId}": {
       "version": "8.8",
-      "summary": "Assign a role to a client"
+      "summary": "Assign a role to a client",
+      "path": [
+        "paths",
+        "/roles/{roleId}/clients/{clientId}",
+        "put"
+      ]
     },
     "DELETE /roles/{roleId}/clients/{clientId}": {
       "version": "8.8",
-      "summary": "Unassign a role from a client"
+      "summary": "Unassign a role from a client",
+      "path": [
+        "paths",
+        "/roles/{roleId}/clients/{clientId}",
+        "delete"
+      ]
     },
     "POST /roles/search": {
       "version": "8.8",
-      "summary": "Search roles"
+      "summary": "Search roles",
+      "path": [
+        "paths",
+        "/roles/search",
+        "post"
+      ]
     },
     "PUT /roles/{roleId}/groups/{groupId}": {
       "version": "8.8",
-      "summary": "Assign a role to a group"
+      "summary": "Assign a role to a group",
+      "path": [
+        "paths",
+        "/roles/{roleId}/groups/{groupId}",
+        "put"
+      ]
     },
     "DELETE /roles/{roleId}/groups/{groupId}": {
       "version": "8.8",
-      "summary": "Unassign a role from a group"
+      "summary": "Unassign a role from a group",
+      "path": [
+        "paths",
+        "/roles/{roleId}/groups/{groupId}",
+        "delete"
+      ]
     },
     "POST /roles/{roleId}/groups/search": {
       "version": "8.8",
-      "summary": "Search role groups"
+      "summary": "Search role groups",
+      "path": [
+        "paths",
+        "/roles/{roleId}/groups/search",
+        "post"
+      ]
     },
     "PUT /roles/{roleId}/mapping-rules/{mappingRuleId}": {
       "version": "8.8",
-      "summary": "Assign a role to a mapping rule"
+      "summary": "Assign a role to a mapping rule",
+      "path": [
+        "paths",
+        "/roles/{roleId}/mapping-rules/{mappingRuleId}",
+        "put"
+      ]
     },
     "DELETE /roles/{roleId}/mapping-rules/{mappingRuleId}": {
       "version": "8.8",
-      "summary": "Unassign a role from a mapping rule"
+      "summary": "Unassign a role from a mapping rule",
+      "path": [
+        "paths",
+        "/roles/{roleId}/mapping-rules/{mappingRuleId}",
+        "delete"
+      ]
     },
     "POST /roles/{roleId}/mapping-rules/search": {
       "version": "8.8",
-      "summary": "Search role mapping rules"
+      "summary": "Search role mapping rules",
+      "path": [
+        "paths",
+        "/roles/{roleId}/mapping-rules/search",
+        "post"
+      ]
     },
     "POST /groups": {
       "version": "8.8",
-      "summary": "Create group"
+      "summary": "Create group",
+      "path": [
+        "paths",
+        "/groups",
+        "post"
+      ]
     },
     "GET /groups/{groupId}": {
       "version": "8.8",
-      "summary": "Get group"
+      "summary": "Get group",
+      "path": [
+        "paths",
+        "/groups/{groupId}",
+        "get"
+      ]
     },
     "PUT /groups/{groupId}": {
       "version": "8.8",
-      "summary": "Update group"
+      "summary": "Update group",
+      "path": [
+        "paths",
+        "/groups/{groupId}",
+        "put"
+      ]
     },
     "DELETE /groups/{groupId}": {
       "version": "8.8",
-      "summary": "Delete group"
+      "summary": "Delete group",
+      "path": [
+        "paths",
+        "/groups/{groupId}",
+        "delete"
+      ]
     },
     "POST /groups/{groupId}/users/search": {
       "version": "8.8",
-      "summary": "Search group users"
+      "summary": "Search group users",
+      "path": [
+        "paths",
+        "/groups/{groupId}/users/search",
+        "post"
+      ]
     },
     "POST /groups/{groupId}/mapping-rules/search": {
       "version": "8.8",
-      "summary": "Search group mapping rules"
+      "summary": "Search group mapping rules",
+      "path": [
+        "paths",
+        "/groups/{groupId}/mapping-rules/search",
+        "post"
+      ]
     },
     "POST /groups/{groupId}/roles/search": {
       "version": "8.8",
-      "summary": "Search group roles"
+      "summary": "Search group roles",
+      "path": [
+        "paths",
+        "/groups/{groupId}/roles/search",
+        "post"
+      ]
     },
     "POST /groups/{groupId}/clients/search": {
       "version": "8.8",
-      "summary": "Search group clients"
+      "summary": "Search group clients",
+      "path": [
+        "paths",
+        "/groups/{groupId}/clients/search",
+        "post"
+      ]
     },
     "PUT /groups/{groupId}/users/{username}": {
       "version": "8.8",
-      "summary": "Assign a user to a group"
+      "summary": "Assign a user to a group",
+      "path": [
+        "paths",
+        "/groups/{groupId}/users/{username}",
+        "put"
+      ]
     },
     "DELETE /groups/{groupId}/users/{username}": {
       "version": "8.8",
-      "summary": "Unassign a user from a group"
+      "summary": "Unassign a user from a group",
+      "path": [
+        "paths",
+        "/groups/{groupId}/users/{username}",
+        "delete"
+      ]
     },
     "PUT /groups/{groupId}/clients/{clientId}": {
       "version": "8.8",
-      "summary": "Assign a client to a group"
+      "summary": "Assign a client to a group",
+      "path": [
+        "paths",
+        "/groups/{groupId}/clients/{clientId}",
+        "put"
+      ]
     },
     "DELETE /groups/{groupId}/clients/{clientId}": {
       "version": "8.8",
-      "summary": "Unassign a client from a group"
+      "summary": "Unassign a client from a group",
+      "path": [
+        "paths",
+        "/groups/{groupId}/clients/{clientId}",
+        "delete"
+      ]
     },
     "PUT /groups/{groupId}/mapping-rules/{mappingRuleId}": {
       "version": "8.8",
-      "summary": "Assign a mapping rule to a group"
+      "summary": "Assign a mapping rule to a group",
+      "path": [
+        "paths",
+        "/groups/{groupId}/mapping-rules/{mappingRuleId}",
+        "put"
+      ]
     },
     "DELETE /groups/{groupId}/mapping-rules/{mappingRuleId}": {
       "version": "8.8",
-      "summary": "Unassign a mapping rule from a group"
+      "summary": "Unassign a mapping rule from a group",
+      "path": [
+        "paths",
+        "/groups/{groupId}/mapping-rules/{mappingRuleId}",
+        "delete"
+      ]
     },
     "POST /groups/search": {
       "version": "8.8",
-      "summary": "Search groups"
+      "summary": "Search groups",
+      "path": [
+        "paths",
+        "/groups/search",
+        "post"
+      ]
     },
     "POST /mapping-rules": {
       "version": "8.8",
-      "summary": "Create mapping rule"
+      "summary": "Create mapping rule",
+      "path": [
+        "paths",
+        "/mapping-rules",
+        "post"
+      ]
     },
     "GET /mapping-rules/{mappingRuleId}": {
       "version": "8.8",
-      "summary": "Get a mapping rule"
+      "summary": "Get a mapping rule",
+      "path": [
+        "paths",
+        "/mapping-rules/{mappingRuleId}",
+        "get"
+      ]
     },
     "PUT /mapping-rules/{mappingRuleId}": {
       "version": "8.8",
-      "summary": "Update mapping rule"
+      "summary": "Update mapping rule",
+      "path": [
+        "paths",
+        "/mapping-rules/{mappingRuleId}",
+        "put"
+      ]
     },
     "DELETE /mapping-rules/{mappingRuleId}": {
       "version": "8.8",
-      "summary": "Delete a mapping rule"
+      "summary": "Delete a mapping rule",
+      "path": [
+        "paths",
+        "/mapping-rules/{mappingRuleId}",
+        "delete"
+      ]
     },
     "POST /mapping-rules/search": {
       "version": "8.8",
-      "summary": "Search mapping rules"
+      "summary": "Search mapping rules",
+      "path": [
+        "paths",
+        "/mapping-rules/search",
+        "post"
+      ]
     },
     "POST /correlated-message-subscriptions/search": {
       "version": "8.8",
-      "summary": "Search correlated message subscriptions"
+      "summary": "Search correlated message subscriptions",
+      "path": [
+        "paths",
+        "/correlated-message-subscriptions/search",
+        "post"
+      ]
     },
     "POST /message-subscriptions/search": {
       "version": "8.8",
-      "summary": "Search message subscriptions"
+      "summary": "Search message subscriptions",
+      "path": [
+        "paths",
+        "/message-subscriptions/search",
+        "post"
+      ]
     },
     "POST /users": {
       "version": "8.8",
-      "summary": "Create user"
+      "summary": "Create user",
+      "path": [
+        "paths",
+        "/users",
+        "post"
+      ]
     },
     "POST /users/search": {
       "version": "8.8",
-      "summary": "Search users"
+      "summary": "Search users",
+      "path": [
+        "paths",
+        "/users/search",
+        "post"
+      ]
     },
     "GET /users/{username}": {
       "version": "8.8",
-      "summary": "Get user"
+      "summary": "Get user",
+      "path": [
+        "paths",
+        "/users/{username}",
+        "get"
+      ]
     },
     "PUT /users/{username}": {
       "version": "8.8",
-      "summary": "Update user"
+      "summary": "Update user",
+      "path": [
+        "paths",
+        "/users/{username}",
+        "put"
+      ]
     },
     "DELETE /users/{username}": {
       "version": "8.8",
-      "summary": "Delete user"
+      "summary": "Delete user",
+      "path": [
+        "paths",
+        "/users/{username}",
+        "delete"
+      ]
     },
     "POST /setup/user": {
       "version": "8.8",
-      "summary": "Create admin user"
+      "summary": "Create admin user",
+      "path": [
+        "paths",
+        "/setup/user",
+        "post"
+      ]
     },
     "GET /system/usage-metrics": {
       "version": "8.8",
-      "summary": "Get usage metrics"
+      "summary": "Get usage metrics",
+      "path": [
+        "paths",
+        "/system/usage-metrics",
+        "get"
+      ]
     },
     "POST /element-instances/ad-hoc-activities/{adHocSubProcessInstanceKey}/activation": {
       "version": "8.8",
-      "summary": "Activate activities within an ad-hoc sub-process"
+      "summary": "Activate activities within an ad-hoc sub-process",
+      "path": [
+        "paths",
+        "/element-instances/ad-hoc-activities/{adHocSubProcessInstanceKey}/activation",
+        "post"
+      ]
     },
     "GET /batch-operations/{batchOperationKey}": {
       "version": "8.8",
-      "summary": "Get batch operation"
+      "summary": "Get batch operation",
+      "path": [
+        "paths",
+        "/batch-operations/{batchOperationKey}",
+        "get"
+      ]
     },
     "POST /batch-operations/search": {
       "version": "8.8",
-      "summary": "Search batch operations"
+      "summary": "Search batch operations",
+      "path": [
+        "paths",
+        "/batch-operations/search",
+        "post"
+      ]
     },
     "POST /batch-operations/{batchOperationKey}/cancellation": {
       "version": "8.8",
-      "summary": "Cancel Batch operation"
+      "summary": "Cancel Batch operation",
+      "path": [
+        "paths",
+        "/batch-operations/{batchOperationKey}/cancellation",
+        "post"
+      ]
     },
     "POST /batch-operations/{batchOperationKey}/suspension": {
       "version": "8.8",
-      "summary": "Suspend Batch operation"
+      "summary": "Suspend Batch operation",
+      "path": [
+        "paths",
+        "/batch-operations/{batchOperationKey}/suspension",
+        "post"
+      ]
     },
     "POST /batch-operations/{batchOperationKey}/resumption": {
       "version": "8.8",
-      "summary": "Resume Batch operation"
+      "summary": "Resume Batch operation",
+      "path": [
+        "paths",
+        "/batch-operations/{batchOperationKey}/resumption",
+        "post"
+      ]
     },
     "POST /batch-operation-items/search": {
       "version": "8.8",
-      "summary": "Search batch operation items"
+      "summary": "Search batch operation items",
+      "path": [
+        "paths",
+        "/batch-operation-items/search",
+        "post"
+      ]
     },
     "POST /audit-logs/search": {
       "version": "8.9",
-      "summary": "Search audit logs"
+      "summary": "Search audit logs",
+      "path": [
+        "audit-logs.yaml",
+        "paths",
+        "/audit-logs/search",
+        "post"
+      ]
     },
     "GET /audit-logs/{auditLogKey}": {
       "version": "8.9",
-      "summary": "Get audit log"
+      "summary": "Get audit log",
+      "path": [
+        "audit-logs.yaml",
+        "paths",
+        "/audit-logs/{auditLogKey}",
+        "get"
+      ]
     },
     "POST /cluster-variables/global": {
       "version": "8.9",
-      "summary": "Create a global-scoped cluster variable"
+      "summary": "Create a global-scoped cluster variable",
+      "path": [
+        "cluster-variables.yaml",
+        "paths",
+        "/cluster-variables/global",
+        "post"
+      ]
     },
     "GET /cluster-variables/global/{name}": {
       "version": "8.9",
-      "summary": "Get a global-scoped cluster variable"
+      "summary": "Get a global-scoped cluster variable",
+      "path": [
+        "cluster-variables.yaml",
+        "paths",
+        "/cluster-variables/global/{name}",
+        "get"
+      ]
     },
     "PUT /cluster-variables/global/{name}": {
       "version": "8.9",
-      "summary": "Update a global-scoped cluster variable"
+      "summary": "Update a global-scoped cluster variable",
+      "path": [
+        "cluster-variables.yaml",
+        "paths",
+        "/cluster-variables/global/{name}",
+        "put"
+      ]
     },
     "DELETE /cluster-variables/global/{name}": {
       "version": "8.9",
-      "summary": "Delete a global-scoped cluster variable"
+      "summary": "Delete a global-scoped cluster variable",
+      "path": [
+        "cluster-variables.yaml",
+        "paths",
+        "/cluster-variables/global/{name}",
+        "delete"
+      ]
     },
     "POST /cluster-variables/search": {
       "version": "8.9",
-      "summary": ""
+      "summary": "",
+      "path": [
+        "cluster-variables.yaml",
+        "paths",
+        "/cluster-variables/search",
+        "post"
+      ]
     },
     "POST /cluster-variables/tenants/{tenantId}": {
       "version": "8.9",
-      "summary": "Create a tenant-scoped cluster variable"
+      "summary": "Create a tenant-scoped cluster variable",
+      "path": [
+        "cluster-variables.yaml",
+        "paths",
+        "/cluster-variables/tenants/{tenantId}",
+        "post"
+      ]
     },
     "GET /cluster-variables/tenants/{tenantId}/{name}": {
       "version": "8.9",
-      "summary": "Get a tenant-scoped cluster variable"
+      "summary": "Get a tenant-scoped cluster variable",
+      "path": [
+        "cluster-variables.yaml",
+        "paths",
+        "/cluster-variables/tenants/{tenantId}/{name}",
+        "get"
+      ]
     },
     "PUT /cluster-variables/tenants/{tenantId}/{name}": {
       "version": "8.9",
-      "summary": "Update a tenant-scoped cluster variable"
+      "summary": "Update a tenant-scoped cluster variable",
+      "path": [
+        "cluster-variables.yaml",
+        "paths",
+        "/cluster-variables/tenants/{tenantId}/{name}",
+        "put"
+      ]
     },
     "DELETE /cluster-variables/tenants/{tenantId}/{name}": {
       "version": "8.9",
-      "summary": "Delete a tenant-scoped cluster variable"
+      "summary": "Delete a tenant-scoped cluster variable",
+      "path": [
+        "cluster-variables.yaml",
+        "paths",
+        "/cluster-variables/tenants/{tenantId}/{name}",
+        "delete"
+      ]
     },
     "POST /conditionals/evaluation": {
       "version": "8.9",
-      "summary": "Evaluate root level conditional start events"
+      "summary": "Evaluate root level conditional start events",
+      "path": [
+        "conditionals.yaml",
+        "paths",
+        "/conditionals/evaluation",
+        "post"
+      ]
     },
     "POST /decision-instances/{decisionEvaluationKey}/deletion": {
       "version": "8.9",
-      "summary": "Delete decision instance"
+      "summary": "Delete decision instance",
+      "path": [
+        "decision-instances.yaml",
+        "paths",
+        "/decision-instances/{decisionEvaluationKey}/deletion",
+        "post"
+      ]
     },
     "POST /decision-instances/deletion": {
       "version": "8.9",
-      "summary": "Delete decision instances (batch)"
+      "summary": "Delete decision instances (batch)",
+      "path": [
+        "decision-instances.yaml",
+        "paths",
+        "/decision-instances/deletion",
+        "post"
+      ]
     },
     "POST /element-instances/{elementInstanceKey}/incidents/search": {
       "version": "8.9",
-      "summary": "Search for incidents of a specific element instance"
+      "summary": "Search for incidents of a specific element instance",
+      "path": [
+        "element-instances.yaml",
+        "paths",
+        "/element-instances/{elementInstanceKey}/incidents/search",
+        "post"
+      ]
     },
     "POST /expression/evaluation": {
       "version": "8.9",
-      "summary": "Evaluate an expression"
+      "summary": "Evaluate an expression",
+      "path": [
+        "expression.yaml",
+        "paths",
+        "/expression/evaluation",
+        "post"
+      ]
     },
     "POST /global-task-listeners": {
       "version": "8.9",
-      "summary": "Create global user task listener"
+      "summary": "Create global user task listener",
+      "path": [
+        "global-listeners.yaml",
+        "paths",
+        "/global-task-listeners",
+        "post"
+      ]
     },
     "GET /global-task-listeners/{id}": {
       "version": "8.9",
-      "summary": "Get global user task listener"
+      "summary": "Get global user task listener",
+      "path": [
+        "global-listeners.yaml",
+        "paths",
+        "/global-task-listeners/{id}",
+        "get"
+      ]
     },
     "PUT /global-task-listeners/{id}": {
       "version": "8.9",
-      "summary": "Update global user task listener"
+      "summary": "Update global user task listener",
+      "path": [
+        "global-listeners.yaml",
+        "paths",
+        "/global-task-listeners/{id}",
+        "put"
+      ]
     },
     "DELETE /global-task-listeners/{id}": {
       "version": "8.9",
-      "summary": "Delete global user task listener"
+      "summary": "Delete global user task listener",
+      "path": [
+        "global-listeners.yaml",
+        "paths",
+        "/global-task-listeners/{id}",
+        "delete"
+      ]
     },
     "POST /global-task-listeners/search": {
       "version": "8.9",
-      "summary": "Search global user task listeners"
+      "summary": "Search global user task listeners",
+      "path": [
+        "global-listeners.yaml",
+        "paths",
+        "/global-task-listeners/search",
+        "post"
+      ]
     },
     "POST /incidents/statistics/process-instances-by-definition": {
       "version": "8.9",
-      "summary": "Get process instance statistics by definition"
+      "summary": "Get process instance statistics by definition",
+      "path": [
+        "incidents.yaml",
+        "paths",
+        "/incidents/statistics/process-instances-by-definition",
+        "post"
+      ]
     },
     "POST /incidents/statistics/process-instances-by-error": {
       "version": "8.9",
-      "summary": "Get process instance statistics by error"
+      "summary": "Get process instance statistics by error",
+      "path": [
+        "incidents.yaml",
+        "paths",
+        "/incidents/statistics/process-instances-by-error",
+        "post"
+      ]
     },
     "GET /jobs/statistics/global": {
       "version": "8.9",
-      "summary": "Global job statistics"
+      "summary": "Global job statistics",
+      "path": [
+        "job-metrics.yaml",
+        "paths",
+        "/jobs/statistics/global",
+        "get"
+      ]
     },
     "POST /jobs/statistics/by-types": {
       "version": "8.9",
-      "summary": "Get job statistics by type"
+      "summary": "Get job statistics by type",
+      "path": [
+        "job-metrics.yaml",
+        "paths",
+        "/jobs/statistics/by-types",
+        "post"
+      ]
     },
     "POST /jobs/statistics/by-workers": {
       "version": "8.9",
-      "summary": "Get job statistics by worker"
+      "summary": "Get job statistics by worker",
+      "path": [
+        "job-metrics.yaml",
+        "paths",
+        "/jobs/statistics/by-workers",
+        "post"
+      ]
     },
     "POST /jobs/statistics/time-series": {
       "version": "8.9",
-      "summary": "Get time-series metrics for a job type"
+      "summary": "Get time-series metrics for a job type",
+      "path": [
+        "job-metrics.yaml",
+        "paths",
+        "/jobs/statistics/time-series",
+        "post"
+      ]
     },
     "POST /jobs/statistics/errors": {
       "version": "8.9",
-      "summary": "Get error metrics for a job type"
+      "summary": "Get error metrics for a job type",
+      "path": [
+        "job-metrics.yaml",
+        "paths",
+        "/jobs/statistics/errors",
+        "post"
+      ]
     },
     "POST /process-definitions/statistics/message-subscriptions": {
       "version": "8.9",
-      "summary": "Get message subscription statistics"
+      "summary": "Get message subscription statistics",
+      "path": [
+        "process-definitions.yaml",
+        "paths",
+        "/process-definitions/statistics/message-subscriptions",
+        "post"
+      ]
     },
     "POST /process-definitions/statistics/process-instances": {
       "version": "8.9",
-      "summary": "Get process instance statistics"
+      "summary": "Get process instance statistics",
+      "path": [
+        "process-definitions.yaml",
+        "paths",
+        "/process-definitions/statistics/process-instances",
+        "post"
+      ]
     },
     "POST /process-definitions/statistics/process-instances-by-version": {
       "version": "8.9",
-      "summary": "Get process instance statistics by version"
+      "summary": "Get process instance statistics by version",
+      "path": [
+        "process-definitions.yaml",
+        "paths",
+        "/process-definitions/statistics/process-instances-by-version",
+        "post"
+      ]
     },
     "POST /process-instances/deletion": {
       "version": "8.9",
-      "summary": "Delete process instances (batch)"
+      "summary": "Delete process instances (batch)",
+      "path": [
+        "process-instances.yaml",
+        "paths",
+        "/process-instances/deletion",
+        "post"
+      ]
     },
     "POST /process-instances/{processInstanceKey}/deletion": {
       "version": "8.9",
-      "summary": "Delete process instance"
+      "summary": "Delete process instance",
+      "path": [
+        "process-instances.yaml",
+        "paths",
+        "/process-instances/{processInstanceKey}/deletion",
+        "post"
+      ]
     },
     "POST /process-instances/{processInstanceKey}/incident-resolution": {
       "version": "8.9",
-      "summary": "Resolve related incidents"
+      "summary": "Resolve related incidents",
+      "path": [
+        "process-instances.yaml",
+        "paths",
+        "/process-instances/{processInstanceKey}/incident-resolution",
+        "post"
+      ]
     },
     "GET /system/configuration": {
       "version": "8.9",
-      "summary": "System configuration (alpha)"
+      "summary": "System configuration (alpha)",
+      "path": [
+        "system.yaml",
+        "paths",
+        "/system/configuration",
+        "get"
+      ]
     },
     "POST /user-tasks/{userTaskKey}/audit-logs/search": {
       "version": "8.9",
-      "summary": "Search user task audit logs"
+      "summary": "Search user task audit logs",
+      "path": [
+        "user-tasks.yaml",
+        "paths",
+        "/user-tasks/{userTaskKey}/audit-logs/search",
+        "post"
+      ]
     }
   },
   "properties": {
@@ -31846,6 +32812,7 @@
       "property": "operationReference",
       "depth": 0,
       "path": [
+        "decision-instances.yaml",
         "paths",
         "/decision-instances/{decisionEvaluationKey}/deletion",
         "post",
@@ -38344,6 +39311,7 @@
       "property": "operationReference",
       "depth": 0,
       "path": [
+        "process-instances.yaml",
         "paths",
         "/process-instances/{processInstanceKey}/deletion",
         "post",
