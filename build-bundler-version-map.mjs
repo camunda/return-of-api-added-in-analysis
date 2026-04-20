@@ -13,7 +13,9 @@
  */
 import { writeFileSync, mkdirSync, readFileSync, readdirSync } from 'fs';
 import { fetchAndBundle } from 'camunda-schema-bundler';
-import yaml from 'js-yaml';
+import YAML from 'yaml';
+
+const yaml = { load: (source) => YAML.parse(source) };
 
 const VERSIONS = ['8.5', '8.6', '8.7', '8.8', '8.9'];
 const HTTP_METHODS = ['get', 'post', 'put', 'patch', 'delete', 'head', 'options'];
@@ -58,7 +60,7 @@ function refToPath(ref) {
 }
 
 /**
- * Extract top-level property names and their types from a schema.
+ * Extract property names from a schema along with their depth and schema path.
  * Handles $ref, allOf (any length), and sibling properties correctly.
  * Returns Map<propertyName, { depth, path }>.
  */
@@ -360,9 +362,13 @@ async function main() {
               }
             }
           }
-        } catch (_) {}
+        } catch (error) {
+          console.warn(`    WARN: failed to parse upstream YAML ${version}/${file}: ${error?.message || error}`);
+        }
       }
-    } catch (_) {}
+    } catch (error) {
+      console.warn(`    WARN: failed to read upstream dir for ${version}: ${error?.message || error}`);
+    }
 
     // Only use file maps for multi-file specs (many upstream YAML files).
     // Monolithic specs (8.5–8.8) have just rest-api.yaml + rest-api-v1.yaml,

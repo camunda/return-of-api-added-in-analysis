@@ -27,8 +27,9 @@
  * }
  */
 import { readFileSync, writeFileSync, existsSync, mkdirSync, readdirSync } from 'fs';
-import { parse } from 'yaml';
-import yaml from 'js-yaml';
+import YAML, { parse } from 'yaml';
+
+const yaml = { load: (source) => YAML.parse(source) };
 
 const VERSIONS = ['8.5', '8.6', '8.7', '8.8', '8.9'];
 const HTTP_METHODS = ['get', 'post', 'put', 'patch', 'delete', 'head', 'options'];
@@ -82,7 +83,7 @@ function refToPath(ref) {
 }
 
 /**
- * Extract top-level property names and their types from a schema.
+ * Extract property names from a schema and record their nesting metadata.
  * Handles $ref, allOf (any length), and sibling properties correctly.
  * Returns Map<propertyName, { depth, path }>.
  */
@@ -314,7 +315,7 @@ for (const version of VERSIONS) {
 
   // Build operation → source file map, schema → source file map,
   // and operation → original schema $ref map by scanning upstream YAML files
-  const upstreamDir = `bundler-specs/${version}/upstream`;
+  const upstreamDir = `specs/${version}/upstream`;
   const operationFileMap = new Map();
   const schemaFileMap = new Map();
   const operationSchemaRefMap = new Map();
@@ -333,7 +334,7 @@ for (const version of VERSIONS) {
                   operationFileMap.set(opKey, file);
                 }
                 // Record original $ref for request/response schemas.
-                // These may be lost when the bundler inlines schemas.
+                // These may be lost when Redocly bundles the spec.
                 // Normalize cross-file refs like "file.yaml#/..." to "#/..."
                 // since the bundled spec uses local refs.
                 if (!operationSchemaRefMap.has(opKey)) {
@@ -366,9 +367,13 @@ for (const version of VERSIONS) {
             }
           }
         }
-      } catch (_) {}
+      } catch (error) {
+        console.warn(`  WARN: failed to parse upstream YAML ${version}/${file}: ${error?.message || error}`);
+      }
     }
-  } catch (_) {}
+  } catch (error) {
+    console.warn(`  WARN: failed to read upstream dir for ${version}: ${error?.message || error}`);
+  }
 
   const uniqueSchemaFiles = new Set(schemaFileMap.values());
   const isMultiFile = uniqueSchemaFiles.size > 2;

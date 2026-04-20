@@ -38,6 +38,9 @@ for v in "${VERSIONS[@]}"; do
   if git -C "$clone_dir" sparse-checkout set "$SPEC_V2_DIR" 2>/dev/null && [[ -f "$clone_dir/$SPEC_V2_DIR/rest-api.yaml" ]]; then
     echo "    Multi-file spec (v2/), bundling..."
     npx --yes @redocly/cli@2.25.3 bundle "$clone_dir/$SPEC_V2_DIR/rest-api.yaml" -o "$dest/bundled-api.yaml" 2>&1 | grep -v "EBADENGINE\|Warning:" || true
+    # Copy upstream YAML files for source-file provenance
+    mkdir -p "$dest/upstream"
+    cp "$clone_dir/$SPEC_V2_DIR/"*.yaml "$dest/upstream/" 2>/dev/null || true
   else
     git -C "$clone_dir" sparse-checkout set "$(dirname "$SPEC_PATH")" 2>/dev/null
     git -C "$clone_dir" checkout 2>/dev/null
