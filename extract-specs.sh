@@ -44,8 +44,15 @@ for v in "${VERSIONS[@]}"; do
     echo "    Multi-file spec (v2/), bundling..."
     npx --yes @redocly/cli@2.25.3 bundle "$clone_dir/$SPEC_V2_DIR/rest-api.yaml" -o "$dest/bundled-api.yaml" 2>&1 | grep -v "EBADENGINE\|Warning:" || true
     # Copy upstream YAML files for source-file provenance
+    shopt -s nullglob
+    upstream_files=("$clone_dir/$SPEC_V2_DIR/"*.yaml)
+    shopt -u nullglob
+    if [[ ${#upstream_files[@]} -eq 0 ]]; then
+      echo "    ERROR: no upstream YAML files found in $clone_dir/$SPEC_V2_DIR" >&2
+      exit 1
+    fi
     mkdir -p "$dest/upstream"
-    cp "$clone_dir/$SPEC_V2_DIR/"*.yaml "$dest/upstream/" 2>/dev/null || true
+    cp "${upstream_files[@]}" "$dest/upstream/"
   else
     git -C "$clone_dir" sparse-checkout set "$(dirname "$SPEC_PATH")" 2>/dev/null
     git -C "$clone_dir" checkout 2>/dev/null
