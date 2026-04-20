@@ -31,22 +31,51 @@ npm run all            # extract-specs.sh → specs/ → output/version-map.json
 
 ## Output
 
-Both flows produce identical output (185 operations, 2,262 properties, 2 deleted operations).
+Both flows produce identical output (185 operations, 2,710 properties, 2 deleted operations).
 
 ```json
 {
+  "metadata": {
+    "multiFileVersions": ["8.9"]
+  },
   "operations": {
-    "GET /topology": { "version": "8.5", "summary": "Get cluster topology." }
+    "GET /topology": {
+      "version": "8.5",
+      "summary": "Get cluster topology.",
+      "path": ["paths", "/topology", "get"]
+    }
   },
   "properties": {
-    "POST /process-instances > request > variables": {
-      "version": "8.6", "type": "object", "location": "request",
-      "endpoint": "POST /process-instances", "property": "variables", "depth": 0
+    "POST /user-tasks/{userTaskKey}/completion > request > variables": {
+      "version": "8.5",
+      "location": "request",
+      "endpoint": "POST /user-tasks/{userTaskKey}/completion",
+      "property": "variables",
+      "depth": 0,
+      "path": ["components", "schemas", "UserTaskCompletionRequest", "properties", "variables"]
     }
   },
   "deletedOperations": {
     "POST /document/{documentId}/links": {
-      "removedIn": "8.7", "summary": "Create document link (alpha)"
+      "removedIn": "8.7",
+      "summary": "Create document link (alpha)"
     }
   }
 }
+
+## Comparing Version Maps
+
+Use `json-diff` to compare the two version map outputs:
+
+```bash
+# Full diff
+npx json-diff output/version-map.json output/bundler-version-map.json
+
+# Diff only operations
+npx json-diff <(node -e "process.stdout.write(JSON.stringify(require('./output/version-map.json').operations))") \
+              <(node -e "process.stdout.write(JSON.stringify(require('./output/bundler-version-map.json').operations))")
+
+# Diff only properties
+npx json-diff <(node -e "process.stdout.write(JSON.stringify(require('./output/version-map.json').properties))") \
+              <(node -e "process.stdout.write(JSON.stringify(require('./output/bundler-version-map.json').properties))")
+```
