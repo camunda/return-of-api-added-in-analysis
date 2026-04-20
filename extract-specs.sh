@@ -23,8 +23,13 @@ for v in "${VERSIONS[@]}"; do
   mkdir -p "$dest"
 
   if [[ -f "$dest/bundled-api.yaml" ]]; then
-    echo "  $v: already exists ($(wc -l < "$dest/bundled-api.yaml" | tr -d ' ') lines), skipping"
-    continue
+    # Re-extract upstream files if missing (needed for source-file provenance)
+    if [[ ! -d "$dest/upstream" ]]; then
+      echo "  $v: bundle exists but upstream/ missing, re-extracting upstream files..."
+    else
+      echo "  $v: already exists ($(wc -l < "$dest/bundled-api.yaml" | tr -d ' ') lines), skipping"
+      continue
+    fi
   fi
 
   ref="stable/$v"
@@ -46,6 +51,8 @@ for v in "${VERSIONS[@]}"; do
     git -C "$clone_dir" checkout 2>/dev/null
     echo "    Monolithic spec, copying..."
     cp "$clone_dir/$SPEC_PATH" "$dest/bundled-api.yaml"
+    # Create empty upstream/ marker so re-runs skip this version
+    mkdir -p "$dest/upstream"
   fi
 
   rm -rf "$clone_dir"

@@ -313,7 +313,7 @@ async function main() {
     const schemaFileMap = new Map();
     const operationSchemaRefMap = new Map();
     try {
-      const files = readdirSync(outputDir).filter(f => f.endsWith('.yaml'));
+      const files = readdirSync(outputDir).filter(f => f.endsWith('.yaml')).sort();
       for (const file of files) {
         try {
           const content = readFileSync(`${outputDir}/${file}`, 'utf8');

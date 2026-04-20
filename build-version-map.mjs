@@ -319,11 +319,12 @@ for (const version of VERSIONS) {
   const operationFileMap = new Map();
   const schemaFileMap = new Map();
   const operationSchemaRefMap = new Map();
-  try {
-    const files = readdirSync(upstreamDir).filter(f => f.endsWith('.yaml'));
-    for (const file of files) {
-      try {
-        const content = readFileSync(`${upstreamDir}/${file}`, 'utf8');
+  if (existsSync(upstreamDir)) {
+    try {
+      const files = readdirSync(upstreamDir).filter(f => f.endsWith('.yaml')).sort();
+      for (const file of files) {
+        try {
+          const content = readFileSync(`${upstreamDir}/${file}`, 'utf8');
         const parsed = yaml.load(content);
         if (parsed?.paths) {
           for (const [path, pathItem] of Object.entries(parsed.paths)) {
@@ -367,12 +368,13 @@ for (const version of VERSIONS) {
             }
           }
         }
-      } catch (error) {
-        console.warn(`  WARN: failed to parse upstream YAML ${version}/${file}: ${error?.message || error}`);
+        } catch (error) {
+          console.warn(`  WARN: failed to parse upstream YAML ${version}/${file}: ${error?.message || error}`);
+        }
       }
+    } catch (error) {
+      console.warn(`  WARN: failed to read upstream dir for ${version}: ${error?.message || error}`);
     }
-  } catch (error) {
-    console.warn(`  WARN: failed to read upstream dir for ${version}: ${error?.message || error}`);
   }
 
   const uniqueSchemaFiles = new Set(schemaFileMap.values());
