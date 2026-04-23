@@ -283,7 +283,7 @@ function extractSpecData(spec, operationFileMap, schemaFileMap, operationSchemaR
         ? [opSourceFile, 'paths', path, method]
         : ['paths', path, method];
       operations.set(opKey, {
-        summary: operation.summary || '',
+        summary: operation.summary || operation.description || '',
         operationId: operation.operationId || '',
         path: operationBasePath,
       });
@@ -450,6 +450,10 @@ for (const version of VERSIONS) {
       // Keep the original first-seen version, but refresh the path to the
       // most recent attribution (later versions split into per-resource files).
       versionMap.operations[opKey].path = opData.path;
+      // Backfill summary if it was missing in the version where it was first seen.
+      if (!versionMap.operations[opKey].summary && opData.summary) {
+        versionMap.operations[opKey].summary = opData.summary;
+      }
     }
   }
 

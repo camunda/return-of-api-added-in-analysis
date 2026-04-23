@@ -1555,7 +1555,7 @@
     },
     "POST /cluster-variables/search": {
       "version": "8.9",
-      "summary": "",
+      "summary": "Search for cluster variables based on given criteria. By default, long variable values in the response are truncated.",
       "path": [
         "cluster-variables.yaml",
         "paths",

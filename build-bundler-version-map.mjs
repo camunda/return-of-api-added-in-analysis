@@ -62,18 +62,40 @@ function refToPath(ref) {
 /**
  * Extract property names from a schema along with their depth and schema path.
  * Handles $ref, allOf (any length), and sibling properties correctly.
- * Returns Map<propertyName, { depth, path }>.
+ *
+ * Returns Map<qualifiedName, { name, depth, path }> where `qualifiedName`
+ * reflects the access chain from the operation's root schema, e.g.
+ *   "tenants[].name"   for a `name` field inside an array of objects
+ *   "user.address.zip" for a `zip` field nested two objects deep
+ * `name` is the leaf property name. The map key is the qualified name so
+ * nested properties with colliding leaf names (e.g. multiple `name` fields)
+ * are recorded independently rather than overwriting each other.
  */
-function extractProperties(spec, schema, depth = 0, maxDepth = 3, basePath = []) {
+function extractProperties(
+  spec,
+  schema,
+  depth = 0,
+  maxDepth = 3,
+  basePath = [],
+  parentChain = '',
+  visitedRefs = new Set(),
+) {
   const props = new Map();
   if (!schema) return props;
 
+  // Follow $ref — but merge with any sibling properties too. Guard against
+  // recursive schemas (e.g. tree-shaped types) by tracking visited refs.
   if (schema.$ref) {
+    if (visitedRefs.has(schema.$ref)) return props;
+    const nextVisited = new Set(visitedRefs);
+    nextVisited.add(schema.$ref);
     const refTarget = resolveRef(spec, schema.$ref);
     const refPath = refToPath(schema.$ref);
-    const refProps = extractProperties(spec, refTarget, depth, maxDepth, refPath || basePath);
-    for (const [name, info] of refProps) {
-      if (!props.has(name)) props.set(name, info);
+    const refProps = extractProperties(
+      spec, refTarget, depth, maxDepth, refPath || basePath, parentChain, nextVisited,
+    );
+    for (const [qname, info] of refProps) {
+      if (!props.has(qname)) props.set(qname, info);
     }
   }
 
@@ -81,9 +103,10 @@ function extractProperties(spec, schema, depth = 0, maxDepth = 3, basePath = [])
     for (const [name, propSchema] of Object.entries(schema.properties)) {
       const resolvedProp = resolveSchema(spec, propSchema);
       const type = resolvedProp?.type || (resolvedProp?.enum ? 'enum' : 'object');
-      if (!props.has(name)) {
+      const qname = parentChain ? `${parentChain}.${name}` : name;
+      if (!props.has(qname)) {
         // Property is explicitly named here — always use the inline path
-        props.set(name, { depth, path: [...basePath, 'properties', name] });
+        props.set(qname, { name, depth, path: [...basePath, 'properties', name] });
       }
 
       // Recurse into nested objects (but not too deep)
@@ -92,21 +115,34 @@ function extractProperties(spec, schema, depth = 0, maxDepth = 3, basePath = [])
         let innerBasePath = propSchema.$ref
           ? (refToPath(propSchema.$ref) || [...basePath, 'properties', name])
           : [...basePath, 'properties', name];
+        let childChain = qname;
+        let childVisited = visitedRefs;
+        if (propSchema.$ref) {
+          if (visitedRefs.has(propSchema.$ref)) continue;
+          childVisited = new Set(visitedRefs);
+          childVisited.add(propSchema.$ref);
+        }
         if (type === 'array') {
           const arraySchema = propSchema.$ref ? resolveRef(spec, propSchema.$ref) : resolvedProp;
           innerSchema = arraySchema?.items || resolvedProp?.items;
           if (innerSchema?.$ref) {
+            if (childVisited.has(innerSchema.$ref)) continue;
+            childVisited = new Set(childVisited);
+            childVisited.add(innerSchema.$ref);
             innerBasePath = refToPath(innerSchema.$ref) || innerBasePath;
             innerSchema = resolveRef(spec, innerSchema.$ref) || innerSchema;
           } else {
             innerBasePath = [...innerBasePath, 'items'];
           }
+          childChain = `${qname}[]`;
         }
         if (!innerSchema) continue;
-        const nested = extractProperties(spec, innerSchema, depth + 1, maxDepth, innerBasePath);
-        for (const [nestedName, nestedInfo] of nested) {
-          if (!props.has(nestedName)) {
-            props.set(nestedName, nestedInfo);
+        const nested = extractProperties(
+          spec, innerSchema, depth + 1, maxDepth, innerBasePath, childChain, childVisited,
+        );
+        for (const [nestedQname, nestedInfo] of nested) {
+          if (!props.has(nestedQname)) {
+            props.set(nestedQname, nestedInfo);
           }
         }
       }
@@ -118,10 +154,12 @@ function extractProperties(spec, schema, depth = 0, maxDepth = 3, basePath = [])
     for (let i = 0; i < schema.allOf.length; i++) {
       const sub = schema.allOf[i];
       const subBasePath = sub.$ref ? (refToPath(sub.$ref) || basePath) : [...basePath, 'allOf', String(i)];
-      const subProps = extractProperties(spec, sub, depth, maxDepth, subBasePath);
-      for (const [name, info] of subProps) {
-        if (!props.has(name)) {
-          props.set(name, info);
+      const subProps = extractProperties(
+        spec, sub, depth, maxDepth, subBasePath, parentChain, visitedRefs,
+      );
+      for (const [qname, info] of subProps) {
+        if (!props.has(qname)) {
+          props.set(qname, info);
         }
       }
     }
@@ -133,10 +171,12 @@ function extractProperties(spec, schema, depth = 0, maxDepth = 3, basePath = [])
       for (let i = 0; i < schema[keyword].length; i++) {
         const sub = schema[keyword][i];
         const subBasePath = sub.$ref ? (refToPath(sub.$ref) || basePath) : [...basePath, keyword, String(i)];
-        const subProps = extractProperties(spec, sub, depth, maxDepth, subBasePath);
-        for (const [name, info] of subProps) {
-          if (!props.has(name)) {
-            props.set(name, info);
+        const subProps = extractProperties(
+          spec, sub, depth, maxDepth, subBasePath, parentChain, visitedRefs,
+        );
+        for (const [qname, info] of subProps) {
+          if (!props.has(qname)) {
+            props.set(qname, info);
           }
         }
       }
@@ -225,15 +265,15 @@ function extractSpecData(spec, operationFileMap, schemaFileMap, operationSchemaR
         ? [opSourceFile, 'paths', path, method]
         : ['paths', path, method];
       operations.set(opKey, {
-        summary: operation.summary || '',
+        summary: operation.summary || operation.description || '',
         operationId: operation.operationId || '',
         path: operationBasePath,
       });
 
       const upstreamRefs = operationSchemaRefMap?.get(opKey);
       const reqProps = getRequestProperties(spec, operation, operationBasePath, upstreamRefs?.requestRef);
-      for (const [propName, propInfo] of reqProps) {
-        const propKey = `${opKey} > request > ${propName}`;
+      for (const [qualifiedName, propInfo] of reqProps) {
+        const propKey = `${opKey} > request > ${qualifiedName}`;
         const schemaFile = getSchemaFileForPath(propInfo.path, schemaFileMap);
         const finalPath = (schemaFile && schemaFile !== opSourceFile)
           ? [schemaFile, ...propInfo.path]
@@ -241,15 +281,16 @@ function extractSpecData(spec, operationFileMap, schemaFileMap, operationSchemaR
         properties.set(propKey, {
           location: 'request',
           endpoint: opKey,
-          property: propName,
+          property: propInfo.name,
+          qualifiedName,
           depth: propInfo.depth,
           path: finalPath,
         });
       }
 
       const resProps = getResponseProperties(spec, operation, operationBasePath, upstreamRefs?.responseRef);
-      for (const [propName, propInfo] of resProps) {
-        const propKey = `${opKey} > response > ${propName}`;
+      for (const [qualifiedName, propInfo] of resProps) {
+        const propKey = `${opKey} > response > ${qualifiedName}`;
         const schemaFile = getSchemaFileForPath(propInfo.path, schemaFileMap);
         const finalPath = (schemaFile && schemaFile !== opSourceFile)
           ? [schemaFile, ...propInfo.path]
@@ -257,7 +298,8 @@ function extractSpecData(spec, operationFileMap, schemaFileMap, operationSchemaR
         properties.set(propKey, {
           location: 'response',
           endpoint: opKey,
-          property: propName,
+          property: propInfo.name,
+          qualifiedName,
           depth: propInfo.depth,
           path: finalPath,
         });
@@ -298,6 +340,7 @@ async function main() {
         outputDir,
         outputSpec,
         allowPathLocalLikeRefs: true,
+        restoreUpstreamOperationRefs: true
       });
     } catch (err) {
       console.error(`  ERROR bundling ${version}: ${err.message}`);
@@ -370,22 +413,27 @@ async function main() {
       console.warn(`    WARN: failed to read upstream dir for ${version}: ${error?.message || error}`);
     }
 
-    // Only use file maps for multi-file specs (many upstream YAML files).
-    // Monolithic specs (8.5–8.8) have just rest-api.yaml + rest-api-v1.yaml,
-    // while multi-file specs (8.9+) have many domain-specific YAML files.
+    // Track multi-file metadata (monolithic specs have ≤2 schema files;
+    // multi-file specs have many domain-specific YAML files).
     const uniqueSchemaFiles = new Set(schemaFileMap.values());
     const isMultiFile = uniqueSchemaFiles.size > 2;
     if (isMultiFile) {
       versionMap.metadata.multiFileVersions.push(version);
     }
+
+    // Always pass the upstream-file maps so paths are prefixed with their
+    // source filename whenever attribution is available. When a property was
+    // first seen in an earlier (single-file) version, its path is upgraded
+    // here using the latest version's split-file attribution while preserving
+    // the original `version` field.
     const { operations, properties } = extractSpecData(
       spec,
-      isMultiFile ? operationFileMap : null,
-      isMultiFile ? schemaFileMap : null,
-      isMultiFile ? operationSchemaRefMap : null
+      operationFileMap,
+      schemaFileMap,
+      operationSchemaRefMap
     );
 
-    // Record operations first seen in this version
+    // Record operations first seen in this version (and refresh path attribution)
     let newOps = 0;
     for (const [opKey, opData] of operations) {
       if (!versionMap.operations[opKey]) {
@@ -395,10 +443,18 @@ async function main() {
           path: opData.path,
         };
         newOps++;
+      } else {
+        // Keep the original first-seen version, but refresh the path to the
+        // most recent attribution (later versions split into per-resource files).
+        versionMap.operations[opKey].path = opData.path;
+        // Backfill summary if it was missing in the version where it was first seen.
+        if (!versionMap.operations[opKey].summary && opData.summary) {
+          versionMap.operations[opKey].summary = opData.summary;
+        }
       }
     }
 
-    // Record properties first seen in this version
+    // Record properties first seen in this version (and refresh path attribution)
     let newProps = 0;
     for (const [propKey, propData] of properties) {
       if (!versionMap.properties[propKey]) {
@@ -407,6 +463,18 @@ async function main() {
           ...propData,
         };
         newProps++;
+      } else {
+        // Preserve the first-seen version; update path/depth to current version's.
+        const existing = versionMap.properties[propKey];
+        versionMap.properties[propKey] = {
+          ...existing,
+          location: propData.location,
+          endpoint: propData.endpoint,
+          property: propData.property,
+          qualifiedName: propData.qualifiedName,
+          depth: propData.depth,
+          path: propData.path,
+        };
       }
     }
 
