@@ -207,12 +207,7 @@
     },
     "POST /flownode-instances/search": {
       "version": "8.6",
-      "summary": "Query flow node instances (alpha)",
-      "path": [
-        "paths",
-        "/flownode-instances/search",
-        "post"
-      ]
+      "summary": "Query flow node instances (alpha)"
     },
     "POST /decision-definitions/search": {
       "version": "8.6",
@@ -316,12 +311,7 @@
     },
     "POST /document/{documentId}/links": {
       "version": "8.6",
-      "summary": "Create document link (alpha)",
-      "path": [
-        "paths",
-        "/document/{documentId}/links",
-        "post"
-      ]
+      "summary": "Create document link (alpha)"
     },
     "POST /incidents/search": {
       "version": "8.6",

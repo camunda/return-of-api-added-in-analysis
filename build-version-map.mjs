@@ -490,6 +490,14 @@ for (const version of VERSIONS) {
           removedIn: version,
           summary: opData.summary,
         };
+        // Strip the stale `path` from the surviving entry in `operations`.
+        // Its value was last refreshed in the version where the op still
+        // existed, which differs between pipelines depending on whether
+        // that version's upstream/ dir was populated. The op stays listed
+        // so downstream consumers still see when it was introduced.
+        if (versionMap.operations[opKey]) {
+          delete versionMap.operations[opKey].path;
+        }
         deletedOps++;
       }
     }
