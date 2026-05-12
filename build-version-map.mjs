@@ -48,14 +48,27 @@ function loadSpec(version) {
 /**
  * Resolve a $ref pointer like "#/components/schemas/Foo" within the spec.
  */
-function resolveRef(spec, ref) {
+function resolveRef(spec, ref, visited = new Set()) {
   if (!ref || !ref.startsWith('#/')) return null;
-  const parts = ref.slice(2).split('/');
+  if (visited.has(ref)) return null;
+  visited.add(ref);
+  const parts = ref.slice(2).split('/').map((p) => p.replace(/~1/g, '/').replace(/~0/g, '~'));
   let current = spec;
   for (const p of parts) {
     if (!current || typeof current !== 'object') return null;
+    // Follow intermediate $refs. The bundler produces refs like
+    // `#/paths/.../foo/properties/bar` whose traversal passes through a
+    // node that is itself `{ $ref: "#/components/schemas/X" }` — without
+    // dereferencing those boundaries we'd return null.
+    if (current.$ref && typeof current.$ref === 'string') {
+      const next = resolveRef(spec, current.$ref, visited);
+      if (!next) return null;
+      current = next;
+    }
     current = current[p];
   }
+  // The final node may itself be a $ref; the caller normally handles that,
+  // but return as-is to preserve existing behaviour.
   return current || null;
 }
 
@@ -76,10 +89,12 @@ function resolveSchema(spec, schema) {
 
 /**
  * Convert a $ref string like "#/components/schemas/Foo" to a path array.
+ * Decodes RFC 6901 JSON Pointer escapes (`~1` -> `/`, `~0` -> `~`) which
+ * appear in bundler-generated refs into `#/paths/...` segments.
  */
 function refToPath(ref) {
   if (!ref || !ref.startsWith('#/')) return null;
-  return ref.slice(2).split('/');
+  return ref.slice(2).split('/').map((p) => p.replace(/~1/g, '/').replace(/~0/g, '~'));
 }
 
 /**
@@ -342,10 +357,12 @@ const versionMap = {
   operations: {},
   properties: {},
   deletedOperations: {},
+  deletedProperties: {},
 };
 
 // Track what was seen in each version for deletion detection
 let previousOps = null;
+let previousProps = null;
 
 for (const version of VERSIONS) {
   const spec = loadSpec(version);
@@ -503,13 +520,34 @@ for (const version of VERSIONS) {
     }
   }
 
+  // Detect deleted properties (present in previous version but absent in this one)
+  let deletedProps = 0;
+  if (previousProps) {
+    for (const [propKey, propData] of previousProps) {
+      if (!properties.has(propKey) && !versionMap.deletedProperties[propKey]) {
+        versionMap.deletedProperties[propKey] = {
+          removedIn: version,
+          endpoint: propData.endpoint,
+        };
+        // Strip the stale `path` from the surviving entry in `properties`,
+        // mirroring the deletedOperations treatment.
+        if (versionMap.properties[propKey]) {
+          delete versionMap.properties[propKey].path;
+        }
+        deletedProps++;
+      }
+    }
+  }
+
   console.log(
     `  ${version}: ${operations.size} ops (${newOps} new), ` +
     `${properties.size} props (${newProps} new)` +
-    (deletedOps > 0 ? `, ${deletedOps} deleted ops` : '')
+    (deletedOps > 0 ? `, ${deletedOps} deleted ops` : '') +
+    (deletedProps > 0 ? `, ${deletedProps} deleted props` : '')
   );
 
   previousOps = operations;
+  previousProps = properties;
 }
 
 // ─── Summary ───────────────────────────────────────────────────────────────────
@@ -534,6 +572,26 @@ for (const [v, count] of Object.entries(propsByVersion).sort()) {
   console.log(`  ${v}: ${count} properties`);
 }
 
+// Build `children` arrays: each property gets the list of property keys that
+// are one level deeper in its qualifiedName tree (sharing the same operation
+// and location). E.g. `... > filter` -> [`... > filter.state`, `... > filter.assignee`, ...].
+// A segment delimiter is `.` for object nesting or `[].` for arrays of objects.
+for (const val of Object.values(versionMap.properties)) {
+  val.children = [];
+}
+for (const [propKey, val] of Object.entries(versionMap.properties)) {
+  const q = val.qualifiedName;
+  const lastDot = q.lastIndexOf('.');
+  if (lastDot < 0) continue;
+  const parentQ = q.slice(lastDot - 2, lastDot) === '[]'
+    ? q.slice(0, lastDot - 2)
+    : q.slice(0, lastDot);
+  const parentKey = `${val.endpoint} > ${val.location} > ${parentQ}`;
+  if (versionMap.properties[parentKey]) {
+    versionMap.properties[parentKey].children.push(propKey);
+  }
+}
+
 // Write output
 mkdirSync('output', { recursive: true });
 writeFileSync('output/version-map.json', JSON.stringify(versionMap, null, 2));
@@ -541,3 +599,4 @@ console.log(`\nVersion map written to output/version-map.json`);
 console.log(`  ${Object.keys(versionMap.operations).length} operations`);
 console.log(`  ${Object.keys(versionMap.properties).length} properties`);
 console.log(`  ${Object.keys(versionMap.deletedOperations).length} deleted operations`);
+console.log(`  ${Object.keys(versionMap.deletedProperties).length} deleted properties`);
