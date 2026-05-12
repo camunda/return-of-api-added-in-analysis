@@ -2,7 +2,7 @@
  * build-bundler-version-map.mjs
  *
  * Uses camunda-schema-bundler to fetch and bundle OpenAPI specs for versions
- * 8.5–8.9 directly from the Camunda GitHub repo, then builds a unified
+ * 8.5–8.10 directly from the Camunda GitHub repo, then builds a unified
  * version map recording when each operation and property was first introduced.
  *
  * This is the bundler-based equivalent of build-version-map.mjs, which reads
@@ -17,7 +17,12 @@ import YAML from 'yaml';
 
 const yaml = { load: (source) => YAML.parse(source) };
 
-const VERSIONS = ['8.5', '8.6', '8.7', '8.8', '8.9'];
+const VERSIONS = ['8.5', '8.6', '8.7', '8.8', '8.9', '8.10'];
+// 8.10 tracks `main` until it cuts its own release branch. Everything else
+// has a stable/<version> branch on camunda/camunda.
+const VERSION_REFS = {
+  '8.10': 'main',
+};
 const HTTP_METHODS = ['get', 'post', 'put', 'patch', 'delete', 'head', 'options'];
 
 // ─── Helpers ───────────────────────────────────────────────────────────────────
@@ -342,7 +347,7 @@ async function main() {
   let previousProps = null;
 
   for (const version of VERSIONS) {
-    const ref = `stable/${version}`;
+    const ref = VERSION_REFS[version] ?? `stable/${version}`;
     const outputDir = `bundler-specs/${version}/upstream`;
     const outputSpec = `bundler-specs/${version}/rest-api.bundle.json`;
 

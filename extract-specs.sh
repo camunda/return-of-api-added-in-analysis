@@ -1,6 +1,7 @@
 #!/usr/bin/env bash
 #
-# Extract and bundle OpenAPI specs from the camunda/camunda GitHub repo for versions 8.5–8.9.
+# Extract and bundle OpenAPI specs from the camunda/camunda GitHub repo for versions 8.5–8.10.
+# 8.10 tracks `main` until it cuts its own release branch.
 # Uses sparse git clone to fetch only the spec directory for each version.
 #
 # Usage:
@@ -13,7 +14,7 @@ REPO_URL="https://github.com/camunda/camunda.git"
 SPEC_PATH="zeebe/gateway-protocol/src/main/proto/rest-api.yaml"
 SPEC_V2_DIR="zeebe/gateway-protocol/src/main/proto/v2"
 
-VERSIONS=(8.5 8.6 8.7 8.8 8.9)
+VERSIONS=(8.5 8.6 8.7 8.8 8.9 8.10)
 
 echo "=== Extracting OpenAPI specs for versions: ${VERSIONS[*]} ==="
 echo ""
@@ -32,7 +33,11 @@ for v in "${VERSIONS[@]}"; do
     fi
   fi
 
-  ref="stable/$v"
+  if [[ "$v" == "8.10" ]]; then
+    ref="main"
+  else
+    ref="stable/$v"
+  fi
   clone_dir=$(mktemp -d)
   trap "rm -rf $clone_dir" EXIT
 

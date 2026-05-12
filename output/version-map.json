@@ -1,7 +1,8 @@
 {
   "metadata": {
     "multiFileVersions": [
-      "8.9"
+      "8.9",
+      "8.10"
     ]
   },
   "operations": {
@@ -1842,6 +1843,76 @@
         "/user-tasks/{userTaskKey}/audit-logs/search",
         "post"
       ]
+    },
+    "POST /agent-instances": {
+      "version": "8.10",
+      "summary": "Create agent instance",
+      "path": [
+        "agent-instances.yaml",
+        "paths",
+        "/agent-instances",
+        "post"
+      ]
+    },
+    "GET /agent-instances/{agentInstanceKey}": {
+      "version": "8.10",
+      "summary": "Get agent instance",
+      "path": [
+        "agent-instances.yaml",
+        "paths",
+        "/agent-instances/{agentInstanceKey}",
+        "get"
+      ]
+    },
+    "PATCH /agent-instances/{agentInstanceKey}": {
+      "version": "8.10",
+      "summary": "Update agent instance",
+      "path": [
+        "agent-instances.yaml",
+        "paths",
+        "/agent-instances/{agentInstanceKey}",
+        "patch"
+      ]
+    },
+    "POST /agent-instances/search": {
+      "version": "8.10",
+      "summary": "Search agent instances",
+      "path": [
+        "agent-instances.yaml",
+        "paths",
+        "/agent-instances/search",
+        "post"
+      ]
+    },
+    "GET /forms/{formKey}": {
+      "version": "8.10",
+      "summary": "Get form by key",
+      "path": [
+        "forms.yaml",
+        "paths",
+        "/forms/{formKey}",
+        "get"
+      ]
+    },
+    "POST /resources/search": {
+      "version": "8.10",
+      "summary": "Search resources",
+      "path": [
+        "deployments.yaml",
+        "paths",
+        "/resources/search",
+        "post"
+      ]
+    },
+    "GET /resources/{resourceKey}/content/binary": {
+      "version": "8.10",
+      "summary": "Get resource content as binary",
+      "path": [
+        "deployments.yaml",
+        "paths",
+        "/resources/{resourceKey}/content/binary",
+        "get"
+      ]
     }
   },
   "properties": {
@@ -2908,7 +2979,13 @@
         "properties",
         "processDefinitionKey"
       ],
-      "children": []
+      "children": [
+        "POST /user-tasks/search > request > filter.processDefinitionKey.$eq",
+        "POST /user-tasks/search > request > filter.processDefinitionKey.$neq",
+        "POST /user-tasks/search > request > filter.processDefinitionKey.$exists",
+        "POST /user-tasks/search > request > filter.processDefinitionKey.$in",
+        "POST /user-tasks/search > request > filter.processDefinitionKey.$notIn"
+      ]
     },
     "POST /user-tasks/search > request > filter.processInstanceKey": {
       "version": "8.6",
@@ -2926,7 +3003,13 @@
         "properties",
         "processInstanceKey"
       ],
-      "children": []
+      "children": [
+        "POST /user-tasks/search > request > filter.processInstanceKey.$eq",
+        "POST /user-tasks/search > request > filter.processInstanceKey.$neq",
+        "POST /user-tasks/search > request > filter.processInstanceKey.$exists",
+        "POST /user-tasks/search > request > filter.processInstanceKey.$in",
+        "POST /user-tasks/search > request > filter.processInstanceKey.$notIn"
+      ]
     },
     "POST /user-tasks/search > request > filter.state": {
       "version": "8.6",
@@ -3070,7 +3153,14 @@
         "properties",
         "processDefinitionId"
       ],
-      "children": []
+      "children": [
+        "POST /user-tasks/search > request > filter.processDefinitionId.$eq",
+        "POST /user-tasks/search > request > filter.processDefinitionId.$neq",
+        "POST /user-tasks/search > request > filter.processDefinitionId.$exists",
+        "POST /user-tasks/search > request > filter.processDefinitionId.$in",
+        "POST /user-tasks/search > request > filter.processDefinitionId.$notIn",
+        "POST /user-tasks/search > request > filter.processDefinitionId.$like"
+      ]
     },
     "POST /user-tasks/search > request > sort": {
       "version": "8.6",
@@ -51959,7 +52049,14 @@
         "properties",
         "elementId"
       ],
-      "children": []
+      "children": [
+        "POST /element-instances/search > request > filter.elementId.$eq",
+        "POST /element-instances/search > request > filter.elementId.$neq",
+        "POST /element-instances/search > request > filter.elementId.$exists",
+        "POST /element-instances/search > request > filter.elementId.$in",
+        "POST /element-instances/search > request > filter.elementId.$notIn",
+        "POST /element-instances/search > request > filter.elementId.$like"
+      ]
     },
     "POST /element-instances/search > request > filter.elementName": {
       "version": "8.8",
@@ -51977,7 +52074,14 @@
         "properties",
         "elementName"
       ],
-      "children": []
+      "children": [
+        "POST /element-instances/search > request > filter.elementName.$eq",
+        "POST /element-instances/search > request > filter.elementName.$neq",
+        "POST /element-instances/search > request > filter.elementName.$exists",
+        "POST /element-instances/search > request > filter.elementName.$in",
+        "POST /element-instances/search > request > filter.elementName.$notIn",
+        "POST /element-instances/search > request > filter.elementName.$like"
+      ]
     },
     "POST /element-instances/search > request > filter.hasIncident": {
       "version": "8.8",
@@ -52549,7 +52653,8 @@
         "POST /element-instances/search > response > items[].processInstanceKey",
         "POST /element-instances/search > response > items[].processDefinitionKey",
         "POST /element-instances/search > response > items[].incidentKey",
-        "POST /element-instances/search > response > items[].rootProcessInstanceKey"
+        "POST /element-instances/search > response > items[].rootProcessInstanceKey",
+        "POST /element-instances/search > response > items[].agentInstanceKey"
       ]
     },
     "POST /element-instances/search > response > items[].processDefinitionId": {
@@ -61896,7 +62001,12 @@
         "POST /message-subscriptions/search > request > filter.messageName",
         "POST /message-subscriptions/search > request > filter.correlationKey",
         "POST /message-subscriptions/search > request > filter.tenantId",
-        "POST /message-subscriptions/search > request > filter.processDefinitionKey"
+        "POST /message-subscriptions/search > request > filter.processDefinitionKey",
+        "POST /message-subscriptions/search > request > filter.messageSubscriptionType",
+        "POST /message-subscriptions/search > request > filter.processDefinitionName",
+        "POST /message-subscriptions/search > request > filter.processDefinitionVersion",
+        "POST /message-subscriptions/search > request > filter.toolName",
+        "POST /message-subscriptions/search > request > filter.inboundConnectorType"
       ]
     },
     "POST /message-subscriptions/search > request > filter.messageSubscriptionKey": {
@@ -63249,7 +63359,13 @@
         "POST /message-subscriptions/search > response > items[].messageName",
         "POST /message-subscriptions/search > response > items[].correlationKey",
         "POST /message-subscriptions/search > response > items[].tenantId",
-        "POST /message-subscriptions/search > response > items[].rootProcessInstanceKey"
+        "POST /message-subscriptions/search > response > items[].rootProcessInstanceKey",
+        "POST /message-subscriptions/search > response > items[].messageSubscriptionType",
+        "POST /message-subscriptions/search > response > items[].toolProperties",
+        "POST /message-subscriptions/search > response > items[].processDefinitionName",
+        "POST /message-subscriptions/search > response > items[].processDefinitionVersion",
+        "POST /message-subscriptions/search > response > items[].toolName",
+        "POST /message-subscriptions/search > response > items[].inboundConnectorType"
       ]
     },
     "POST /message-subscriptions/search > response > items[].messageSubscriptionKey": {
@@ -83699,7 +83815,12 @@
         "POST /process-definitions/statistics/message-subscriptions > request > filter.lastUpdatedDate",
         "POST /process-definitions/statistics/message-subscriptions > request > filter.messageName",
         "POST /process-definitions/statistics/message-subscriptions > request > filter.correlationKey",
-        "POST /process-definitions/statistics/message-subscriptions > request > filter.tenantId"
+        "POST /process-definitions/statistics/message-subscriptions > request > filter.tenantId",
+        "POST /process-definitions/statistics/message-subscriptions > request > filter.messageSubscriptionType",
+        "POST /process-definitions/statistics/message-subscriptions > request > filter.processDefinitionName",
+        "POST /process-definitions/statistics/message-subscriptions > request > filter.processDefinitionVersion",
+        "POST /process-definitions/statistics/message-subscriptions > request > filter.toolName",
+        "POST /process-definitions/statistics/message-subscriptions > request > filter.inboundConnectorType"
       ]
     },
     "POST /process-definitions/statistics/message-subscriptions > request > filter.messageSubscriptionKey": {
@@ -96709,6 +96830,5886 @@
         "VariableResultBase",
         "properties",
         "rootProcessInstanceKey"
+      ],
+      "children": []
+    },
+    "POST /agent-instances > request > elementInstanceKey": {
+      "version": "8.10",
+      "location": "request",
+      "endpoint": "POST /agent-instances",
+      "property": "elementInstanceKey",
+      "qualifiedName": "elementInstanceKey",
+      "depth": 0,
+      "path": [
+        "components",
+        "schemas",
+        "AgentInstanceCreationRequest",
+        "properties",
+        "elementInstanceKey"
+      ],
+      "children": []
+    },
+    "POST /agent-instances > request > definition": {
+      "version": "8.10",
+      "location": "request",
+      "endpoint": "POST /agent-instances",
+      "property": "definition",
+      "qualifiedName": "definition",
+      "depth": 0,
+      "path": [
+        "components",
+        "schemas",
+        "AgentInstanceCreationRequest",
+        "properties",
+        "definition"
+      ],
+      "children": [
+        "POST /agent-instances > request > definition.model",
+        "POST /agent-instances > request > definition.provider",
+        "POST /agent-instances > request > definition.systemPrompt"
+      ]
+    },
+    "POST /agent-instances > request > definition.model": {
+      "version": "8.10",
+      "location": "request",
+      "endpoint": "POST /agent-instances",
+      "property": "model",
+      "qualifiedName": "definition.model",
+      "depth": 1,
+      "path": [
+        "components",
+        "schemas",
+        "AgentInstanceCreationRequest",
+        "properties",
+        "definition",
+        "properties",
+        "model"
+      ],
+      "children": []
+    },
+    "POST /agent-instances > request > definition.provider": {
+      "version": "8.10",
+      "location": "request",
+      "endpoint": "POST /agent-instances",
+      "property": "provider",
+      "qualifiedName": "definition.provider",
+      "depth": 1,
+      "path": [
+        "components",
+        "schemas",
+        "AgentInstanceCreationRequest",
+        "properties",
+        "definition",
+        "properties",
+        "provider"
+      ],
+      "children": []
+    },
+    "POST /agent-instances > request > definition.systemPrompt": {
+      "version": "8.10",
+      "location": "request",
+      "endpoint": "POST /agent-instances",
+      "property": "systemPrompt",
+      "qualifiedName": "definition.systemPrompt",
+      "depth": 1,
+      "path": [
+        "components",
+        "schemas",
+        "AgentInstanceCreationRequest",
+        "properties",
+        "definition",
+        "properties",
+        "systemPrompt"
+      ],
+      "children": []
+    },
+    "POST /agent-instances > request > limits": {
+      "version": "8.10",
+      "location": "request",
+      "endpoint": "POST /agent-instances",
+      "property": "limits",
+      "qualifiedName": "limits",
+      "depth": 0,
+      "path": [
+        "components",
+        "schemas",
+        "AgentInstanceCreationRequest",
+        "properties",
+        "limits"
+      ],
+      "children": [
+        "POST /agent-instances > request > limits.maxModelCalls",
+        "POST /agent-instances > request > limits.maxToolCalls",
+        "POST /agent-instances > request > limits.maxTokens"
+      ]
+    },
+    "POST /agent-instances > request > limits.maxModelCalls": {
+      "version": "8.10",
+      "location": "request",
+      "endpoint": "POST /agent-instances",
+      "property": "maxModelCalls",
+      "qualifiedName": "limits.maxModelCalls",
+      "depth": 1,
+      "path": [
+        "components",
+        "schemas",
+        "AgentInstanceCreationRequest",
+        "properties",
+        "limits",
+        "properties",
+        "maxModelCalls"
+      ],
+      "children": []
+    },
+    "POST /agent-instances > request > limits.maxToolCalls": {
+      "version": "8.10",
+      "location": "request",
+      "endpoint": "POST /agent-instances",
+      "property": "maxToolCalls",
+      "qualifiedName": "limits.maxToolCalls",
+      "depth": 1,
+      "path": [
+        "components",
+        "schemas",
+        "AgentInstanceCreationRequest",
+        "properties",
+        "limits",
+        "properties",
+        "maxToolCalls"
+      ],
+      "children": []
+    },
+    "POST /agent-instances > request > limits.maxTokens": {
+      "version": "8.10",
+      "location": "request",
+      "endpoint": "POST /agent-instances",
+      "property": "maxTokens",
+      "qualifiedName": "limits.maxTokens",
+      "depth": 1,
+      "path": [
+        "components",
+        "schemas",
+        "AgentInstanceCreationRequest",
+        "properties",
+        "limits",
+        "properties",
+        "maxTokens"
+      ],
+      "children": []
+    },
+    "POST /agent-instances > response > agentInstanceKey": {
+      "version": "8.10",
+      "location": "response",
+      "endpoint": "POST /agent-instances",
+      "property": "agentInstanceKey",
+      "qualifiedName": "agentInstanceKey",
+      "depth": 0,
+      "path": [
+        "components",
+        "schemas",
+        "AgentInstanceCreationResult",
+        "properties",
+        "agentInstanceKey"
+      ],
+      "children": []
+    },
+    "GET /agent-instances/{agentInstanceKey} > response > agentInstanceKey": {
+      "version": "8.10",
+      "location": "response",
+      "endpoint": "GET /agent-instances/{agentInstanceKey}",
+      "property": "agentInstanceKey",
+      "qualifiedName": "agentInstanceKey",
+      "depth": 0,
+      "path": [
+        "components",
+        "schemas",
+        "AgentInstanceResult",
+        "properties",
+        "agentInstanceKey"
+      ],
+      "children": []
+    },
+    "GET /agent-instances/{agentInstanceKey} > response > status": {
+      "version": "8.10",
+      "location": "response",
+      "endpoint": "GET /agent-instances/{agentInstanceKey}",
+      "property": "status",
+      "qualifiedName": "status",
+      "depth": 0,
+      "path": [
+        "components",
+        "schemas",
+        "AgentInstanceResult",
+        "properties",
+        "status"
+      ],
+      "children": []
+    },
+    "GET /agent-instances/{agentInstanceKey} > response > definition": {
+      "version": "8.10",
+      "location": "response",
+      "endpoint": "GET /agent-instances/{agentInstanceKey}",
+      "property": "definition",
+      "qualifiedName": "definition",
+      "depth": 0,
+      "path": [
+        "components",
+        "schemas",
+        "AgentInstanceResult",
+        "properties",
+        "definition"
+      ],
+      "children": [
+        "GET /agent-instances/{agentInstanceKey} > response > definition.model",
+        "GET /agent-instances/{agentInstanceKey} > response > definition.provider",
+        "GET /agent-instances/{agentInstanceKey} > response > definition.systemPrompt"
+      ]
+    },
+    "GET /agent-instances/{agentInstanceKey} > response > definition.model": {
+      "version": "8.10",
+      "location": "response",
+      "endpoint": "GET /agent-instances/{agentInstanceKey}",
+      "property": "model",
+      "qualifiedName": "definition.model",
+      "depth": 1,
+      "path": [
+        "components",
+        "schemas",
+        "AgentInstanceResult",
+        "properties",
+        "definition",
+        "properties",
+        "model"
+      ],
+      "children": []
+    },
+    "GET /agent-instances/{agentInstanceKey} > response > definition.provider": {
+      "version": "8.10",
+      "location": "response",
+      "endpoint": "GET /agent-instances/{agentInstanceKey}",
+      "property": "provider",
+      "qualifiedName": "definition.provider",
+      "depth": 1,
+      "path": [
+        "components",
+        "schemas",
+        "AgentInstanceResult",
+        "properties",
+        "definition",
+        "properties",
+        "provider"
+      ],
+      "children": []
+    },
+    "GET /agent-instances/{agentInstanceKey} > response > definition.systemPrompt": {
+      "version": "8.10",
+      "location": "response",
+      "endpoint": "GET /agent-instances/{agentInstanceKey}",
+      "property": "systemPrompt",
+      "qualifiedName": "definition.systemPrompt",
+      "depth": 1,
+      "path": [
+        "components",
+        "schemas",
+        "AgentInstanceResult",
+        "properties",
+        "definition",
+        "properties",
+        "systemPrompt"
+      ],
+      "children": []
+    },
+    "GET /agent-instances/{agentInstanceKey} > response > metrics": {
+      "version": "8.10",
+      "location": "response",
+      "endpoint": "GET /agent-instances/{agentInstanceKey}",
+      "property": "metrics",
+      "qualifiedName": "metrics",
+      "depth": 0,
+      "path": [
+        "components",
+        "schemas",
+        "AgentInstanceResult",
+        "properties",
+        "metrics"
+      ],
+      "children": [
+        "GET /agent-instances/{agentInstanceKey} > response > metrics.inputTokens",
+        "GET /agent-instances/{agentInstanceKey} > response > metrics.outputTokens",
+        "GET /agent-instances/{agentInstanceKey} > response > metrics.modelCalls",
+        "GET /agent-instances/{agentInstanceKey} > response > metrics.toolCalls"
+      ]
+    },
+    "GET /agent-instances/{agentInstanceKey} > response > metrics.inputTokens": {
+      "version": "8.10",
+      "location": "response",
+      "endpoint": "GET /agent-instances/{agentInstanceKey}",
+      "property": "inputTokens",
+      "qualifiedName": "metrics.inputTokens",
+      "depth": 1,
+      "path": [
+        "components",
+        "schemas",
+        "AgentInstanceResult",
+        "properties",
+        "metrics",
+        "properties",
+        "inputTokens"
+      ],
+      "children": []
+    },
+    "GET /agent-instances/{agentInstanceKey} > response > metrics.outputTokens": {
+      "version": "8.10",
+      "location": "response",
+      "endpoint": "GET /agent-instances/{agentInstanceKey}",
+      "property": "outputTokens",
+      "qualifiedName": "metrics.outputTokens",
+      "depth": 1,
+      "path": [
+        "components",
+        "schemas",
+        "AgentInstanceResult",
+        "properties",
+        "metrics",
+        "properties",
+        "outputTokens"
+      ],
+      "children": []
+    },
+    "GET /agent-instances/{agentInstanceKey} > response > metrics.modelCalls": {
+      "version": "8.10",
+      "location": "response",
+      "endpoint": "GET /agent-instances/{agentInstanceKey}",
+      "property": "modelCalls",
+      "qualifiedName": "metrics.modelCalls",
+      "depth": 1,
+      "path": [
+        "components",
+        "schemas",
+        "AgentInstanceResult",
+        "properties",
+        "metrics",
+        "properties",
+        "modelCalls"
+      ],
+      "children": []
+    },
+    "GET /agent-instances/{agentInstanceKey} > response > metrics.toolCalls": {
+      "version": "8.10",
+      "location": "response",
+      "endpoint": "GET /agent-instances/{agentInstanceKey}",
+      "property": "toolCalls",
+      "qualifiedName": "metrics.toolCalls",
+      "depth": 1,
+      "path": [
+        "components",
+        "schemas",
+        "AgentInstanceResult",
+        "properties",
+        "metrics",
+        "properties",
+        "toolCalls"
+      ],
+      "children": []
+    },
+    "GET /agent-instances/{agentInstanceKey} > response > limits": {
+      "version": "8.10",
+      "location": "response",
+      "endpoint": "GET /agent-instances/{agentInstanceKey}",
+      "property": "limits",
+      "qualifiedName": "limits",
+      "depth": 0,
+      "path": [
+        "components",
+        "schemas",
+        "AgentInstanceResult",
+        "properties",
+        "limits"
+      ],
+      "children": [
+        "GET /agent-instances/{agentInstanceKey} > response > limits.maxModelCalls",
+        "GET /agent-instances/{agentInstanceKey} > response > limits.maxToolCalls",
+        "GET /agent-instances/{agentInstanceKey} > response > limits.maxTokens"
+      ]
+    },
+    "GET /agent-instances/{agentInstanceKey} > response > limits.maxModelCalls": {
+      "version": "8.10",
+      "location": "response",
+      "endpoint": "GET /agent-instances/{agentInstanceKey}",
+      "property": "maxModelCalls",
+      "qualifiedName": "limits.maxModelCalls",
+      "depth": 1,
+      "path": [
+        "components",
+        "schemas",
+        "AgentInstanceResult",
+        "properties",
+        "limits",
+        "properties",
+        "maxModelCalls"
+      ],
+      "children": []
+    },
+    "GET /agent-instances/{agentInstanceKey} > response > limits.maxToolCalls": {
+      "version": "8.10",
+      "location": "response",
+      "endpoint": "GET /agent-instances/{agentInstanceKey}",
+      "property": "maxToolCalls",
+      "qualifiedName": "limits.maxToolCalls",
+      "depth": 1,
+      "path": [
+        "components",
+        "schemas",
+        "AgentInstanceResult",
+        "properties",
+        "limits",
+        "properties",
+        "maxToolCalls"
+      ],
+      "children": []
+    },
+    "GET /agent-instances/{agentInstanceKey} > response > limits.maxTokens": {
+      "version": "8.10",
+      "location": "response",
+      "endpoint": "GET /agent-instances/{agentInstanceKey}",
+      "property": "maxTokens",
+      "qualifiedName": "limits.maxTokens",
+      "depth": 1,
+      "path": [
+        "components",
+        "schemas",
+        "AgentInstanceResult",
+        "properties",
+        "limits",
+        "properties",
+        "maxTokens"
+      ],
+      "children": []
+    },
+    "GET /agent-instances/{agentInstanceKey} > response > tools": {
+      "version": "8.10",
+      "location": "response",
+      "endpoint": "GET /agent-instances/{agentInstanceKey}",
+      "property": "tools",
+      "qualifiedName": "tools",
+      "depth": 0,
+      "path": [
+        "components",
+        "schemas",
+        "AgentInstanceResult",
+        "properties",
+        "tools"
+      ],
+      "children": [
+        "GET /agent-instances/{agentInstanceKey} > response > tools[].name",
+        "GET /agent-instances/{agentInstanceKey} > response > tools[].description",
+        "GET /agent-instances/{agentInstanceKey} > response > tools[].elementId"
+      ]
+    },
+    "GET /agent-instances/{agentInstanceKey} > response > tools[].name": {
+      "version": "8.10",
+      "location": "response",
+      "endpoint": "GET /agent-instances/{agentInstanceKey}",
+      "property": "name",
+      "qualifiedName": "tools[].name",
+      "depth": 1,
+      "path": [
+        "components",
+        "schemas",
+        "AgentTool",
+        "properties",
+        "name"
+      ],
+      "children": []
+    },
+    "GET /agent-instances/{agentInstanceKey} > response > tools[].description": {
+      "version": "8.10",
+      "location": "response",
+      "endpoint": "GET /agent-instances/{agentInstanceKey}",
+      "property": "description",
+      "qualifiedName": "tools[].description",
+      "depth": 1,
+      "path": [
+        "components",
+        "schemas",
+        "AgentTool",
+        "properties",
+        "description"
+      ],
+      "children": []
+    },
+    "GET /agent-instances/{agentInstanceKey} > response > tools[].elementId": {
+      "version": "8.10",
+      "location": "response",
+      "endpoint": "GET /agent-instances/{agentInstanceKey}",
+      "property": "elementId",
+      "qualifiedName": "tools[].elementId",
+      "depth": 1,
+      "path": [
+        "components",
+        "schemas",
+        "AgentTool",
+        "properties",
+        "elementId"
+      ],
+      "children": []
+    },
+    "GET /agent-instances/{agentInstanceKey} > response > elementId": {
+      "version": "8.10",
+      "location": "response",
+      "endpoint": "GET /agent-instances/{agentInstanceKey}",
+      "property": "elementId",
+      "qualifiedName": "elementId",
+      "depth": 0,
+      "path": [
+        "components",
+        "schemas",
+        "AgentInstanceResult",
+        "properties",
+        "elementId"
+      ],
+      "children": []
+    },
+    "GET /agent-instances/{agentInstanceKey} > response > processInstanceKey": {
+      "version": "8.10",
+      "location": "response",
+      "endpoint": "GET /agent-instances/{agentInstanceKey}",
+      "property": "processInstanceKey",
+      "qualifiedName": "processInstanceKey",
+      "depth": 0,
+      "path": [
+        "components",
+        "schemas",
+        "AgentInstanceResult",
+        "properties",
+        "processInstanceKey"
+      ],
+      "children": []
+    },
+    "GET /agent-instances/{agentInstanceKey} > response > processDefinitionKey": {
+      "version": "8.10",
+      "location": "response",
+      "endpoint": "GET /agent-instances/{agentInstanceKey}",
+      "property": "processDefinitionKey",
+      "qualifiedName": "processDefinitionKey",
+      "depth": 0,
+      "path": [
+        "components",
+        "schemas",
+        "AgentInstanceResult",
+        "properties",
+        "processDefinitionKey"
+      ],
+      "children": []
+    },
+    "GET /agent-instances/{agentInstanceKey} > response > tenantId": {
+      "version": "8.10",
+      "location": "response",
+      "endpoint": "GET /agent-instances/{agentInstanceKey}",
+      "property": "tenantId",
+      "qualifiedName": "tenantId",
+      "depth": 0,
+      "path": [
+        "components",
+        "schemas",
+        "AgentInstanceResult",
+        "properties",
+        "tenantId"
+      ],
+      "children": []
+    },
+    "GET /agent-instances/{agentInstanceKey} > response > creationDate": {
+      "version": "8.10",
+      "location": "response",
+      "endpoint": "GET /agent-instances/{agentInstanceKey}",
+      "property": "creationDate",
+      "qualifiedName": "creationDate",
+      "depth": 0,
+      "path": [
+        "components",
+        "schemas",
+        "AgentInstanceResult",
+        "properties",
+        "creationDate"
+      ],
+      "children": []
+    },
+    "GET /agent-instances/{agentInstanceKey} > response > lastUpdatedDate": {
+      "version": "8.10",
+      "location": "response",
+      "endpoint": "GET /agent-instances/{agentInstanceKey}",
+      "property": "lastUpdatedDate",
+      "qualifiedName": "lastUpdatedDate",
+      "depth": 0,
+      "path": [
+        "components",
+        "schemas",
+        "AgentInstanceResult",
+        "properties",
+        "lastUpdatedDate"
+      ],
+      "children": []
+    },
+    "GET /agent-instances/{agentInstanceKey} > response > completionDate": {
+      "version": "8.10",
+      "location": "response",
+      "endpoint": "GET /agent-instances/{agentInstanceKey}",
+      "property": "completionDate",
+      "qualifiedName": "completionDate",
+      "depth": 0,
+      "path": [
+        "components",
+        "schemas",
+        "AgentInstanceResult",
+        "properties",
+        "completionDate"
+      ],
+      "children": []
+    },
+    "PATCH /agent-instances/{agentInstanceKey} > request > status": {
+      "version": "8.10",
+      "location": "request",
+      "endpoint": "PATCH /agent-instances/{agentInstanceKey}",
+      "property": "status",
+      "qualifiedName": "status",
+      "depth": 0,
+      "path": [
+        "components",
+        "schemas",
+        "AgentInstanceUpdateRequest",
+        "properties",
+        "status"
+      ],
+      "children": []
+    },
+    "PATCH /agent-instances/{agentInstanceKey} > request > metrics": {
+      "version": "8.10",
+      "location": "request",
+      "endpoint": "PATCH /agent-instances/{agentInstanceKey}",
+      "property": "metrics",
+      "qualifiedName": "metrics",
+      "depth": 0,
+      "path": [
+        "components",
+        "schemas",
+        "AgentInstanceUpdateRequest",
+        "properties",
+        "metrics"
+      ],
+      "children": [
+        "PATCH /agent-instances/{agentInstanceKey} > request > metrics.inputTokens",
+        "PATCH /agent-instances/{agentInstanceKey} > request > metrics.outputTokens",
+        "PATCH /agent-instances/{agentInstanceKey} > request > metrics.modelCalls",
+        "PATCH /agent-instances/{agentInstanceKey} > request > metrics.toolCalls"
+      ]
+    },
+    "PATCH /agent-instances/{agentInstanceKey} > request > metrics.inputTokens": {
+      "version": "8.10",
+      "location": "request",
+      "endpoint": "PATCH /agent-instances/{agentInstanceKey}",
+      "property": "inputTokens",
+      "qualifiedName": "metrics.inputTokens",
+      "depth": 1,
+      "path": [
+        "components",
+        "schemas",
+        "AgentInstanceUpdateRequest",
+        "properties",
+        "metrics",
+        "properties",
+        "inputTokens"
+      ],
+      "children": []
+    },
+    "PATCH /agent-instances/{agentInstanceKey} > request > metrics.outputTokens": {
+      "version": "8.10",
+      "location": "request",
+      "endpoint": "PATCH /agent-instances/{agentInstanceKey}",
+      "property": "outputTokens",
+      "qualifiedName": "metrics.outputTokens",
+      "depth": 1,
+      "path": [
+        "components",
+        "schemas",
+        "AgentInstanceUpdateRequest",
+        "properties",
+        "metrics",
+        "properties",
+        "outputTokens"
+      ],
+      "children": []
+    },
+    "PATCH /agent-instances/{agentInstanceKey} > request > metrics.modelCalls": {
+      "version": "8.10",
+      "location": "request",
+      "endpoint": "PATCH /agent-instances/{agentInstanceKey}",
+      "property": "modelCalls",
+      "qualifiedName": "metrics.modelCalls",
+      "depth": 1,
+      "path": [
+        "components",
+        "schemas",
+        "AgentInstanceUpdateRequest",
+        "properties",
+        "metrics",
+        "properties",
+        "modelCalls"
+      ],
+      "children": []
+    },
+    "PATCH /agent-instances/{agentInstanceKey} > request > metrics.toolCalls": {
+      "version": "8.10",
+      "location": "request",
+      "endpoint": "PATCH /agent-instances/{agentInstanceKey}",
+      "property": "toolCalls",
+      "qualifiedName": "metrics.toolCalls",
+      "depth": 1,
+      "path": [
+        "components",
+        "schemas",
+        "AgentInstanceUpdateRequest",
+        "properties",
+        "metrics",
+        "properties",
+        "toolCalls"
+      ],
+      "children": []
+    },
+    "PATCH /agent-instances/{agentInstanceKey} > request > tools": {
+      "version": "8.10",
+      "location": "request",
+      "endpoint": "PATCH /agent-instances/{agentInstanceKey}",
+      "property": "tools",
+      "qualifiedName": "tools",
+      "depth": 0,
+      "path": [
+        "components",
+        "schemas",
+        "AgentInstanceUpdateRequest",
+        "properties",
+        "tools"
+      ],
+      "children": [
+        "PATCH /agent-instances/{agentInstanceKey} > request > tools[].name",
+        "PATCH /agent-instances/{agentInstanceKey} > request > tools[].description",
+        "PATCH /agent-instances/{agentInstanceKey} > request > tools[].elementId"
+      ]
+    },
+    "PATCH /agent-instances/{agentInstanceKey} > request > tools[].name": {
+      "version": "8.10",
+      "location": "request",
+      "endpoint": "PATCH /agent-instances/{agentInstanceKey}",
+      "property": "name",
+      "qualifiedName": "tools[].name",
+      "depth": 1,
+      "path": [
+        "components",
+        "schemas",
+        "AgentTool",
+        "properties",
+        "name"
+      ],
+      "children": []
+    },
+    "PATCH /agent-instances/{agentInstanceKey} > request > tools[].description": {
+      "version": "8.10",
+      "location": "request",
+      "endpoint": "PATCH /agent-instances/{agentInstanceKey}",
+      "property": "description",
+      "qualifiedName": "tools[].description",
+      "depth": 1,
+      "path": [
+        "components",
+        "schemas",
+        "AgentTool",
+        "properties",
+        "description"
+      ],
+      "children": []
+    },
+    "PATCH /agent-instances/{agentInstanceKey} > request > tools[].elementId": {
+      "version": "8.10",
+      "location": "request",
+      "endpoint": "PATCH /agent-instances/{agentInstanceKey}",
+      "property": "elementId",
+      "qualifiedName": "tools[].elementId",
+      "depth": 1,
+      "path": [
+        "components",
+        "schemas",
+        "AgentTool",
+        "properties",
+        "elementId"
+      ],
+      "children": []
+    },
+    "POST /agent-instances/search > request > sort": {
+      "version": "8.10",
+      "location": "request",
+      "endpoint": "POST /agent-instances/search",
+      "property": "sort",
+      "qualifiedName": "sort",
+      "depth": 0,
+      "path": [
+        "components",
+        "schemas",
+        "AgentInstanceSearchQuery",
+        "properties",
+        "sort"
+      ],
+      "children": [
+        "POST /agent-instances/search > request > sort[].field",
+        "POST /agent-instances/search > request > sort[].order"
+      ]
+    },
+    "POST /agent-instances/search > request > sort[].field": {
+      "version": "8.10",
+      "location": "request",
+      "endpoint": "POST /agent-instances/search",
+      "property": "field",
+      "qualifiedName": "sort[].field",
+      "depth": 1,
+      "path": [
+        "components",
+        "schemas",
+        "AgentInstanceSearchQuerySortRequest",
+        "properties",
+        "field"
+      ],
+      "children": []
+    },
+    "POST /agent-instances/search > request > sort[].order": {
+      "version": "8.10",
+      "location": "request",
+      "endpoint": "POST /agent-instances/search",
+      "property": "order",
+      "qualifiedName": "sort[].order",
+      "depth": 1,
+      "path": [
+        "components",
+        "schemas",
+        "AgentInstanceSearchQuerySortRequest",
+        "properties",
+        "order"
+      ],
+      "children": []
+    },
+    "POST /agent-instances/search > request > filter": {
+      "version": "8.10",
+      "location": "request",
+      "endpoint": "POST /agent-instances/search",
+      "property": "filter",
+      "qualifiedName": "filter",
+      "depth": 0,
+      "path": [
+        "components",
+        "schemas",
+        "AgentInstanceSearchQuery",
+        "properties",
+        "filter"
+      ],
+      "children": [
+        "POST /agent-instances/search > request > filter.agentInstanceKey",
+        "POST /agent-instances/search > request > filter.status",
+        "POST /agent-instances/search > request > filter.elementId",
+        "POST /agent-instances/search > request > filter.processInstanceKey",
+        "POST /agent-instances/search > request > filter.processDefinitionKey",
+        "POST /agent-instances/search > request > filter.tenantId",
+        "POST /agent-instances/search > request > filter.creationDate",
+        "POST /agent-instances/search > request > filter.lastUpdatedDate",
+        "POST /agent-instances/search > request > filter.completionDate"
+      ]
+    },
+    "POST /agent-instances/search > request > filter.agentInstanceKey": {
+      "version": "8.10",
+      "location": "request",
+      "endpoint": "POST /agent-instances/search",
+      "property": "agentInstanceKey",
+      "qualifiedName": "filter.agentInstanceKey",
+      "depth": 1,
+      "path": [
+        "components",
+        "schemas",
+        "AgentInstanceSearchQuery",
+        "properties",
+        "filter",
+        "properties",
+        "agentInstanceKey"
+      ],
+      "children": [
+        "POST /agent-instances/search > request > filter.agentInstanceKey.$eq",
+        "POST /agent-instances/search > request > filter.agentInstanceKey.$neq",
+        "POST /agent-instances/search > request > filter.agentInstanceKey.$exists",
+        "POST /agent-instances/search > request > filter.agentInstanceKey.$in",
+        "POST /agent-instances/search > request > filter.agentInstanceKey.$notIn"
+      ]
+    },
+    "POST /agent-instances/search > request > filter.agentInstanceKey.$eq": {
+      "version": "8.10",
+      "location": "request",
+      "endpoint": "POST /agent-instances/search",
+      "property": "$eq",
+      "qualifiedName": "filter.agentInstanceKey.$eq",
+      "depth": 2,
+      "path": [
+        "keys.yaml",
+        "components",
+        "schemas",
+        "AdvancedAgentInstanceKeyFilter",
+        "properties",
+        "$eq"
+      ],
+      "children": []
+    },
+    "POST /agent-instances/search > request > filter.agentInstanceKey.$neq": {
+      "version": "8.10",
+      "location": "request",
+      "endpoint": "POST /agent-instances/search",
+      "property": "$neq",
+      "qualifiedName": "filter.agentInstanceKey.$neq",
+      "depth": 2,
+      "path": [
+        "keys.yaml",
+        "components",
+        "schemas",
+        "AdvancedAgentInstanceKeyFilter",
+        "properties",
+        "$neq"
+      ],
+      "children": []
+    },
+    "POST /agent-instances/search > request > filter.agentInstanceKey.$exists": {
+      "version": "8.10",
+      "location": "request",
+      "endpoint": "POST /agent-instances/search",
+      "property": "$exists",
+      "qualifiedName": "filter.agentInstanceKey.$exists",
+      "depth": 2,
+      "path": [
+        "keys.yaml",
+        "components",
+        "schemas",
+        "AdvancedAgentInstanceKeyFilter",
+        "properties",
+        "$exists"
+      ],
+      "children": []
+    },
+    "POST /agent-instances/search > request > filter.agentInstanceKey.$in": {
+      "version": "8.10",
+      "location": "request",
+      "endpoint": "POST /agent-instances/search",
+      "property": "$in",
+      "qualifiedName": "filter.agentInstanceKey.$in",
+      "depth": 2,
+      "path": [
+        "keys.yaml",
+        "components",
+        "schemas",
+        "AdvancedAgentInstanceKeyFilter",
+        "properties",
+        "$in"
+      ],
+      "children": []
+    },
+    "POST /agent-instances/search > request > filter.agentInstanceKey.$notIn": {
+      "version": "8.10",
+      "location": "request",
+      "endpoint": "POST /agent-instances/search",
+      "property": "$notIn",
+      "qualifiedName": "filter.agentInstanceKey.$notIn",
+      "depth": 2,
+      "path": [
+        "keys.yaml",
+        "components",
+        "schemas",
+        "AdvancedAgentInstanceKeyFilter",
+        "properties",
+        "$notIn"
+      ],
+      "children": []
+    },
+    "POST /agent-instances/search > request > filter.status": {
+      "version": "8.10",
+      "location": "request",
+      "endpoint": "POST /agent-instances/search",
+      "property": "status",
+      "qualifiedName": "filter.status",
+      "depth": 1,
+      "path": [
+        "components",
+        "schemas",
+        "AgentInstanceSearchQuery",
+        "properties",
+        "filter",
+        "properties",
+        "status"
+      ],
+      "children": [
+        "POST /agent-instances/search > request > filter.status.$eq",
+        "POST /agent-instances/search > request > filter.status.$neq",
+        "POST /agent-instances/search > request > filter.status.$exists",
+        "POST /agent-instances/search > request > filter.status.$in",
+        "POST /agent-instances/search > request > filter.status.$like"
+      ]
+    },
+    "POST /agent-instances/search > request > filter.status.$eq": {
+      "version": "8.10",
+      "location": "request",
+      "endpoint": "POST /agent-instances/search",
+      "property": "$eq",
+      "qualifiedName": "filter.status.$eq",
+      "depth": 2,
+      "path": [
+        "components",
+        "schemas",
+        "AdvancedAgentInstanceStatusFilter",
+        "properties",
+        "$eq"
+      ],
+      "children": []
+    },
+    "POST /agent-instances/search > request > filter.status.$neq": {
+      "version": "8.10",
+      "location": "request",
+      "endpoint": "POST /agent-instances/search",
+      "property": "$neq",
+      "qualifiedName": "filter.status.$neq",
+      "depth": 2,
+      "path": [
+        "components",
+        "schemas",
+        "AdvancedAgentInstanceStatusFilter",
+        "properties",
+        "$neq"
+      ],
+      "children": []
+    },
+    "POST /agent-instances/search > request > filter.status.$exists": {
+      "version": "8.10",
+      "location": "request",
+      "endpoint": "POST /agent-instances/search",
+      "property": "$exists",
+      "qualifiedName": "filter.status.$exists",
+      "depth": 2,
+      "path": [
+        "components",
+        "schemas",
+        "AdvancedAgentInstanceStatusFilter",
+        "properties",
+        "$exists"
+      ],
+      "children": []
+    },
+    "POST /agent-instances/search > request > filter.status.$in": {
+      "version": "8.10",
+      "location": "request",
+      "endpoint": "POST /agent-instances/search",
+      "property": "$in",
+      "qualifiedName": "filter.status.$in",
+      "depth": 2,
+      "path": [
+        "components",
+        "schemas",
+        "AdvancedAgentInstanceStatusFilter",
+        "properties",
+        "$in"
+      ],
+      "children": []
+    },
+    "POST /agent-instances/search > request > filter.status.$like": {
+      "version": "8.10",
+      "location": "request",
+      "endpoint": "POST /agent-instances/search",
+      "property": "$like",
+      "qualifiedName": "filter.status.$like",
+      "depth": 2,
+      "path": [
+        "components",
+        "schemas",
+        "AdvancedAgentInstanceStatusFilter",
+        "properties",
+        "$like"
+      ],
+      "children": []
+    },
+    "POST /agent-instances/search > request > filter.elementId": {
+      "version": "8.10",
+      "location": "request",
+      "endpoint": "POST /agent-instances/search",
+      "property": "elementId",
+      "qualifiedName": "filter.elementId",
+      "depth": 1,
+      "path": [
+        "components",
+        "schemas",
+        "AgentInstanceSearchQuery",
+        "properties",
+        "filter",
+        "properties",
+        "elementId"
+      ],
+      "children": [
+        "POST /agent-instances/search > request > filter.elementId.$eq",
+        "POST /agent-instances/search > request > filter.elementId.$neq",
+        "POST /agent-instances/search > request > filter.elementId.$exists",
+        "POST /agent-instances/search > request > filter.elementId.$in",
+        "POST /agent-instances/search > request > filter.elementId.$notIn",
+        "POST /agent-instances/search > request > filter.elementId.$like"
+      ]
+    },
+    "POST /agent-instances/search > request > filter.elementId.$eq": {
+      "version": "8.10",
+      "location": "request",
+      "endpoint": "POST /agent-instances/search",
+      "property": "$eq",
+      "qualifiedName": "filter.elementId.$eq",
+      "depth": 2,
+      "path": [
+        "identifiers.yaml",
+        "components",
+        "schemas",
+        "AdvancedElementIdFilter",
+        "properties",
+        "$eq"
+      ],
+      "children": []
+    },
+    "POST /agent-instances/search > request > filter.elementId.$neq": {
+      "version": "8.10",
+      "location": "request",
+      "endpoint": "POST /agent-instances/search",
+      "property": "$neq",
+      "qualifiedName": "filter.elementId.$neq",
+      "depth": 2,
+      "path": [
+        "identifiers.yaml",
+        "components",
+        "schemas",
+        "AdvancedElementIdFilter",
+        "properties",
+        "$neq"
+      ],
+      "children": []
+    },
+    "POST /agent-instances/search > request > filter.elementId.$exists": {
+      "version": "8.10",
+      "location": "request",
+      "endpoint": "POST /agent-instances/search",
+      "property": "$exists",
+      "qualifiedName": "filter.elementId.$exists",
+      "depth": 2,
+      "path": [
+        "identifiers.yaml",
+        "components",
+        "schemas",
+        "AdvancedElementIdFilter",
+        "properties",
+        "$exists"
+      ],
+      "children": []
+    },
+    "POST /agent-instances/search > request > filter.elementId.$in": {
+      "version": "8.10",
+      "location": "request",
+      "endpoint": "POST /agent-instances/search",
+      "property": "$in",
+      "qualifiedName": "filter.elementId.$in",
+      "depth": 2,
+      "path": [
+        "identifiers.yaml",
+        "components",
+        "schemas",
+        "AdvancedElementIdFilter",
+        "properties",
+        "$in"
+      ],
+      "children": []
+    },
+    "POST /agent-instances/search > request > filter.elementId.$notIn": {
+      "version": "8.10",
+      "location": "request",
+      "endpoint": "POST /agent-instances/search",
+      "property": "$notIn",
+      "qualifiedName": "filter.elementId.$notIn",
+      "depth": 2,
+      "path": [
+        "identifiers.yaml",
+        "components",
+        "schemas",
+        "AdvancedElementIdFilter",
+        "properties",
+        "$notIn"
+      ],
+      "children": []
+    },
+    "POST /agent-instances/search > request > filter.elementId.$like": {
+      "version": "8.10",
+      "location": "request",
+      "endpoint": "POST /agent-instances/search",
+      "property": "$like",
+      "qualifiedName": "filter.elementId.$like",
+      "depth": 2,
+      "path": [
+        "identifiers.yaml",
+        "components",
+        "schemas",
+        "AdvancedElementIdFilter",
+        "properties",
+        "$like"
+      ],
+      "children": []
+    },
+    "POST /agent-instances/search > request > filter.processInstanceKey": {
+      "version": "8.10",
+      "location": "request",
+      "endpoint": "POST /agent-instances/search",
+      "property": "processInstanceKey",
+      "qualifiedName": "filter.processInstanceKey",
+      "depth": 1,
+      "path": [
+        "components",
+        "schemas",
+        "AgentInstanceSearchQuery",
+        "properties",
+        "filter",
+        "properties",
+        "processInstanceKey"
+      ],
+      "children": [
+        "POST /agent-instances/search > request > filter.processInstanceKey.$eq",
+        "POST /agent-instances/search > request > filter.processInstanceKey.$neq",
+        "POST /agent-instances/search > request > filter.processInstanceKey.$exists",
+        "POST /agent-instances/search > request > filter.processInstanceKey.$in",
+        "POST /agent-instances/search > request > filter.processInstanceKey.$notIn"
+      ]
+    },
+    "POST /agent-instances/search > request > filter.processInstanceKey.$eq": {
+      "version": "8.10",
+      "location": "request",
+      "endpoint": "POST /agent-instances/search",
+      "property": "$eq",
+      "qualifiedName": "filter.processInstanceKey.$eq",
+      "depth": 2,
+      "path": [
+        "keys.yaml",
+        "components",
+        "schemas",
+        "AdvancedProcessInstanceKeyFilter",
+        "properties",
+        "$eq"
+      ],
+      "children": []
+    },
+    "POST /agent-instances/search > request > filter.processInstanceKey.$neq": {
+      "version": "8.10",
+      "location": "request",
+      "endpoint": "POST /agent-instances/search",
+      "property": "$neq",
+      "qualifiedName": "filter.processInstanceKey.$neq",
+      "depth": 2,
+      "path": [
+        "keys.yaml",
+        "components",
+        "schemas",
+        "AdvancedProcessInstanceKeyFilter",
+        "properties",
+        "$neq"
+      ],
+      "children": []
+    },
+    "POST /agent-instances/search > request > filter.processInstanceKey.$exists": {
+      "version": "8.10",
+      "location": "request",
+      "endpoint": "POST /agent-instances/search",
+      "property": "$exists",
+      "qualifiedName": "filter.processInstanceKey.$exists",
+      "depth": 2,
+      "path": [
+        "keys.yaml",
+        "components",
+        "schemas",
+        "AdvancedProcessInstanceKeyFilter",
+        "properties",
+        "$exists"
+      ],
+      "children": []
+    },
+    "POST /agent-instances/search > request > filter.processInstanceKey.$in": {
+      "version": "8.10",
+      "location": "request",
+      "endpoint": "POST /agent-instances/search",
+      "property": "$in",
+      "qualifiedName": "filter.processInstanceKey.$in",
+      "depth": 2,
+      "path": [
+        "keys.yaml",
+        "components",
+        "schemas",
+        "AdvancedProcessInstanceKeyFilter",
+        "properties",
+        "$in"
+      ],
+      "children": []
+    },
+    "POST /agent-instances/search > request > filter.processInstanceKey.$notIn": {
+      "version": "8.10",
+      "location": "request",
+      "endpoint": "POST /agent-instances/search",
+      "property": "$notIn",
+      "qualifiedName": "filter.processInstanceKey.$notIn",
+      "depth": 2,
+      "path": [
+        "keys.yaml",
+        "components",
+        "schemas",
+        "AdvancedProcessInstanceKeyFilter",
+        "properties",
+        "$notIn"
+      ],
+      "children": []
+    },
+    "POST /agent-instances/search > request > filter.processDefinitionKey": {
+      "version": "8.10",
+      "location": "request",
+      "endpoint": "POST /agent-instances/search",
+      "property": "processDefinitionKey",
+      "qualifiedName": "filter.processDefinitionKey",
+      "depth": 1,
+      "path": [
+        "components",
+        "schemas",
+        "AgentInstanceSearchQuery",
+        "properties",
+        "filter",
+        "properties",
+        "processDefinitionKey"
+      ],
+      "children": [
+        "POST /agent-instances/search > request > filter.processDefinitionKey.$eq",
+        "POST /agent-instances/search > request > filter.processDefinitionKey.$neq",
+        "POST /agent-instances/search > request > filter.processDefinitionKey.$exists",
+        "POST /agent-instances/search > request > filter.processDefinitionKey.$in",
+        "POST /agent-instances/search > request > filter.processDefinitionKey.$notIn"
+      ]
+    },
+    "POST /agent-instances/search > request > filter.processDefinitionKey.$eq": {
+      "version": "8.10",
+      "location": "request",
+      "endpoint": "POST /agent-instances/search",
+      "property": "$eq",
+      "qualifiedName": "filter.processDefinitionKey.$eq",
+      "depth": 2,
+      "path": [
+        "keys.yaml",
+        "components",
+        "schemas",
+        "AdvancedProcessDefinitionKeyFilter",
+        "properties",
+        "$eq"
+      ],
+      "children": []
+    },
+    "POST /agent-instances/search > request > filter.processDefinitionKey.$neq": {
+      "version": "8.10",
+      "location": "request",
+      "endpoint": "POST /agent-instances/search",
+      "property": "$neq",
+      "qualifiedName": "filter.processDefinitionKey.$neq",
+      "depth": 2,
+      "path": [
+        "keys.yaml",
+        "components",
+        "schemas",
+        "AdvancedProcessDefinitionKeyFilter",
+        "properties",
+        "$neq"
+      ],
+      "children": []
+    },
+    "POST /agent-instances/search > request > filter.processDefinitionKey.$exists": {
+      "version": "8.10",
+      "location": "request",
+      "endpoint": "POST /agent-instances/search",
+      "property": "$exists",
+      "qualifiedName": "filter.processDefinitionKey.$exists",
+      "depth": 2,
+      "path": [
+        "keys.yaml",
+        "components",
+        "schemas",
+        "AdvancedProcessDefinitionKeyFilter",
+        "properties",
+        "$exists"
+      ],
+      "children": []
+    },
+    "POST /agent-instances/search > request > filter.processDefinitionKey.$in": {
+      "version": "8.10",
+      "location": "request",
+      "endpoint": "POST /agent-instances/search",
+      "property": "$in",
+      "qualifiedName": "filter.processDefinitionKey.$in",
+      "depth": 2,
+      "path": [
+        "keys.yaml",
+        "components",
+        "schemas",
+        "AdvancedProcessDefinitionKeyFilter",
+        "properties",
+        "$in"
+      ],
+      "children": []
+    },
+    "POST /agent-instances/search > request > filter.processDefinitionKey.$notIn": {
+      "version": "8.10",
+      "location": "request",
+      "endpoint": "POST /agent-instances/search",
+      "property": "$notIn",
+      "qualifiedName": "filter.processDefinitionKey.$notIn",
+      "depth": 2,
+      "path": [
+        "keys.yaml",
+        "components",
+        "schemas",
+        "AdvancedProcessDefinitionKeyFilter",
+        "properties",
+        "$notIn"
+      ],
+      "children": []
+    },
+    "POST /agent-instances/search > request > filter.tenantId": {
+      "version": "8.10",
+      "location": "request",
+      "endpoint": "POST /agent-instances/search",
+      "property": "tenantId",
+      "qualifiedName": "filter.tenantId",
+      "depth": 1,
+      "path": [
+        "components",
+        "schemas",
+        "AgentInstanceSearchQuery",
+        "properties",
+        "filter",
+        "properties",
+        "tenantId"
+      ],
+      "children": [
+        "POST /agent-instances/search > request > filter.tenantId.$eq",
+        "POST /agent-instances/search > request > filter.tenantId.$neq",
+        "POST /agent-instances/search > request > filter.tenantId.$exists",
+        "POST /agent-instances/search > request > filter.tenantId.$in",
+        "POST /agent-instances/search > request > filter.tenantId.$notIn",
+        "POST /agent-instances/search > request > filter.tenantId.$like"
+      ]
+    },
+    "POST /agent-instances/search > request > filter.tenantId.$eq": {
+      "version": "8.10",
+      "location": "request",
+      "endpoint": "POST /agent-instances/search",
+      "property": "$eq",
+      "qualifiedName": "filter.tenantId.$eq",
+      "depth": 2,
+      "path": [
+        "filters.yaml",
+        "components",
+        "schemas",
+        "BasicStringFilter",
+        "properties",
+        "$eq"
+      ],
+      "children": []
+    },
+    "POST /agent-instances/search > request > filter.tenantId.$neq": {
+      "version": "8.10",
+      "location": "request",
+      "endpoint": "POST /agent-instances/search",
+      "property": "$neq",
+      "qualifiedName": "filter.tenantId.$neq",
+      "depth": 2,
+      "path": [
+        "filters.yaml",
+        "components",
+        "schemas",
+        "BasicStringFilter",
+        "properties",
+        "$neq"
+      ],
+      "children": []
+    },
+    "POST /agent-instances/search > request > filter.tenantId.$exists": {
+      "version": "8.10",
+      "location": "request",
+      "endpoint": "POST /agent-instances/search",
+      "property": "$exists",
+      "qualifiedName": "filter.tenantId.$exists",
+      "depth": 2,
+      "path": [
+        "filters.yaml",
+        "components",
+        "schemas",
+        "BasicStringFilter",
+        "properties",
+        "$exists"
+      ],
+      "children": []
+    },
+    "POST /agent-instances/search > request > filter.tenantId.$in": {
+      "version": "8.10",
+      "location": "request",
+      "endpoint": "POST /agent-instances/search",
+      "property": "$in",
+      "qualifiedName": "filter.tenantId.$in",
+      "depth": 2,
+      "path": [
+        "filters.yaml",
+        "components",
+        "schemas",
+        "BasicStringFilter",
+        "properties",
+        "$in"
+      ],
+      "children": []
+    },
+    "POST /agent-instances/search > request > filter.tenantId.$notIn": {
+      "version": "8.10",
+      "location": "request",
+      "endpoint": "POST /agent-instances/search",
+      "property": "$notIn",
+      "qualifiedName": "filter.tenantId.$notIn",
+      "depth": 2,
+      "path": [
+        "filters.yaml",
+        "components",
+        "schemas",
+        "BasicStringFilter",
+        "properties",
+        "$notIn"
+      ],
+      "children": []
+    },
+    "POST /agent-instances/search > request > filter.tenantId.$like": {
+      "version": "8.10",
+      "location": "request",
+      "endpoint": "POST /agent-instances/search",
+      "property": "$like",
+      "qualifiedName": "filter.tenantId.$like",
+      "depth": 2,
+      "path": [
+        "filters.yaml",
+        "components",
+        "schemas",
+        "AdvancedStringFilter",
+        "allOf",
+        "1",
+        "properties",
+        "$like"
+      ],
+      "children": []
+    },
+    "POST /agent-instances/search > request > filter.creationDate": {
+      "version": "8.10",
+      "location": "request",
+      "endpoint": "POST /agent-instances/search",
+      "property": "creationDate",
+      "qualifiedName": "filter.creationDate",
+      "depth": 1,
+      "path": [
+        "components",
+        "schemas",
+        "AgentInstanceSearchQuery",
+        "properties",
+        "filter",
+        "properties",
+        "creationDate"
+      ],
+      "children": [
+        "POST /agent-instances/search > request > filter.creationDate.$eq",
+        "POST /agent-instances/search > request > filter.creationDate.$neq",
+        "POST /agent-instances/search > request > filter.creationDate.$exists",
+        "POST /agent-instances/search > request > filter.creationDate.$gt",
+        "POST /agent-instances/search > request > filter.creationDate.$gte",
+        "POST /agent-instances/search > request > filter.creationDate.$lt",
+        "POST /agent-instances/search > request > filter.creationDate.$lte",
+        "POST /agent-instances/search > request > filter.creationDate.$in"
+      ]
+    },
+    "POST /agent-instances/search > request > filter.creationDate.$eq": {
+      "version": "8.10",
+      "location": "request",
+      "endpoint": "POST /agent-instances/search",
+      "property": "$eq",
+      "qualifiedName": "filter.creationDate.$eq",
+      "depth": 2,
+      "path": [
+        "filters.yaml",
+        "components",
+        "schemas",
+        "AdvancedDateTimeFilter",
+        "properties",
+        "$eq"
+      ],
+      "children": []
+    },
+    "POST /agent-instances/search > request > filter.creationDate.$neq": {
+      "version": "8.10",
+      "location": "request",
+      "endpoint": "POST /agent-instances/search",
+      "property": "$neq",
+      "qualifiedName": "filter.creationDate.$neq",
+      "depth": 2,
+      "path": [
+        "filters.yaml",
+        "components",
+        "schemas",
+        "AdvancedDateTimeFilter",
+        "properties",
+        "$neq"
+      ],
+      "children": []
+    },
+    "POST /agent-instances/search > request > filter.creationDate.$exists": {
+      "version": "8.10",
+      "location": "request",
+      "endpoint": "POST /agent-instances/search",
+      "property": "$exists",
+      "qualifiedName": "filter.creationDate.$exists",
+      "depth": 2,
+      "path": [
+        "filters.yaml",
+        "components",
+        "schemas",
+        "AdvancedDateTimeFilter",
+        "properties",
+        "$exists"
+      ],
+      "children": []
+    },
+    "POST /agent-instances/search > request > filter.creationDate.$gt": {
+      "version": "8.10",
+      "location": "request",
+      "endpoint": "POST /agent-instances/search",
+      "property": "$gt",
+      "qualifiedName": "filter.creationDate.$gt",
+      "depth": 2,
+      "path": [
+        "filters.yaml",
+        "components",
+        "schemas",
+        "AdvancedDateTimeFilter",
+        "properties",
+        "$gt"
+      ],
+      "children": []
+    },
+    "POST /agent-instances/search > request > filter.creationDate.$gte": {
+      "version": "8.10",
+      "location": "request",
+      "endpoint": "POST /agent-instances/search",
+      "property": "$gte",
+      "qualifiedName": "filter.creationDate.$gte",
+      "depth": 2,
+      "path": [
+        "filters.yaml",
+        "components",
+        "schemas",
+        "AdvancedDateTimeFilter",
+        "properties",
+        "$gte"
+      ],
+      "children": []
+    },
+    "POST /agent-instances/search > request > filter.creationDate.$lt": {
+      "version": "8.10",
+      "location": "request",
+      "endpoint": "POST /agent-instances/search",
+      "property": "$lt",
+      "qualifiedName": "filter.creationDate.$lt",
+      "depth": 2,
+      "path": [
+        "filters.yaml",
+        "components",
+        "schemas",
+        "AdvancedDateTimeFilter",
+        "properties",
+        "$lt"
+      ],
+      "children": []
+    },
+    "POST /agent-instances/search > request > filter.creationDate.$lte": {
+      "version": "8.10",
+      "location": "request",
+      "endpoint": "POST /agent-instances/search",
+      "property": "$lte",
+      "qualifiedName": "filter.creationDate.$lte",
+      "depth": 2,
+      "path": [
+        "filters.yaml",
+        "components",
+        "schemas",
+        "AdvancedDateTimeFilter",
+        "properties",
+        "$lte"
+      ],
+      "children": []
+    },
+    "POST /agent-instances/search > request > filter.creationDate.$in": {
+      "version": "8.10",
+      "location": "request",
+      "endpoint": "POST /agent-instances/search",
+      "property": "$in",
+      "qualifiedName": "filter.creationDate.$in",
+      "depth": 2,
+      "path": [
+        "filters.yaml",
+        "components",
+        "schemas",
+        "AdvancedDateTimeFilter",
+        "properties",
+        "$in"
+      ],
+      "children": []
+    },
+    "POST /agent-instances/search > request > filter.lastUpdatedDate": {
+      "version": "8.10",
+      "location": "request",
+      "endpoint": "POST /agent-instances/search",
+      "property": "lastUpdatedDate",
+      "qualifiedName": "filter.lastUpdatedDate",
+      "depth": 1,
+      "path": [
+        "components",
+        "schemas",
+        "AgentInstanceSearchQuery",
+        "properties",
+        "filter",
+        "properties",
+        "lastUpdatedDate"
+      ],
+      "children": [
+        "POST /agent-instances/search > request > filter.lastUpdatedDate.$eq",
+        "POST /agent-instances/search > request > filter.lastUpdatedDate.$neq",
+        "POST /agent-instances/search > request > filter.lastUpdatedDate.$exists",
+        "POST /agent-instances/search > request > filter.lastUpdatedDate.$gt",
+        "POST /agent-instances/search > request > filter.lastUpdatedDate.$gte",
+        "POST /agent-instances/search > request > filter.lastUpdatedDate.$lt",
+        "POST /agent-instances/search > request > filter.lastUpdatedDate.$lte",
+        "POST /agent-instances/search > request > filter.lastUpdatedDate.$in"
+      ]
+    },
+    "POST /agent-instances/search > request > filter.lastUpdatedDate.$eq": {
+      "version": "8.10",
+      "location": "request",
+      "endpoint": "POST /agent-instances/search",
+      "property": "$eq",
+      "qualifiedName": "filter.lastUpdatedDate.$eq",
+      "depth": 2,
+      "path": [
+        "filters.yaml",
+        "components",
+        "schemas",
+        "AdvancedDateTimeFilter",
+        "properties",
+        "$eq"
+      ],
+      "children": []
+    },
+    "POST /agent-instances/search > request > filter.lastUpdatedDate.$neq": {
+      "version": "8.10",
+      "location": "request",
+      "endpoint": "POST /agent-instances/search",
+      "property": "$neq",
+      "qualifiedName": "filter.lastUpdatedDate.$neq",
+      "depth": 2,
+      "path": [
+        "filters.yaml",
+        "components",
+        "schemas",
+        "AdvancedDateTimeFilter",
+        "properties",
+        "$neq"
+      ],
+      "children": []
+    },
+    "POST /agent-instances/search > request > filter.lastUpdatedDate.$exists": {
+      "version": "8.10",
+      "location": "request",
+      "endpoint": "POST /agent-instances/search",
+      "property": "$exists",
+      "qualifiedName": "filter.lastUpdatedDate.$exists",
+      "depth": 2,
+      "path": [
+        "filters.yaml",
+        "components",
+        "schemas",
+        "AdvancedDateTimeFilter",
+        "properties",
+        "$exists"
+      ],
+      "children": []
+    },
+    "POST /agent-instances/search > request > filter.lastUpdatedDate.$gt": {
+      "version": "8.10",
+      "location": "request",
+      "endpoint": "POST /agent-instances/search",
+      "property": "$gt",
+      "qualifiedName": "filter.lastUpdatedDate.$gt",
+      "depth": 2,
+      "path": [
+        "filters.yaml",
+        "components",
+        "schemas",
+        "AdvancedDateTimeFilter",
+        "properties",
+        "$gt"
+      ],
+      "children": []
+    },
+    "POST /agent-instances/search > request > filter.lastUpdatedDate.$gte": {
+      "version": "8.10",
+      "location": "request",
+      "endpoint": "POST /agent-instances/search",
+      "property": "$gte",
+      "qualifiedName": "filter.lastUpdatedDate.$gte",
+      "depth": 2,
+      "path": [
+        "filters.yaml",
+        "components",
+        "schemas",
+        "AdvancedDateTimeFilter",
+        "properties",
+        "$gte"
+      ],
+      "children": []
+    },
+    "POST /agent-instances/search > request > filter.lastUpdatedDate.$lt": {
+      "version": "8.10",
+      "location": "request",
+      "endpoint": "POST /agent-instances/search",
+      "property": "$lt",
+      "qualifiedName": "filter.lastUpdatedDate.$lt",
+      "depth": 2,
+      "path": [
+        "filters.yaml",
+        "components",
+        "schemas",
+        "AdvancedDateTimeFilter",
+        "properties",
+        "$lt"
+      ],
+      "children": []
+    },
+    "POST /agent-instances/search > request > filter.lastUpdatedDate.$lte": {
+      "version": "8.10",
+      "location": "request",
+      "endpoint": "POST /agent-instances/search",
+      "property": "$lte",
+      "qualifiedName": "filter.lastUpdatedDate.$lte",
+      "depth": 2,
+      "path": [
+        "filters.yaml",
+        "components",
+        "schemas",
+        "AdvancedDateTimeFilter",
+        "properties",
+        "$lte"
+      ],
+      "children": []
+    },
+    "POST /agent-instances/search > request > filter.lastUpdatedDate.$in": {
+      "version": "8.10",
+      "location": "request",
+      "endpoint": "POST /agent-instances/search",
+      "property": "$in",
+      "qualifiedName": "filter.lastUpdatedDate.$in",
+      "depth": 2,
+      "path": [
+        "filters.yaml",
+        "components",
+        "schemas",
+        "AdvancedDateTimeFilter",
+        "properties",
+        "$in"
+      ],
+      "children": []
+    },
+    "POST /agent-instances/search > request > filter.completionDate": {
+      "version": "8.10",
+      "location": "request",
+      "endpoint": "POST /agent-instances/search",
+      "property": "completionDate",
+      "qualifiedName": "filter.completionDate",
+      "depth": 1,
+      "path": [
+        "components",
+        "schemas",
+        "AgentInstanceSearchQuery",
+        "properties",
+        "filter",
+        "properties",
+        "completionDate"
+      ],
+      "children": [
+        "POST /agent-instances/search > request > filter.completionDate.$eq",
+        "POST /agent-instances/search > request > filter.completionDate.$neq",
+        "POST /agent-instances/search > request > filter.completionDate.$exists",
+        "POST /agent-instances/search > request > filter.completionDate.$gt",
+        "POST /agent-instances/search > request > filter.completionDate.$gte",
+        "POST /agent-instances/search > request > filter.completionDate.$lt",
+        "POST /agent-instances/search > request > filter.completionDate.$lte",
+        "POST /agent-instances/search > request > filter.completionDate.$in"
+      ]
+    },
+    "POST /agent-instances/search > request > filter.completionDate.$eq": {
+      "version": "8.10",
+      "location": "request",
+      "endpoint": "POST /agent-instances/search",
+      "property": "$eq",
+      "qualifiedName": "filter.completionDate.$eq",
+      "depth": 2,
+      "path": [
+        "filters.yaml",
+        "components",
+        "schemas",
+        "AdvancedDateTimeFilter",
+        "properties",
+        "$eq"
+      ],
+      "children": []
+    },
+    "POST /agent-instances/search > request > filter.completionDate.$neq": {
+      "version": "8.10",
+      "location": "request",
+      "endpoint": "POST /agent-instances/search",
+      "property": "$neq",
+      "qualifiedName": "filter.completionDate.$neq",
+      "depth": 2,
+      "path": [
+        "filters.yaml",
+        "components",
+        "schemas",
+        "AdvancedDateTimeFilter",
+        "properties",
+        "$neq"
+      ],
+      "children": []
+    },
+    "POST /agent-instances/search > request > filter.completionDate.$exists": {
+      "version": "8.10",
+      "location": "request",
+      "endpoint": "POST /agent-instances/search",
+      "property": "$exists",
+      "qualifiedName": "filter.completionDate.$exists",
+      "depth": 2,
+      "path": [
+        "filters.yaml",
+        "components",
+        "schemas",
+        "AdvancedDateTimeFilter",
+        "properties",
+        "$exists"
+      ],
+      "children": []
+    },
+    "POST /agent-instances/search > request > filter.completionDate.$gt": {
+      "version": "8.10",
+      "location": "request",
+      "endpoint": "POST /agent-instances/search",
+      "property": "$gt",
+      "qualifiedName": "filter.completionDate.$gt",
+      "depth": 2,
+      "path": [
+        "filters.yaml",
+        "components",
+        "schemas",
+        "AdvancedDateTimeFilter",
+        "properties",
+        "$gt"
+      ],
+      "children": []
+    },
+    "POST /agent-instances/search > request > filter.completionDate.$gte": {
+      "version": "8.10",
+      "location": "request",
+      "endpoint": "POST /agent-instances/search",
+      "property": "$gte",
+      "qualifiedName": "filter.completionDate.$gte",
+      "depth": 2,
+      "path": [
+        "filters.yaml",
+        "components",
+        "schemas",
+        "AdvancedDateTimeFilter",
+        "properties",
+        "$gte"
+      ],
+      "children": []
+    },
+    "POST /agent-instances/search > request > filter.completionDate.$lt": {
+      "version": "8.10",
+      "location": "request",
+      "endpoint": "POST /agent-instances/search",
+      "property": "$lt",
+      "qualifiedName": "filter.completionDate.$lt",
+      "depth": 2,
+      "path": [
+        "filters.yaml",
+        "components",
+        "schemas",
+        "AdvancedDateTimeFilter",
+        "properties",
+        "$lt"
+      ],
+      "children": []
+    },
+    "POST /agent-instances/search > request > filter.completionDate.$lte": {
+      "version": "8.10",
+      "location": "request",
+      "endpoint": "POST /agent-instances/search",
+      "property": "$lte",
+      "qualifiedName": "filter.completionDate.$lte",
+      "depth": 2,
+      "path": [
+        "filters.yaml",
+        "components",
+        "schemas",
+        "AdvancedDateTimeFilter",
+        "properties",
+        "$lte"
+      ],
+      "children": []
+    },
+    "POST /agent-instances/search > request > filter.completionDate.$in": {
+      "version": "8.10",
+      "location": "request",
+      "endpoint": "POST /agent-instances/search",
+      "property": "$in",
+      "qualifiedName": "filter.completionDate.$in",
+      "depth": 2,
+      "path": [
+        "filters.yaml",
+        "components",
+        "schemas",
+        "AdvancedDateTimeFilter",
+        "properties",
+        "$in"
+      ],
+      "children": []
+    },
+    "POST /agent-instances/search > request > page": {
+      "version": "8.10",
+      "location": "request",
+      "endpoint": "POST /agent-instances/search",
+      "property": "page",
+      "qualifiedName": "page",
+      "depth": 0,
+      "path": [
+        "search-models.yaml",
+        "components",
+        "schemas",
+        "SearchQueryRequest",
+        "properties",
+        "page"
+      ],
+      "children": [
+        "POST /agent-instances/search > request > page.limit",
+        "POST /agent-instances/search > request > page.from",
+        "POST /agent-instances/search > request > page.after",
+        "POST /agent-instances/search > request > page.before"
+      ]
+    },
+    "POST /agent-instances/search > request > page.limit": {
+      "version": "8.10",
+      "location": "request",
+      "endpoint": "POST /agent-instances/search",
+      "property": "limit",
+      "qualifiedName": "page.limit",
+      "depth": 1,
+      "path": [
+        "search-models.yaml",
+        "components",
+        "schemas",
+        "LimitPagination",
+        "properties",
+        "limit"
+      ],
+      "children": []
+    },
+    "POST /agent-instances/search > request > page.from": {
+      "version": "8.10",
+      "location": "request",
+      "endpoint": "POST /agent-instances/search",
+      "property": "from",
+      "qualifiedName": "page.from",
+      "depth": 1,
+      "path": [
+        "search-models.yaml",
+        "components",
+        "schemas",
+        "OffsetPagination",
+        "properties",
+        "from"
+      ],
+      "children": []
+    },
+    "POST /agent-instances/search > request > page.after": {
+      "version": "8.10",
+      "location": "request",
+      "endpoint": "POST /agent-instances/search",
+      "property": "after",
+      "qualifiedName": "page.after",
+      "depth": 1,
+      "path": [
+        "search-models.yaml",
+        "components",
+        "schemas",
+        "CursorForwardPagination",
+        "properties",
+        "after"
+      ],
+      "children": []
+    },
+    "POST /agent-instances/search > request > page.before": {
+      "version": "8.10",
+      "location": "request",
+      "endpoint": "POST /agent-instances/search",
+      "property": "before",
+      "qualifiedName": "page.before",
+      "depth": 1,
+      "path": [
+        "search-models.yaml",
+        "components",
+        "schemas",
+        "CursorBackwardPagination",
+        "properties",
+        "before"
+      ],
+      "children": []
+    },
+    "POST /agent-instances/search > response > items": {
+      "version": "8.10",
+      "location": "response",
+      "endpoint": "POST /agent-instances/search",
+      "property": "items",
+      "qualifiedName": "items",
+      "depth": 0,
+      "path": [
+        "components",
+        "schemas",
+        "AgentInstanceSearchQueryResult",
+        "properties",
+        "items"
+      ],
+      "children": [
+        "POST /agent-instances/search > response > items[].agentInstanceKey",
+        "POST /agent-instances/search > response > items[].status",
+        "POST /agent-instances/search > response > items[].definition",
+        "POST /agent-instances/search > response > items[].metrics",
+        "POST /agent-instances/search > response > items[].limits",
+        "POST /agent-instances/search > response > items[].tools",
+        "POST /agent-instances/search > response > items[].elementId",
+        "POST /agent-instances/search > response > items[].processInstanceKey",
+        "POST /agent-instances/search > response > items[].processDefinitionKey",
+        "POST /agent-instances/search > response > items[].tenantId",
+        "POST /agent-instances/search > response > items[].creationDate",
+        "POST /agent-instances/search > response > items[].lastUpdatedDate",
+        "POST /agent-instances/search > response > items[].completionDate"
+      ]
+    },
+    "POST /agent-instances/search > response > items[].agentInstanceKey": {
+      "version": "8.10",
+      "location": "response",
+      "endpoint": "POST /agent-instances/search",
+      "property": "agentInstanceKey",
+      "qualifiedName": "items[].agentInstanceKey",
+      "depth": 1,
+      "path": [
+        "components",
+        "schemas",
+        "AgentInstanceResult",
+        "properties",
+        "agentInstanceKey"
+      ],
+      "children": []
+    },
+    "POST /agent-instances/search > response > items[].status": {
+      "version": "8.10",
+      "location": "response",
+      "endpoint": "POST /agent-instances/search",
+      "property": "status",
+      "qualifiedName": "items[].status",
+      "depth": 1,
+      "path": [
+        "components",
+        "schemas",
+        "AgentInstanceResult",
+        "properties",
+        "status"
+      ],
+      "children": []
+    },
+    "POST /agent-instances/search > response > items[].definition": {
+      "version": "8.10",
+      "location": "response",
+      "endpoint": "POST /agent-instances/search",
+      "property": "definition",
+      "qualifiedName": "items[].definition",
+      "depth": 1,
+      "path": [
+        "components",
+        "schemas",
+        "AgentInstanceResult",
+        "properties",
+        "definition"
+      ],
+      "children": [
+        "POST /agent-instances/search > response > items[].definition.model",
+        "POST /agent-instances/search > response > items[].definition.provider",
+        "POST /agent-instances/search > response > items[].definition.systemPrompt"
+      ]
+    },
+    "POST /agent-instances/search > response > items[].definition.model": {
+      "version": "8.10",
+      "location": "response",
+      "endpoint": "POST /agent-instances/search",
+      "property": "model",
+      "qualifiedName": "items[].definition.model",
+      "depth": 2,
+      "path": [
+        "components",
+        "schemas",
+        "AgentInstanceResult",
+        "properties",
+        "definition",
+        "properties",
+        "model"
+      ],
+      "children": []
+    },
+    "POST /agent-instances/search > response > items[].definition.provider": {
+      "version": "8.10",
+      "location": "response",
+      "endpoint": "POST /agent-instances/search",
+      "property": "provider",
+      "qualifiedName": "items[].definition.provider",
+      "depth": 2,
+      "path": [
+        "components",
+        "schemas",
+        "AgentInstanceResult",
+        "properties",
+        "definition",
+        "properties",
+        "provider"
+      ],
+      "children": []
+    },
+    "POST /agent-instances/search > response > items[].definition.systemPrompt": {
+      "version": "8.10",
+      "location": "response",
+      "endpoint": "POST /agent-instances/search",
+      "property": "systemPrompt",
+      "qualifiedName": "items[].definition.systemPrompt",
+      "depth": 2,
+      "path": [
+        "components",
+        "schemas",
+        "AgentInstanceResult",
+        "properties",
+        "definition",
+        "properties",
+        "systemPrompt"
+      ],
+      "children": []
+    },
+    "POST /agent-instances/search > response > items[].metrics": {
+      "version": "8.10",
+      "location": "response",
+      "endpoint": "POST /agent-instances/search",
+      "property": "metrics",
+      "qualifiedName": "items[].metrics",
+      "depth": 1,
+      "path": [
+        "components",
+        "schemas",
+        "AgentInstanceResult",
+        "properties",
+        "metrics"
+      ],
+      "children": [
+        "POST /agent-instances/search > response > items[].metrics.inputTokens",
+        "POST /agent-instances/search > response > items[].metrics.outputTokens",
+        "POST /agent-instances/search > response > items[].metrics.modelCalls",
+        "POST /agent-instances/search > response > items[].metrics.toolCalls"
+      ]
+    },
+    "POST /agent-instances/search > response > items[].metrics.inputTokens": {
+      "version": "8.10",
+      "location": "response",
+      "endpoint": "POST /agent-instances/search",
+      "property": "inputTokens",
+      "qualifiedName": "items[].metrics.inputTokens",
+      "depth": 2,
+      "path": [
+        "components",
+        "schemas",
+        "AgentInstanceResult",
+        "properties",
+        "metrics",
+        "properties",
+        "inputTokens"
+      ],
+      "children": []
+    },
+    "POST /agent-instances/search > response > items[].metrics.outputTokens": {
+      "version": "8.10",
+      "location": "response",
+      "endpoint": "POST /agent-instances/search",
+      "property": "outputTokens",
+      "qualifiedName": "items[].metrics.outputTokens",
+      "depth": 2,
+      "path": [
+        "components",
+        "schemas",
+        "AgentInstanceResult",
+        "properties",
+        "metrics",
+        "properties",
+        "outputTokens"
+      ],
+      "children": []
+    },
+    "POST /agent-instances/search > response > items[].metrics.modelCalls": {
+      "version": "8.10",
+      "location": "response",
+      "endpoint": "POST /agent-instances/search",
+      "property": "modelCalls",
+      "qualifiedName": "items[].metrics.modelCalls",
+      "depth": 2,
+      "path": [
+        "components",
+        "schemas",
+        "AgentInstanceResult",
+        "properties",
+        "metrics",
+        "properties",
+        "modelCalls"
+      ],
+      "children": []
+    },
+    "POST /agent-instances/search > response > items[].metrics.toolCalls": {
+      "version": "8.10",
+      "location": "response",
+      "endpoint": "POST /agent-instances/search",
+      "property": "toolCalls",
+      "qualifiedName": "items[].metrics.toolCalls",
+      "depth": 2,
+      "path": [
+        "components",
+        "schemas",
+        "AgentInstanceResult",
+        "properties",
+        "metrics",
+        "properties",
+        "toolCalls"
+      ],
+      "children": []
+    },
+    "POST /agent-instances/search > response > items[].limits": {
+      "version": "8.10",
+      "location": "response",
+      "endpoint": "POST /agent-instances/search",
+      "property": "limits",
+      "qualifiedName": "items[].limits",
+      "depth": 1,
+      "path": [
+        "components",
+        "schemas",
+        "AgentInstanceResult",
+        "properties",
+        "limits"
+      ],
+      "children": [
+        "POST /agent-instances/search > response > items[].limits.maxModelCalls",
+        "POST /agent-instances/search > response > items[].limits.maxToolCalls",
+        "POST /agent-instances/search > response > items[].limits.maxTokens"
+      ]
+    },
+    "POST /agent-instances/search > response > items[].limits.maxModelCalls": {
+      "version": "8.10",
+      "location": "response",
+      "endpoint": "POST /agent-instances/search",
+      "property": "maxModelCalls",
+      "qualifiedName": "items[].limits.maxModelCalls",
+      "depth": 2,
+      "path": [
+        "components",
+        "schemas",
+        "AgentInstanceResult",
+        "properties",
+        "limits",
+        "properties",
+        "maxModelCalls"
+      ],
+      "children": []
+    },
+    "POST /agent-instances/search > response > items[].limits.maxToolCalls": {
+      "version": "8.10",
+      "location": "response",
+      "endpoint": "POST /agent-instances/search",
+      "property": "maxToolCalls",
+      "qualifiedName": "items[].limits.maxToolCalls",
+      "depth": 2,
+      "path": [
+        "components",
+        "schemas",
+        "AgentInstanceResult",
+        "properties",
+        "limits",
+        "properties",
+        "maxToolCalls"
+      ],
+      "children": []
+    },
+    "POST /agent-instances/search > response > items[].limits.maxTokens": {
+      "version": "8.10",
+      "location": "response",
+      "endpoint": "POST /agent-instances/search",
+      "property": "maxTokens",
+      "qualifiedName": "items[].limits.maxTokens",
+      "depth": 2,
+      "path": [
+        "components",
+        "schemas",
+        "AgentInstanceResult",
+        "properties",
+        "limits",
+        "properties",
+        "maxTokens"
+      ],
+      "children": []
+    },
+    "POST /agent-instances/search > response > items[].tools": {
+      "version": "8.10",
+      "location": "response",
+      "endpoint": "POST /agent-instances/search",
+      "property": "tools",
+      "qualifiedName": "items[].tools",
+      "depth": 1,
+      "path": [
+        "components",
+        "schemas",
+        "AgentInstanceResult",
+        "properties",
+        "tools"
+      ],
+      "children": [
+        "POST /agent-instances/search > response > items[].tools[].name",
+        "POST /agent-instances/search > response > items[].tools[].description",
+        "POST /agent-instances/search > response > items[].tools[].elementId"
+      ]
+    },
+    "POST /agent-instances/search > response > items[].tools[].name": {
+      "version": "8.10",
+      "location": "response",
+      "endpoint": "POST /agent-instances/search",
+      "property": "name",
+      "qualifiedName": "items[].tools[].name",
+      "depth": 2,
+      "path": [
+        "components",
+        "schemas",
+        "AgentTool",
+        "properties",
+        "name"
+      ],
+      "children": []
+    },
+    "POST /agent-instances/search > response > items[].tools[].description": {
+      "version": "8.10",
+      "location": "response",
+      "endpoint": "POST /agent-instances/search",
+      "property": "description",
+      "qualifiedName": "items[].tools[].description",
+      "depth": 2,
+      "path": [
+        "components",
+        "schemas",
+        "AgentTool",
+        "properties",
+        "description"
+      ],
+      "children": []
+    },
+    "POST /agent-instances/search > response > items[].tools[].elementId": {
+      "version": "8.10",
+      "location": "response",
+      "endpoint": "POST /agent-instances/search",
+      "property": "elementId",
+      "qualifiedName": "items[].tools[].elementId",
+      "depth": 2,
+      "path": [
+        "components",
+        "schemas",
+        "AgentTool",
+        "properties",
+        "elementId"
+      ],
+      "children": []
+    },
+    "POST /agent-instances/search > response > items[].elementId": {
+      "version": "8.10",
+      "location": "response",
+      "endpoint": "POST /agent-instances/search",
+      "property": "elementId",
+      "qualifiedName": "items[].elementId",
+      "depth": 1,
+      "path": [
+        "components",
+        "schemas",
+        "AgentInstanceResult",
+        "properties",
+        "elementId"
+      ],
+      "children": []
+    },
+    "POST /agent-instances/search > response > items[].processInstanceKey": {
+      "version": "8.10",
+      "location": "response",
+      "endpoint": "POST /agent-instances/search",
+      "property": "processInstanceKey",
+      "qualifiedName": "items[].processInstanceKey",
+      "depth": 1,
+      "path": [
+        "components",
+        "schemas",
+        "AgentInstanceResult",
+        "properties",
+        "processInstanceKey"
+      ],
+      "children": []
+    },
+    "POST /agent-instances/search > response > items[].processDefinitionKey": {
+      "version": "8.10",
+      "location": "response",
+      "endpoint": "POST /agent-instances/search",
+      "property": "processDefinitionKey",
+      "qualifiedName": "items[].processDefinitionKey",
+      "depth": 1,
+      "path": [
+        "components",
+        "schemas",
+        "AgentInstanceResult",
+        "properties",
+        "processDefinitionKey"
+      ],
+      "children": []
+    },
+    "POST /agent-instances/search > response > items[].tenantId": {
+      "version": "8.10",
+      "location": "response",
+      "endpoint": "POST /agent-instances/search",
+      "property": "tenantId",
+      "qualifiedName": "items[].tenantId",
+      "depth": 1,
+      "path": [
+        "components",
+        "schemas",
+        "AgentInstanceResult",
+        "properties",
+        "tenantId"
+      ],
+      "children": []
+    },
+    "POST /agent-instances/search > response > items[].creationDate": {
+      "version": "8.10",
+      "location": "response",
+      "endpoint": "POST /agent-instances/search",
+      "property": "creationDate",
+      "qualifiedName": "items[].creationDate",
+      "depth": 1,
+      "path": [
+        "components",
+        "schemas",
+        "AgentInstanceResult",
+        "properties",
+        "creationDate"
+      ],
+      "children": []
+    },
+    "POST /agent-instances/search > response > items[].lastUpdatedDate": {
+      "version": "8.10",
+      "location": "response",
+      "endpoint": "POST /agent-instances/search",
+      "property": "lastUpdatedDate",
+      "qualifiedName": "items[].lastUpdatedDate",
+      "depth": 1,
+      "path": [
+        "components",
+        "schemas",
+        "AgentInstanceResult",
+        "properties",
+        "lastUpdatedDate"
+      ],
+      "children": []
+    },
+    "POST /agent-instances/search > response > items[].completionDate": {
+      "version": "8.10",
+      "location": "response",
+      "endpoint": "POST /agent-instances/search",
+      "property": "completionDate",
+      "qualifiedName": "items[].completionDate",
+      "depth": 1,
+      "path": [
+        "components",
+        "schemas",
+        "AgentInstanceResult",
+        "properties",
+        "completionDate"
+      ],
+      "children": []
+    },
+    "POST /agent-instances/search > response > page": {
+      "version": "8.10",
+      "location": "response",
+      "endpoint": "POST /agent-instances/search",
+      "property": "page",
+      "qualifiedName": "page",
+      "depth": 0,
+      "path": [
+        "search-models.yaml",
+        "components",
+        "schemas",
+        "SearchQueryResponse",
+        "properties",
+        "page"
+      ],
+      "children": [
+        "POST /agent-instances/search > response > page.totalItems",
+        "POST /agent-instances/search > response > page.hasMoreTotalItems",
+        "POST /agent-instances/search > response > page.startCursor",
+        "POST /agent-instances/search > response > page.endCursor"
+      ]
+    },
+    "POST /agent-instances/search > response > page.totalItems": {
+      "version": "8.10",
+      "location": "response",
+      "endpoint": "POST /agent-instances/search",
+      "property": "totalItems",
+      "qualifiedName": "page.totalItems",
+      "depth": 1,
+      "path": [
+        "search-models.yaml",
+        "components",
+        "schemas",
+        "SearchQueryPageResponse",
+        "properties",
+        "totalItems"
+      ],
+      "children": []
+    },
+    "POST /agent-instances/search > response > page.hasMoreTotalItems": {
+      "version": "8.10",
+      "location": "response",
+      "endpoint": "POST /agent-instances/search",
+      "property": "hasMoreTotalItems",
+      "qualifiedName": "page.hasMoreTotalItems",
+      "depth": 1,
+      "path": [
+        "search-models.yaml",
+        "components",
+        "schemas",
+        "SearchQueryPageResponse",
+        "properties",
+        "hasMoreTotalItems"
+      ],
+      "children": []
+    },
+    "POST /agent-instances/search > response > page.startCursor": {
+      "version": "8.10",
+      "location": "response",
+      "endpoint": "POST /agent-instances/search",
+      "property": "startCursor",
+      "qualifiedName": "page.startCursor",
+      "depth": 1,
+      "path": [
+        "search-models.yaml",
+        "components",
+        "schemas",
+        "SearchQueryPageResponse",
+        "properties",
+        "startCursor"
+      ],
+      "children": []
+    },
+    "POST /agent-instances/search > response > page.endCursor": {
+      "version": "8.10",
+      "location": "response",
+      "endpoint": "POST /agent-instances/search",
+      "property": "endCursor",
+      "qualifiedName": "page.endCursor",
+      "depth": 1,
+      "path": [
+        "search-models.yaml",
+        "components",
+        "schemas",
+        "SearchQueryPageResponse",
+        "properties",
+        "endCursor"
+      ],
+      "children": []
+    },
+    "POST /element-instances/search > request > filter.elementId.$eq": {
+      "version": "8.10",
+      "location": "request",
+      "endpoint": "POST /element-instances/search",
+      "property": "$eq",
+      "qualifiedName": "filter.elementId.$eq",
+      "depth": 2,
+      "path": [
+        "identifiers.yaml",
+        "components",
+        "schemas",
+        "AdvancedElementIdFilter",
+        "properties",
+        "$eq"
+      ],
+      "children": []
+    },
+    "POST /element-instances/search > request > filter.elementId.$neq": {
+      "version": "8.10",
+      "location": "request",
+      "endpoint": "POST /element-instances/search",
+      "property": "$neq",
+      "qualifiedName": "filter.elementId.$neq",
+      "depth": 2,
+      "path": [
+        "identifiers.yaml",
+        "components",
+        "schemas",
+        "AdvancedElementIdFilter",
+        "properties",
+        "$neq"
+      ],
+      "children": []
+    },
+    "POST /element-instances/search > request > filter.elementId.$exists": {
+      "version": "8.10",
+      "location": "request",
+      "endpoint": "POST /element-instances/search",
+      "property": "$exists",
+      "qualifiedName": "filter.elementId.$exists",
+      "depth": 2,
+      "path": [
+        "identifiers.yaml",
+        "components",
+        "schemas",
+        "AdvancedElementIdFilter",
+        "properties",
+        "$exists"
+      ],
+      "children": []
+    },
+    "POST /element-instances/search > request > filter.elementId.$in": {
+      "version": "8.10",
+      "location": "request",
+      "endpoint": "POST /element-instances/search",
+      "property": "$in",
+      "qualifiedName": "filter.elementId.$in",
+      "depth": 2,
+      "path": [
+        "identifiers.yaml",
+        "components",
+        "schemas",
+        "AdvancedElementIdFilter",
+        "properties",
+        "$in"
+      ],
+      "children": []
+    },
+    "POST /element-instances/search > request > filter.elementId.$notIn": {
+      "version": "8.10",
+      "location": "request",
+      "endpoint": "POST /element-instances/search",
+      "property": "$notIn",
+      "qualifiedName": "filter.elementId.$notIn",
+      "depth": 2,
+      "path": [
+        "identifiers.yaml",
+        "components",
+        "schemas",
+        "AdvancedElementIdFilter",
+        "properties",
+        "$notIn"
+      ],
+      "children": []
+    },
+    "POST /element-instances/search > request > filter.elementId.$like": {
+      "version": "8.10",
+      "location": "request",
+      "endpoint": "POST /element-instances/search",
+      "property": "$like",
+      "qualifiedName": "filter.elementId.$like",
+      "depth": 2,
+      "path": [
+        "identifiers.yaml",
+        "components",
+        "schemas",
+        "AdvancedElementIdFilter",
+        "properties",
+        "$like"
+      ],
+      "children": []
+    },
+    "POST /element-instances/search > request > filter.elementName.$eq": {
+      "version": "8.10",
+      "location": "request",
+      "endpoint": "POST /element-instances/search",
+      "property": "$eq",
+      "qualifiedName": "filter.elementName.$eq",
+      "depth": 2,
+      "path": [
+        "filters.yaml",
+        "components",
+        "schemas",
+        "BasicStringFilter",
+        "properties",
+        "$eq"
+      ],
+      "children": []
+    },
+    "POST /element-instances/search > request > filter.elementName.$neq": {
+      "version": "8.10",
+      "location": "request",
+      "endpoint": "POST /element-instances/search",
+      "property": "$neq",
+      "qualifiedName": "filter.elementName.$neq",
+      "depth": 2,
+      "path": [
+        "filters.yaml",
+        "components",
+        "schemas",
+        "BasicStringFilter",
+        "properties",
+        "$neq"
+      ],
+      "children": []
+    },
+    "POST /element-instances/search > request > filter.elementName.$exists": {
+      "version": "8.10",
+      "location": "request",
+      "endpoint": "POST /element-instances/search",
+      "property": "$exists",
+      "qualifiedName": "filter.elementName.$exists",
+      "depth": 2,
+      "path": [
+        "filters.yaml",
+        "components",
+        "schemas",
+        "BasicStringFilter",
+        "properties",
+        "$exists"
+      ],
+      "children": []
+    },
+    "POST /element-instances/search > request > filter.elementName.$in": {
+      "version": "8.10",
+      "location": "request",
+      "endpoint": "POST /element-instances/search",
+      "property": "$in",
+      "qualifiedName": "filter.elementName.$in",
+      "depth": 2,
+      "path": [
+        "filters.yaml",
+        "components",
+        "schemas",
+        "BasicStringFilter",
+        "properties",
+        "$in"
+      ],
+      "children": []
+    },
+    "POST /element-instances/search > request > filter.elementName.$notIn": {
+      "version": "8.10",
+      "location": "request",
+      "endpoint": "POST /element-instances/search",
+      "property": "$notIn",
+      "qualifiedName": "filter.elementName.$notIn",
+      "depth": 2,
+      "path": [
+        "filters.yaml",
+        "components",
+        "schemas",
+        "BasicStringFilter",
+        "properties",
+        "$notIn"
+      ],
+      "children": []
+    },
+    "POST /element-instances/search > request > filter.elementName.$like": {
+      "version": "8.10",
+      "location": "request",
+      "endpoint": "POST /element-instances/search",
+      "property": "$like",
+      "qualifiedName": "filter.elementName.$like",
+      "depth": 2,
+      "path": [
+        "filters.yaml",
+        "components",
+        "schemas",
+        "AdvancedStringFilter",
+        "allOf",
+        "1",
+        "properties",
+        "$like"
+      ],
+      "children": []
+    },
+    "POST /element-instances/search > response > items[].agentInstanceKey": {
+      "version": "8.10",
+      "location": "response",
+      "endpoint": "POST /element-instances/search",
+      "property": "agentInstanceKey",
+      "qualifiedName": "items[].agentInstanceKey",
+      "depth": 1,
+      "path": [
+        "components",
+        "schemas",
+        "ElementInstanceResult",
+        "properties",
+        "agentInstanceKey"
+      ],
+      "children": []
+    },
+    "GET /element-instances/{elementInstanceKey} > response > agentInstanceKey": {
+      "version": "8.10",
+      "location": "response",
+      "endpoint": "GET /element-instances/{elementInstanceKey}",
+      "property": "agentInstanceKey",
+      "qualifiedName": "agentInstanceKey",
+      "depth": 0,
+      "path": [
+        "components",
+        "schemas",
+        "ElementInstanceResult",
+        "properties",
+        "agentInstanceKey"
+      ],
+      "children": []
+    },
+    "GET /forms/{formKey} > response > tenantId": {
+      "version": "8.10",
+      "location": "response",
+      "endpoint": "GET /forms/{formKey}",
+      "property": "tenantId",
+      "qualifiedName": "tenantId",
+      "depth": 0,
+      "path": [
+        "form-models.yaml",
+        "components",
+        "schemas",
+        "FormResult",
+        "properties",
+        "tenantId"
+      ],
+      "children": []
+    },
+    "GET /forms/{formKey} > response > formId": {
+      "version": "8.10",
+      "location": "response",
+      "endpoint": "GET /forms/{formKey}",
+      "property": "formId",
+      "qualifiedName": "formId",
+      "depth": 0,
+      "path": [
+        "form-models.yaml",
+        "components",
+        "schemas",
+        "FormResult",
+        "properties",
+        "formId"
+      ],
+      "children": []
+    },
+    "GET /forms/{formKey} > response > schema": {
+      "version": "8.10",
+      "location": "response",
+      "endpoint": "GET /forms/{formKey}",
+      "property": "schema",
+      "qualifiedName": "schema",
+      "depth": 0,
+      "path": [
+        "form-models.yaml",
+        "components",
+        "schemas",
+        "FormResult",
+        "properties",
+        "schema"
+      ],
+      "children": []
+    },
+    "GET /forms/{formKey} > response > version": {
+      "version": "8.10",
+      "location": "response",
+      "endpoint": "GET /forms/{formKey}",
+      "property": "version",
+      "qualifiedName": "version",
+      "depth": 0,
+      "path": [
+        "form-models.yaml",
+        "components",
+        "schemas",
+        "FormResult",
+        "properties",
+        "version"
+      ],
+      "children": []
+    },
+    "GET /forms/{formKey} > response > formKey": {
+      "version": "8.10",
+      "location": "response",
+      "endpoint": "GET /forms/{formKey}",
+      "property": "formKey",
+      "qualifiedName": "formKey",
+      "depth": 0,
+      "path": [
+        "form-models.yaml",
+        "components",
+        "schemas",
+        "FormResult",
+        "properties",
+        "formKey"
+      ],
+      "children": []
+    },
+    "POST /message-subscriptions/search > request > filter.messageSubscriptionType": {
+      "version": "8.10",
+      "location": "request",
+      "endpoint": "POST /message-subscriptions/search",
+      "property": "messageSubscriptionType",
+      "qualifiedName": "filter.messageSubscriptionType",
+      "depth": 1,
+      "path": [
+        "components",
+        "schemas",
+        "MessageSubscriptionSearchQuery",
+        "properties",
+        "filter",
+        "properties",
+        "messageSubscriptionType"
+      ],
+      "children": [
+        "POST /message-subscriptions/search > request > filter.messageSubscriptionType.$eq",
+        "POST /message-subscriptions/search > request > filter.messageSubscriptionType.$neq",
+        "POST /message-subscriptions/search > request > filter.messageSubscriptionType.$exists",
+        "POST /message-subscriptions/search > request > filter.messageSubscriptionType.$in",
+        "POST /message-subscriptions/search > request > filter.messageSubscriptionType.$like"
+      ]
+    },
+    "POST /message-subscriptions/search > request > filter.messageSubscriptionType.$eq": {
+      "version": "8.10",
+      "location": "request",
+      "endpoint": "POST /message-subscriptions/search",
+      "property": "$eq",
+      "qualifiedName": "filter.messageSubscriptionType.$eq",
+      "depth": 2,
+      "path": [
+        "components",
+        "schemas",
+        "AdvancedMessageSubscriptionTypeFilter",
+        "properties",
+        "$eq"
+      ],
+      "children": []
+    },
+    "POST /message-subscriptions/search > request > filter.messageSubscriptionType.$neq": {
+      "version": "8.10",
+      "location": "request",
+      "endpoint": "POST /message-subscriptions/search",
+      "property": "$neq",
+      "qualifiedName": "filter.messageSubscriptionType.$neq",
+      "depth": 2,
+      "path": [
+        "components",
+        "schemas",
+        "AdvancedMessageSubscriptionTypeFilter",
+        "properties",
+        "$neq"
+      ],
+      "children": []
+    },
+    "POST /message-subscriptions/search > request > filter.messageSubscriptionType.$exists": {
+      "version": "8.10",
+      "location": "request",
+      "endpoint": "POST /message-subscriptions/search",
+      "property": "$exists",
+      "qualifiedName": "filter.messageSubscriptionType.$exists",
+      "depth": 2,
+      "path": [
+        "components",
+        "schemas",
+        "AdvancedMessageSubscriptionTypeFilter",
+        "properties",
+        "$exists"
+      ],
+      "children": []
+    },
+    "POST /message-subscriptions/search > request > filter.messageSubscriptionType.$in": {
+      "version": "8.10",
+      "location": "request",
+      "endpoint": "POST /message-subscriptions/search",
+      "property": "$in",
+      "qualifiedName": "filter.messageSubscriptionType.$in",
+      "depth": 2,
+      "path": [
+        "components",
+        "schemas",
+        "AdvancedMessageSubscriptionTypeFilter",
+        "properties",
+        "$in"
+      ],
+      "children": []
+    },
+    "POST /message-subscriptions/search > request > filter.messageSubscriptionType.$like": {
+      "version": "8.10",
+      "location": "request",
+      "endpoint": "POST /message-subscriptions/search",
+      "property": "$like",
+      "qualifiedName": "filter.messageSubscriptionType.$like",
+      "depth": 2,
+      "path": [
+        "components",
+        "schemas",
+        "AdvancedMessageSubscriptionTypeFilter",
+        "properties",
+        "$like"
+      ],
+      "children": []
+    },
+    "POST /message-subscriptions/search > request > filter.processDefinitionName": {
+      "version": "8.10",
+      "location": "request",
+      "endpoint": "POST /message-subscriptions/search",
+      "property": "processDefinitionName",
+      "qualifiedName": "filter.processDefinitionName",
+      "depth": 1,
+      "path": [
+        "components",
+        "schemas",
+        "MessageSubscriptionSearchQuery",
+        "properties",
+        "filter",
+        "properties",
+        "processDefinitionName"
+      ],
+      "children": [
+        "POST /message-subscriptions/search > request > filter.processDefinitionName.$eq",
+        "POST /message-subscriptions/search > request > filter.processDefinitionName.$neq",
+        "POST /message-subscriptions/search > request > filter.processDefinitionName.$exists",
+        "POST /message-subscriptions/search > request > filter.processDefinitionName.$in",
+        "POST /message-subscriptions/search > request > filter.processDefinitionName.$notIn",
+        "POST /message-subscriptions/search > request > filter.processDefinitionName.$like"
+      ]
+    },
+    "POST /message-subscriptions/search > request > filter.processDefinitionName.$eq": {
+      "version": "8.10",
+      "location": "request",
+      "endpoint": "POST /message-subscriptions/search",
+      "property": "$eq",
+      "qualifiedName": "filter.processDefinitionName.$eq",
+      "depth": 2,
+      "path": [
+        "filters.yaml",
+        "components",
+        "schemas",
+        "BasicStringFilter",
+        "properties",
+        "$eq"
+      ],
+      "children": []
+    },
+    "POST /message-subscriptions/search > request > filter.processDefinitionName.$neq": {
+      "version": "8.10",
+      "location": "request",
+      "endpoint": "POST /message-subscriptions/search",
+      "property": "$neq",
+      "qualifiedName": "filter.processDefinitionName.$neq",
+      "depth": 2,
+      "path": [
+        "filters.yaml",
+        "components",
+        "schemas",
+        "BasicStringFilter",
+        "properties",
+        "$neq"
+      ],
+      "children": []
+    },
+    "POST /message-subscriptions/search > request > filter.processDefinitionName.$exists": {
+      "version": "8.10",
+      "location": "request",
+      "endpoint": "POST /message-subscriptions/search",
+      "property": "$exists",
+      "qualifiedName": "filter.processDefinitionName.$exists",
+      "depth": 2,
+      "path": [
+        "filters.yaml",
+        "components",
+        "schemas",
+        "BasicStringFilter",
+        "properties",
+        "$exists"
+      ],
+      "children": []
+    },
+    "POST /message-subscriptions/search > request > filter.processDefinitionName.$in": {
+      "version": "8.10",
+      "location": "request",
+      "endpoint": "POST /message-subscriptions/search",
+      "property": "$in",
+      "qualifiedName": "filter.processDefinitionName.$in",
+      "depth": 2,
+      "path": [
+        "filters.yaml",
+        "components",
+        "schemas",
+        "BasicStringFilter",
+        "properties",
+        "$in"
+      ],
+      "children": []
+    },
+    "POST /message-subscriptions/search > request > filter.processDefinitionName.$notIn": {
+      "version": "8.10",
+      "location": "request",
+      "endpoint": "POST /message-subscriptions/search",
+      "property": "$notIn",
+      "qualifiedName": "filter.processDefinitionName.$notIn",
+      "depth": 2,
+      "path": [
+        "filters.yaml",
+        "components",
+        "schemas",
+        "BasicStringFilter",
+        "properties",
+        "$notIn"
+      ],
+      "children": []
+    },
+    "POST /message-subscriptions/search > request > filter.processDefinitionName.$like": {
+      "version": "8.10",
+      "location": "request",
+      "endpoint": "POST /message-subscriptions/search",
+      "property": "$like",
+      "qualifiedName": "filter.processDefinitionName.$like",
+      "depth": 2,
+      "path": [
+        "filters.yaml",
+        "components",
+        "schemas",
+        "AdvancedStringFilter",
+        "allOf",
+        "1",
+        "properties",
+        "$like"
+      ],
+      "children": []
+    },
+    "POST /message-subscriptions/search > request > filter.processDefinitionVersion": {
+      "version": "8.10",
+      "location": "request",
+      "endpoint": "POST /message-subscriptions/search",
+      "property": "processDefinitionVersion",
+      "qualifiedName": "filter.processDefinitionVersion",
+      "depth": 1,
+      "path": [
+        "components",
+        "schemas",
+        "MessageSubscriptionSearchQuery",
+        "properties",
+        "filter",
+        "properties",
+        "processDefinitionVersion"
+      ],
+      "children": [
+        "POST /message-subscriptions/search > request > filter.processDefinitionVersion.$eq",
+        "POST /message-subscriptions/search > request > filter.processDefinitionVersion.$neq",
+        "POST /message-subscriptions/search > request > filter.processDefinitionVersion.$exists",
+        "POST /message-subscriptions/search > request > filter.processDefinitionVersion.$gt",
+        "POST /message-subscriptions/search > request > filter.processDefinitionVersion.$gte",
+        "POST /message-subscriptions/search > request > filter.processDefinitionVersion.$lt",
+        "POST /message-subscriptions/search > request > filter.processDefinitionVersion.$lte",
+        "POST /message-subscriptions/search > request > filter.processDefinitionVersion.$in"
+      ]
+    },
+    "POST /message-subscriptions/search > request > filter.processDefinitionVersion.$eq": {
+      "version": "8.10",
+      "location": "request",
+      "endpoint": "POST /message-subscriptions/search",
+      "property": "$eq",
+      "qualifiedName": "filter.processDefinitionVersion.$eq",
+      "depth": 2,
+      "path": [
+        "filters.yaml",
+        "components",
+        "schemas",
+        "AdvancedIntegerFilter",
+        "properties",
+        "$eq"
+      ],
+      "children": []
+    },
+    "POST /message-subscriptions/search > request > filter.processDefinitionVersion.$neq": {
+      "version": "8.10",
+      "location": "request",
+      "endpoint": "POST /message-subscriptions/search",
+      "property": "$neq",
+      "qualifiedName": "filter.processDefinitionVersion.$neq",
+      "depth": 2,
+      "path": [
+        "filters.yaml",
+        "components",
+        "schemas",
+        "AdvancedIntegerFilter",
+        "properties",
+        "$neq"
+      ],
+      "children": []
+    },
+    "POST /message-subscriptions/search > request > filter.processDefinitionVersion.$exists": {
+      "version": "8.10",
+      "location": "request",
+      "endpoint": "POST /message-subscriptions/search",
+      "property": "$exists",
+      "qualifiedName": "filter.processDefinitionVersion.$exists",
+      "depth": 2,
+      "path": [
+        "filters.yaml",
+        "components",
+        "schemas",
+        "AdvancedIntegerFilter",
+        "properties",
+        "$exists"
+      ],
+      "children": []
+    },
+    "POST /message-subscriptions/search > request > filter.processDefinitionVersion.$gt": {
+      "version": "8.10",
+      "location": "request",
+      "endpoint": "POST /message-subscriptions/search",
+      "property": "$gt",
+      "qualifiedName": "filter.processDefinitionVersion.$gt",
+      "depth": 2,
+      "path": [
+        "filters.yaml",
+        "components",
+        "schemas",
+        "AdvancedIntegerFilter",
+        "properties",
+        "$gt"
+      ],
+      "children": []
+    },
+    "POST /message-subscriptions/search > request > filter.processDefinitionVersion.$gte": {
+      "version": "8.10",
+      "location": "request",
+      "endpoint": "POST /message-subscriptions/search",
+      "property": "$gte",
+      "qualifiedName": "filter.processDefinitionVersion.$gte",
+      "depth": 2,
+      "path": [
+        "filters.yaml",
+        "components",
+        "schemas",
+        "AdvancedIntegerFilter",
+        "properties",
+        "$gte"
+      ],
+      "children": []
+    },
+    "POST /message-subscriptions/search > request > filter.processDefinitionVersion.$lt": {
+      "version": "8.10",
+      "location": "request",
+      "endpoint": "POST /message-subscriptions/search",
+      "property": "$lt",
+      "qualifiedName": "filter.processDefinitionVersion.$lt",
+      "depth": 2,
+      "path": [
+        "filters.yaml",
+        "components",
+        "schemas",
+        "AdvancedIntegerFilter",
+        "properties",
+        "$lt"
+      ],
+      "children": []
+    },
+    "POST /message-subscriptions/search > request > filter.processDefinitionVersion.$lte": {
+      "version": "8.10",
+      "location": "request",
+      "endpoint": "POST /message-subscriptions/search",
+      "property": "$lte",
+      "qualifiedName": "filter.processDefinitionVersion.$lte",
+      "depth": 2,
+      "path": [
+        "filters.yaml",
+        "components",
+        "schemas",
+        "AdvancedIntegerFilter",
+        "properties",
+        "$lte"
+      ],
+      "children": []
+    },
+    "POST /message-subscriptions/search > request > filter.processDefinitionVersion.$in": {
+      "version": "8.10",
+      "location": "request",
+      "endpoint": "POST /message-subscriptions/search",
+      "property": "$in",
+      "qualifiedName": "filter.processDefinitionVersion.$in",
+      "depth": 2,
+      "path": [
+        "filters.yaml",
+        "components",
+        "schemas",
+        "AdvancedIntegerFilter",
+        "properties",
+        "$in"
+      ],
+      "children": []
+    },
+    "POST /message-subscriptions/search > request > filter.toolName": {
+      "version": "8.10",
+      "location": "request",
+      "endpoint": "POST /message-subscriptions/search",
+      "property": "toolName",
+      "qualifiedName": "filter.toolName",
+      "depth": 1,
+      "path": [
+        "components",
+        "schemas",
+        "MessageSubscriptionSearchQuery",
+        "properties",
+        "filter",
+        "properties",
+        "toolName"
+      ],
+      "children": [
+        "POST /message-subscriptions/search > request > filter.toolName.$eq",
+        "POST /message-subscriptions/search > request > filter.toolName.$neq",
+        "POST /message-subscriptions/search > request > filter.toolName.$exists",
+        "POST /message-subscriptions/search > request > filter.toolName.$in",
+        "POST /message-subscriptions/search > request > filter.toolName.$notIn",
+        "POST /message-subscriptions/search > request > filter.toolName.$like"
+      ]
+    },
+    "POST /message-subscriptions/search > request > filter.toolName.$eq": {
+      "version": "8.10",
+      "location": "request",
+      "endpoint": "POST /message-subscriptions/search",
+      "property": "$eq",
+      "qualifiedName": "filter.toolName.$eq",
+      "depth": 2,
+      "path": [
+        "filters.yaml",
+        "components",
+        "schemas",
+        "BasicStringFilter",
+        "properties",
+        "$eq"
+      ],
+      "children": []
+    },
+    "POST /message-subscriptions/search > request > filter.toolName.$neq": {
+      "version": "8.10",
+      "location": "request",
+      "endpoint": "POST /message-subscriptions/search",
+      "property": "$neq",
+      "qualifiedName": "filter.toolName.$neq",
+      "depth": 2,
+      "path": [
+        "filters.yaml",
+        "components",
+        "schemas",
+        "BasicStringFilter",
+        "properties",
+        "$neq"
+      ],
+      "children": []
+    },
+    "POST /message-subscriptions/search > request > filter.toolName.$exists": {
+      "version": "8.10",
+      "location": "request",
+      "endpoint": "POST /message-subscriptions/search",
+      "property": "$exists",
+      "qualifiedName": "filter.toolName.$exists",
+      "depth": 2,
+      "path": [
+        "filters.yaml",
+        "components",
+        "schemas",
+        "BasicStringFilter",
+        "properties",
+        "$exists"
+      ],
+      "children": []
+    },
+    "POST /message-subscriptions/search > request > filter.toolName.$in": {
+      "version": "8.10",
+      "location": "request",
+      "endpoint": "POST /message-subscriptions/search",
+      "property": "$in",
+      "qualifiedName": "filter.toolName.$in",
+      "depth": 2,
+      "path": [
+        "filters.yaml",
+        "components",
+        "schemas",
+        "BasicStringFilter",
+        "properties",
+        "$in"
+      ],
+      "children": []
+    },
+    "POST /message-subscriptions/search > request > filter.toolName.$notIn": {
+      "version": "8.10",
+      "location": "request",
+      "endpoint": "POST /message-subscriptions/search",
+      "property": "$notIn",
+      "qualifiedName": "filter.toolName.$notIn",
+      "depth": 2,
+      "path": [
+        "filters.yaml",
+        "components",
+        "schemas",
+        "BasicStringFilter",
+        "properties",
+        "$notIn"
+      ],
+      "children": []
+    },
+    "POST /message-subscriptions/search > request > filter.toolName.$like": {
+      "version": "8.10",
+      "location": "request",
+      "endpoint": "POST /message-subscriptions/search",
+      "property": "$like",
+      "qualifiedName": "filter.toolName.$like",
+      "depth": 2,
+      "path": [
+        "filters.yaml",
+        "components",
+        "schemas",
+        "AdvancedStringFilter",
+        "allOf",
+        "1",
+        "properties",
+        "$like"
+      ],
+      "children": []
+    },
+    "POST /message-subscriptions/search > request > filter.inboundConnectorType": {
+      "version": "8.10",
+      "location": "request",
+      "endpoint": "POST /message-subscriptions/search",
+      "property": "inboundConnectorType",
+      "qualifiedName": "filter.inboundConnectorType",
+      "depth": 1,
+      "path": [
+        "components",
+        "schemas",
+        "MessageSubscriptionSearchQuery",
+        "properties",
+        "filter",
+        "properties",
+        "inboundConnectorType"
+      ],
+      "children": [
+        "POST /message-subscriptions/search > request > filter.inboundConnectorType.$eq",
+        "POST /message-subscriptions/search > request > filter.inboundConnectorType.$neq",
+        "POST /message-subscriptions/search > request > filter.inboundConnectorType.$exists",
+        "POST /message-subscriptions/search > request > filter.inboundConnectorType.$in",
+        "POST /message-subscriptions/search > request > filter.inboundConnectorType.$notIn",
+        "POST /message-subscriptions/search > request > filter.inboundConnectorType.$like"
+      ]
+    },
+    "POST /message-subscriptions/search > request > filter.inboundConnectorType.$eq": {
+      "version": "8.10",
+      "location": "request",
+      "endpoint": "POST /message-subscriptions/search",
+      "property": "$eq",
+      "qualifiedName": "filter.inboundConnectorType.$eq",
+      "depth": 2,
+      "path": [
+        "filters.yaml",
+        "components",
+        "schemas",
+        "BasicStringFilter",
+        "properties",
+        "$eq"
+      ],
+      "children": []
+    },
+    "POST /message-subscriptions/search > request > filter.inboundConnectorType.$neq": {
+      "version": "8.10",
+      "location": "request",
+      "endpoint": "POST /message-subscriptions/search",
+      "property": "$neq",
+      "qualifiedName": "filter.inboundConnectorType.$neq",
+      "depth": 2,
+      "path": [
+        "filters.yaml",
+        "components",
+        "schemas",
+        "BasicStringFilter",
+        "properties",
+        "$neq"
+      ],
+      "children": []
+    },
+    "POST /message-subscriptions/search > request > filter.inboundConnectorType.$exists": {
+      "version": "8.10",
+      "location": "request",
+      "endpoint": "POST /message-subscriptions/search",
+      "property": "$exists",
+      "qualifiedName": "filter.inboundConnectorType.$exists",
+      "depth": 2,
+      "path": [
+        "filters.yaml",
+        "components",
+        "schemas",
+        "BasicStringFilter",
+        "properties",
+        "$exists"
+      ],
+      "children": []
+    },
+    "POST /message-subscriptions/search > request > filter.inboundConnectorType.$in": {
+      "version": "8.10",
+      "location": "request",
+      "endpoint": "POST /message-subscriptions/search",
+      "property": "$in",
+      "qualifiedName": "filter.inboundConnectorType.$in",
+      "depth": 2,
+      "path": [
+        "filters.yaml",
+        "components",
+        "schemas",
+        "BasicStringFilter",
+        "properties",
+        "$in"
+      ],
+      "children": []
+    },
+    "POST /message-subscriptions/search > request > filter.inboundConnectorType.$notIn": {
+      "version": "8.10",
+      "location": "request",
+      "endpoint": "POST /message-subscriptions/search",
+      "property": "$notIn",
+      "qualifiedName": "filter.inboundConnectorType.$notIn",
+      "depth": 2,
+      "path": [
+        "filters.yaml",
+        "components",
+        "schemas",
+        "BasicStringFilter",
+        "properties",
+        "$notIn"
+      ],
+      "children": []
+    },
+    "POST /message-subscriptions/search > request > filter.inboundConnectorType.$like": {
+      "version": "8.10",
+      "location": "request",
+      "endpoint": "POST /message-subscriptions/search",
+      "property": "$like",
+      "qualifiedName": "filter.inboundConnectorType.$like",
+      "depth": 2,
+      "path": [
+        "filters.yaml",
+        "components",
+        "schemas",
+        "AdvancedStringFilter",
+        "allOf",
+        "1",
+        "properties",
+        "$like"
+      ],
+      "children": []
+    },
+    "POST /message-subscriptions/search > response > items[].messageSubscriptionType": {
+      "version": "8.10",
+      "location": "response",
+      "endpoint": "POST /message-subscriptions/search",
+      "property": "messageSubscriptionType",
+      "qualifiedName": "items[].messageSubscriptionType",
+      "depth": 1,
+      "path": [
+        "components",
+        "schemas",
+        "MessageSubscriptionResult",
+        "properties",
+        "messageSubscriptionType"
+      ],
+      "children": []
+    },
+    "POST /message-subscriptions/search > response > items[].toolProperties": {
+      "version": "8.10",
+      "location": "response",
+      "endpoint": "POST /message-subscriptions/search",
+      "property": "toolProperties",
+      "qualifiedName": "items[].toolProperties",
+      "depth": 1,
+      "path": [
+        "components",
+        "schemas",
+        "MessageSubscriptionResult",
+        "properties",
+        "toolProperties"
+      ],
+      "children": []
+    },
+    "POST /message-subscriptions/search > response > items[].processDefinitionName": {
+      "version": "8.10",
+      "location": "response",
+      "endpoint": "POST /message-subscriptions/search",
+      "property": "processDefinitionName",
+      "qualifiedName": "items[].processDefinitionName",
+      "depth": 1,
+      "path": [
+        "components",
+        "schemas",
+        "MessageSubscriptionResult",
+        "properties",
+        "processDefinitionName"
+      ],
+      "children": []
+    },
+    "POST /message-subscriptions/search > response > items[].processDefinitionVersion": {
+      "version": "8.10",
+      "location": "response",
+      "endpoint": "POST /message-subscriptions/search",
+      "property": "processDefinitionVersion",
+      "qualifiedName": "items[].processDefinitionVersion",
+      "depth": 1,
+      "path": [
+        "components",
+        "schemas",
+        "MessageSubscriptionResult",
+        "properties",
+        "processDefinitionVersion"
+      ],
+      "children": []
+    },
+    "POST /message-subscriptions/search > response > items[].toolName": {
+      "version": "8.10",
+      "location": "response",
+      "endpoint": "POST /message-subscriptions/search",
+      "property": "toolName",
+      "qualifiedName": "items[].toolName",
+      "depth": 1,
+      "path": [
+        "components",
+        "schemas",
+        "MessageSubscriptionResult",
+        "properties",
+        "toolName"
+      ],
+      "children": []
+    },
+    "POST /message-subscriptions/search > response > items[].inboundConnectorType": {
+      "version": "8.10",
+      "location": "response",
+      "endpoint": "POST /message-subscriptions/search",
+      "property": "inboundConnectorType",
+      "qualifiedName": "items[].inboundConnectorType",
+      "depth": 1,
+      "path": [
+        "components",
+        "schemas",
+        "MessageSubscriptionResult",
+        "properties",
+        "inboundConnectorType"
+      ],
+      "children": []
+    },
+    "POST /process-definitions/statistics/message-subscriptions > request > filter.messageSubscriptionType": {
+      "version": "8.10",
+      "location": "request",
+      "endpoint": "POST /process-definitions/statistics/message-subscriptions",
+      "property": "messageSubscriptionType",
+      "qualifiedName": "filter.messageSubscriptionType",
+      "depth": 1,
+      "path": [
+        "components",
+        "schemas",
+        "ProcessDefinitionMessageSubscriptionStatisticsQuery",
+        "properties",
+        "filter",
+        "properties",
+        "messageSubscriptionType"
+      ],
+      "children": [
+        "POST /process-definitions/statistics/message-subscriptions > request > filter.messageSubscriptionType.$eq",
+        "POST /process-definitions/statistics/message-subscriptions > request > filter.messageSubscriptionType.$neq",
+        "POST /process-definitions/statistics/message-subscriptions > request > filter.messageSubscriptionType.$exists",
+        "POST /process-definitions/statistics/message-subscriptions > request > filter.messageSubscriptionType.$in",
+        "POST /process-definitions/statistics/message-subscriptions > request > filter.messageSubscriptionType.$like"
+      ]
+    },
+    "POST /process-definitions/statistics/message-subscriptions > request > filter.messageSubscriptionType.$eq": {
+      "version": "8.10",
+      "location": "request",
+      "endpoint": "POST /process-definitions/statistics/message-subscriptions",
+      "property": "$eq",
+      "qualifiedName": "filter.messageSubscriptionType.$eq",
+      "depth": 2,
+      "path": [
+        "messages.yaml",
+        "components",
+        "schemas",
+        "AdvancedMessageSubscriptionTypeFilter",
+        "properties",
+        "$eq"
+      ],
+      "children": []
+    },
+    "POST /process-definitions/statistics/message-subscriptions > request > filter.messageSubscriptionType.$neq": {
+      "version": "8.10",
+      "location": "request",
+      "endpoint": "POST /process-definitions/statistics/message-subscriptions",
+      "property": "$neq",
+      "qualifiedName": "filter.messageSubscriptionType.$neq",
+      "depth": 2,
+      "path": [
+        "messages.yaml",
+        "components",
+        "schemas",
+        "AdvancedMessageSubscriptionTypeFilter",
+        "properties",
+        "$neq"
+      ],
+      "children": []
+    },
+    "POST /process-definitions/statistics/message-subscriptions > request > filter.messageSubscriptionType.$exists": {
+      "version": "8.10",
+      "location": "request",
+      "endpoint": "POST /process-definitions/statistics/message-subscriptions",
+      "property": "$exists",
+      "qualifiedName": "filter.messageSubscriptionType.$exists",
+      "depth": 2,
+      "path": [
+        "messages.yaml",
+        "components",
+        "schemas",
+        "AdvancedMessageSubscriptionTypeFilter",
+        "properties",
+        "$exists"
+      ],
+      "children": []
+    },
+    "POST /process-definitions/statistics/message-subscriptions > request > filter.messageSubscriptionType.$in": {
+      "version": "8.10",
+      "location": "request",
+      "endpoint": "POST /process-definitions/statistics/message-subscriptions",
+      "property": "$in",
+      "qualifiedName": "filter.messageSubscriptionType.$in",
+      "depth": 2,
+      "path": [
+        "messages.yaml",
+        "components",
+        "schemas",
+        "AdvancedMessageSubscriptionTypeFilter",
+        "properties",
+        "$in"
+      ],
+      "children": []
+    },
+    "POST /process-definitions/statistics/message-subscriptions > request > filter.messageSubscriptionType.$like": {
+      "version": "8.10",
+      "location": "request",
+      "endpoint": "POST /process-definitions/statistics/message-subscriptions",
+      "property": "$like",
+      "qualifiedName": "filter.messageSubscriptionType.$like",
+      "depth": 2,
+      "path": [
+        "messages.yaml",
+        "components",
+        "schemas",
+        "AdvancedMessageSubscriptionTypeFilter",
+        "properties",
+        "$like"
+      ],
+      "children": []
+    },
+    "POST /process-definitions/statistics/message-subscriptions > request > filter.processDefinitionName": {
+      "version": "8.10",
+      "location": "request",
+      "endpoint": "POST /process-definitions/statistics/message-subscriptions",
+      "property": "processDefinitionName",
+      "qualifiedName": "filter.processDefinitionName",
+      "depth": 1,
+      "path": [
+        "components",
+        "schemas",
+        "ProcessDefinitionMessageSubscriptionStatisticsQuery",
+        "properties",
+        "filter",
+        "properties",
+        "processDefinitionName"
+      ],
+      "children": [
+        "POST /process-definitions/statistics/message-subscriptions > request > filter.processDefinitionName.$eq",
+        "POST /process-definitions/statistics/message-subscriptions > request > filter.processDefinitionName.$neq",
+        "POST /process-definitions/statistics/message-subscriptions > request > filter.processDefinitionName.$exists",
+        "POST /process-definitions/statistics/message-subscriptions > request > filter.processDefinitionName.$in",
+        "POST /process-definitions/statistics/message-subscriptions > request > filter.processDefinitionName.$notIn",
+        "POST /process-definitions/statistics/message-subscriptions > request > filter.processDefinitionName.$like"
+      ]
+    },
+    "POST /process-definitions/statistics/message-subscriptions > request > filter.processDefinitionName.$eq": {
+      "version": "8.10",
+      "location": "request",
+      "endpoint": "POST /process-definitions/statistics/message-subscriptions",
+      "property": "$eq",
+      "qualifiedName": "filter.processDefinitionName.$eq",
+      "depth": 2,
+      "path": [
+        "filters.yaml",
+        "components",
+        "schemas",
+        "BasicStringFilter",
+        "properties",
+        "$eq"
+      ],
+      "children": []
+    },
+    "POST /process-definitions/statistics/message-subscriptions > request > filter.processDefinitionName.$neq": {
+      "version": "8.10",
+      "location": "request",
+      "endpoint": "POST /process-definitions/statistics/message-subscriptions",
+      "property": "$neq",
+      "qualifiedName": "filter.processDefinitionName.$neq",
+      "depth": 2,
+      "path": [
+        "filters.yaml",
+        "components",
+        "schemas",
+        "BasicStringFilter",
+        "properties",
+        "$neq"
+      ],
+      "children": []
+    },
+    "POST /process-definitions/statistics/message-subscriptions > request > filter.processDefinitionName.$exists": {
+      "version": "8.10",
+      "location": "request",
+      "endpoint": "POST /process-definitions/statistics/message-subscriptions",
+      "property": "$exists",
+      "qualifiedName": "filter.processDefinitionName.$exists",
+      "depth": 2,
+      "path": [
+        "filters.yaml",
+        "components",
+        "schemas",
+        "BasicStringFilter",
+        "properties",
+        "$exists"
+      ],
+      "children": []
+    },
+    "POST /process-definitions/statistics/message-subscriptions > request > filter.processDefinitionName.$in": {
+      "version": "8.10",
+      "location": "request",
+      "endpoint": "POST /process-definitions/statistics/message-subscriptions",
+      "property": "$in",
+      "qualifiedName": "filter.processDefinitionName.$in",
+      "depth": 2,
+      "path": [
+        "filters.yaml",
+        "components",
+        "schemas",
+        "BasicStringFilter",
+        "properties",
+        "$in"
+      ],
+      "children": []
+    },
+    "POST /process-definitions/statistics/message-subscriptions > request > filter.processDefinitionName.$notIn": {
+      "version": "8.10",
+      "location": "request",
+      "endpoint": "POST /process-definitions/statistics/message-subscriptions",
+      "property": "$notIn",
+      "qualifiedName": "filter.processDefinitionName.$notIn",
+      "depth": 2,
+      "path": [
+        "filters.yaml",
+        "components",
+        "schemas",
+        "BasicStringFilter",
+        "properties",
+        "$notIn"
+      ],
+      "children": []
+    },
+    "POST /process-definitions/statistics/message-subscriptions > request > filter.processDefinitionName.$like": {
+      "version": "8.10",
+      "location": "request",
+      "endpoint": "POST /process-definitions/statistics/message-subscriptions",
+      "property": "$like",
+      "qualifiedName": "filter.processDefinitionName.$like",
+      "depth": 2,
+      "path": [
+        "filters.yaml",
+        "components",
+        "schemas",
+        "AdvancedStringFilter",
+        "allOf",
+        "1",
+        "properties",
+        "$like"
+      ],
+      "children": []
+    },
+    "POST /process-definitions/statistics/message-subscriptions > request > filter.processDefinitionVersion": {
+      "version": "8.10",
+      "location": "request",
+      "endpoint": "POST /process-definitions/statistics/message-subscriptions",
+      "property": "processDefinitionVersion",
+      "qualifiedName": "filter.processDefinitionVersion",
+      "depth": 1,
+      "path": [
+        "components",
+        "schemas",
+        "ProcessDefinitionMessageSubscriptionStatisticsQuery",
+        "properties",
+        "filter",
+        "properties",
+        "processDefinitionVersion"
+      ],
+      "children": [
+        "POST /process-definitions/statistics/message-subscriptions > request > filter.processDefinitionVersion.$eq",
+        "POST /process-definitions/statistics/message-subscriptions > request > filter.processDefinitionVersion.$neq",
+        "POST /process-definitions/statistics/message-subscriptions > request > filter.processDefinitionVersion.$exists",
+        "POST /process-definitions/statistics/message-subscriptions > request > filter.processDefinitionVersion.$gt",
+        "POST /process-definitions/statistics/message-subscriptions > request > filter.processDefinitionVersion.$gte",
+        "POST /process-definitions/statistics/message-subscriptions > request > filter.processDefinitionVersion.$lt",
+        "POST /process-definitions/statistics/message-subscriptions > request > filter.processDefinitionVersion.$lte",
+        "POST /process-definitions/statistics/message-subscriptions > request > filter.processDefinitionVersion.$in"
+      ]
+    },
+    "POST /process-definitions/statistics/message-subscriptions > request > filter.processDefinitionVersion.$eq": {
+      "version": "8.10",
+      "location": "request",
+      "endpoint": "POST /process-definitions/statistics/message-subscriptions",
+      "property": "$eq",
+      "qualifiedName": "filter.processDefinitionVersion.$eq",
+      "depth": 2,
+      "path": [
+        "filters.yaml",
+        "components",
+        "schemas",
+        "AdvancedIntegerFilter",
+        "properties",
+        "$eq"
+      ],
+      "children": []
+    },
+    "POST /process-definitions/statistics/message-subscriptions > request > filter.processDefinitionVersion.$neq": {
+      "version": "8.10",
+      "location": "request",
+      "endpoint": "POST /process-definitions/statistics/message-subscriptions",
+      "property": "$neq",
+      "qualifiedName": "filter.processDefinitionVersion.$neq",
+      "depth": 2,
+      "path": [
+        "filters.yaml",
+        "components",
+        "schemas",
+        "AdvancedIntegerFilter",
+        "properties",
+        "$neq"
+      ],
+      "children": []
+    },
+    "POST /process-definitions/statistics/message-subscriptions > request > filter.processDefinitionVersion.$exists": {
+      "version": "8.10",
+      "location": "request",
+      "endpoint": "POST /process-definitions/statistics/message-subscriptions",
+      "property": "$exists",
+      "qualifiedName": "filter.processDefinitionVersion.$exists",
+      "depth": 2,
+      "path": [
+        "filters.yaml",
+        "components",
+        "schemas",
+        "AdvancedIntegerFilter",
+        "properties",
+        "$exists"
+      ],
+      "children": []
+    },
+    "POST /process-definitions/statistics/message-subscriptions > request > filter.processDefinitionVersion.$gt": {
+      "version": "8.10",
+      "location": "request",
+      "endpoint": "POST /process-definitions/statistics/message-subscriptions",
+      "property": "$gt",
+      "qualifiedName": "filter.processDefinitionVersion.$gt",
+      "depth": 2,
+      "path": [
+        "filters.yaml",
+        "components",
+        "schemas",
+        "AdvancedIntegerFilter",
+        "properties",
+        "$gt"
+      ],
+      "children": []
+    },
+    "POST /process-definitions/statistics/message-subscriptions > request > filter.processDefinitionVersion.$gte": {
+      "version": "8.10",
+      "location": "request",
+      "endpoint": "POST /process-definitions/statistics/message-subscriptions",
+      "property": "$gte",
+      "qualifiedName": "filter.processDefinitionVersion.$gte",
+      "depth": 2,
+      "path": [
+        "filters.yaml",
+        "components",
+        "schemas",
+        "AdvancedIntegerFilter",
+        "properties",
+        "$gte"
+      ],
+      "children": []
+    },
+    "POST /process-definitions/statistics/message-subscriptions > request > filter.processDefinitionVersion.$lt": {
+      "version": "8.10",
+      "location": "request",
+      "endpoint": "POST /process-definitions/statistics/message-subscriptions",
+      "property": "$lt",
+      "qualifiedName": "filter.processDefinitionVersion.$lt",
+      "depth": 2,
+      "path": [
+        "filters.yaml",
+        "components",
+        "schemas",
+        "AdvancedIntegerFilter",
+        "properties",
+        "$lt"
+      ],
+      "children": []
+    },
+    "POST /process-definitions/statistics/message-subscriptions > request > filter.processDefinitionVersion.$lte": {
+      "version": "8.10",
+      "location": "request",
+      "endpoint": "POST /process-definitions/statistics/message-subscriptions",
+      "property": "$lte",
+      "qualifiedName": "filter.processDefinitionVersion.$lte",
+      "depth": 2,
+      "path": [
+        "filters.yaml",
+        "components",
+        "schemas",
+        "AdvancedIntegerFilter",
+        "properties",
+        "$lte"
+      ],
+      "children": []
+    },
+    "POST /process-definitions/statistics/message-subscriptions > request > filter.processDefinitionVersion.$in": {
+      "version": "8.10",
+      "location": "request",
+      "endpoint": "POST /process-definitions/statistics/message-subscriptions",
+      "property": "$in",
+      "qualifiedName": "filter.processDefinitionVersion.$in",
+      "depth": 2,
+      "path": [
+        "filters.yaml",
+        "components",
+        "schemas",
+        "AdvancedIntegerFilter",
+        "properties",
+        "$in"
+      ],
+      "children": []
+    },
+    "POST /process-definitions/statistics/message-subscriptions > request > filter.toolName": {
+      "version": "8.10",
+      "location": "request",
+      "endpoint": "POST /process-definitions/statistics/message-subscriptions",
+      "property": "toolName",
+      "qualifiedName": "filter.toolName",
+      "depth": 1,
+      "path": [
+        "components",
+        "schemas",
+        "ProcessDefinitionMessageSubscriptionStatisticsQuery",
+        "properties",
+        "filter",
+        "properties",
+        "toolName"
+      ],
+      "children": [
+        "POST /process-definitions/statistics/message-subscriptions > request > filter.toolName.$eq",
+        "POST /process-definitions/statistics/message-subscriptions > request > filter.toolName.$neq",
+        "POST /process-definitions/statistics/message-subscriptions > request > filter.toolName.$exists",
+        "POST /process-definitions/statistics/message-subscriptions > request > filter.toolName.$in",
+        "POST /process-definitions/statistics/message-subscriptions > request > filter.toolName.$notIn",
+        "POST /process-definitions/statistics/message-subscriptions > request > filter.toolName.$like"
+      ]
+    },
+    "POST /process-definitions/statistics/message-subscriptions > request > filter.toolName.$eq": {
+      "version": "8.10",
+      "location": "request",
+      "endpoint": "POST /process-definitions/statistics/message-subscriptions",
+      "property": "$eq",
+      "qualifiedName": "filter.toolName.$eq",
+      "depth": 2,
+      "path": [
+        "filters.yaml",
+        "components",
+        "schemas",
+        "BasicStringFilter",
+        "properties",
+        "$eq"
+      ],
+      "children": []
+    },
+    "POST /process-definitions/statistics/message-subscriptions > request > filter.toolName.$neq": {
+      "version": "8.10",
+      "location": "request",
+      "endpoint": "POST /process-definitions/statistics/message-subscriptions",
+      "property": "$neq",
+      "qualifiedName": "filter.toolName.$neq",
+      "depth": 2,
+      "path": [
+        "filters.yaml",
+        "components",
+        "schemas",
+        "BasicStringFilter",
+        "properties",
+        "$neq"
+      ],
+      "children": []
+    },
+    "POST /process-definitions/statistics/message-subscriptions > request > filter.toolName.$exists": {
+      "version": "8.10",
+      "location": "request",
+      "endpoint": "POST /process-definitions/statistics/message-subscriptions",
+      "property": "$exists",
+      "qualifiedName": "filter.toolName.$exists",
+      "depth": 2,
+      "path": [
+        "filters.yaml",
+        "components",
+        "schemas",
+        "BasicStringFilter",
+        "properties",
+        "$exists"
+      ],
+      "children": []
+    },
+    "POST /process-definitions/statistics/message-subscriptions > request > filter.toolName.$in": {
+      "version": "8.10",
+      "location": "request",
+      "endpoint": "POST /process-definitions/statistics/message-subscriptions",
+      "property": "$in",
+      "qualifiedName": "filter.toolName.$in",
+      "depth": 2,
+      "path": [
+        "filters.yaml",
+        "components",
+        "schemas",
+        "BasicStringFilter",
+        "properties",
+        "$in"
+      ],
+      "children": []
+    },
+    "POST /process-definitions/statistics/message-subscriptions > request > filter.toolName.$notIn": {
+      "version": "8.10",
+      "location": "request",
+      "endpoint": "POST /process-definitions/statistics/message-subscriptions",
+      "property": "$notIn",
+      "qualifiedName": "filter.toolName.$notIn",
+      "depth": 2,
+      "path": [
+        "filters.yaml",
+        "components",
+        "schemas",
+        "BasicStringFilter",
+        "properties",
+        "$notIn"
+      ],
+      "children": []
+    },
+    "POST /process-definitions/statistics/message-subscriptions > request > filter.toolName.$like": {
+      "version": "8.10",
+      "location": "request",
+      "endpoint": "POST /process-definitions/statistics/message-subscriptions",
+      "property": "$like",
+      "qualifiedName": "filter.toolName.$like",
+      "depth": 2,
+      "path": [
+        "filters.yaml",
+        "components",
+        "schemas",
+        "AdvancedStringFilter",
+        "allOf",
+        "1",
+        "properties",
+        "$like"
+      ],
+      "children": []
+    },
+    "POST /process-definitions/statistics/message-subscriptions > request > filter.inboundConnectorType": {
+      "version": "8.10",
+      "location": "request",
+      "endpoint": "POST /process-definitions/statistics/message-subscriptions",
+      "property": "inboundConnectorType",
+      "qualifiedName": "filter.inboundConnectorType",
+      "depth": 1,
+      "path": [
+        "components",
+        "schemas",
+        "ProcessDefinitionMessageSubscriptionStatisticsQuery",
+        "properties",
+        "filter",
+        "properties",
+        "inboundConnectorType"
+      ],
+      "children": [
+        "POST /process-definitions/statistics/message-subscriptions > request > filter.inboundConnectorType.$eq",
+        "POST /process-definitions/statistics/message-subscriptions > request > filter.inboundConnectorType.$neq",
+        "POST /process-definitions/statistics/message-subscriptions > request > filter.inboundConnectorType.$exists",
+        "POST /process-definitions/statistics/message-subscriptions > request > filter.inboundConnectorType.$in",
+        "POST /process-definitions/statistics/message-subscriptions > request > filter.inboundConnectorType.$notIn",
+        "POST /process-definitions/statistics/message-subscriptions > request > filter.inboundConnectorType.$like"
+      ]
+    },
+    "POST /process-definitions/statistics/message-subscriptions > request > filter.inboundConnectorType.$eq": {
+      "version": "8.10",
+      "location": "request",
+      "endpoint": "POST /process-definitions/statistics/message-subscriptions",
+      "property": "$eq",
+      "qualifiedName": "filter.inboundConnectorType.$eq",
+      "depth": 2,
+      "path": [
+        "filters.yaml",
+        "components",
+        "schemas",
+        "BasicStringFilter",
+        "properties",
+        "$eq"
+      ],
+      "children": []
+    },
+    "POST /process-definitions/statistics/message-subscriptions > request > filter.inboundConnectorType.$neq": {
+      "version": "8.10",
+      "location": "request",
+      "endpoint": "POST /process-definitions/statistics/message-subscriptions",
+      "property": "$neq",
+      "qualifiedName": "filter.inboundConnectorType.$neq",
+      "depth": 2,
+      "path": [
+        "filters.yaml",
+        "components",
+        "schemas",
+        "BasicStringFilter",
+        "properties",
+        "$neq"
+      ],
+      "children": []
+    },
+    "POST /process-definitions/statistics/message-subscriptions > request > filter.inboundConnectorType.$exists": {
+      "version": "8.10",
+      "location": "request",
+      "endpoint": "POST /process-definitions/statistics/message-subscriptions",
+      "property": "$exists",
+      "qualifiedName": "filter.inboundConnectorType.$exists",
+      "depth": 2,
+      "path": [
+        "filters.yaml",
+        "components",
+        "schemas",
+        "BasicStringFilter",
+        "properties",
+        "$exists"
+      ],
+      "children": []
+    },
+    "POST /process-definitions/statistics/message-subscriptions > request > filter.inboundConnectorType.$in": {
+      "version": "8.10",
+      "location": "request",
+      "endpoint": "POST /process-definitions/statistics/message-subscriptions",
+      "property": "$in",
+      "qualifiedName": "filter.inboundConnectorType.$in",
+      "depth": 2,
+      "path": [
+        "filters.yaml",
+        "components",
+        "schemas",
+        "BasicStringFilter",
+        "properties",
+        "$in"
+      ],
+      "children": []
+    },
+    "POST /process-definitions/statistics/message-subscriptions > request > filter.inboundConnectorType.$notIn": {
+      "version": "8.10",
+      "location": "request",
+      "endpoint": "POST /process-definitions/statistics/message-subscriptions",
+      "property": "$notIn",
+      "qualifiedName": "filter.inboundConnectorType.$notIn",
+      "depth": 2,
+      "path": [
+        "filters.yaml",
+        "components",
+        "schemas",
+        "BasicStringFilter",
+        "properties",
+        "$notIn"
+      ],
+      "children": []
+    },
+    "POST /process-definitions/statistics/message-subscriptions > request > filter.inboundConnectorType.$like": {
+      "version": "8.10",
+      "location": "request",
+      "endpoint": "POST /process-definitions/statistics/message-subscriptions",
+      "property": "$like",
+      "qualifiedName": "filter.inboundConnectorType.$like",
+      "depth": 2,
+      "path": [
+        "filters.yaml",
+        "components",
+        "schemas",
+        "AdvancedStringFilter",
+        "allOf",
+        "1",
+        "properties",
+        "$like"
+      ],
+      "children": []
+    },
+    "POST /resources/search > request > sort": {
+      "version": "8.10",
+      "location": "request",
+      "endpoint": "POST /resources/search",
+      "property": "sort",
+      "qualifiedName": "sort",
+      "depth": 0,
+      "path": [
+        "components",
+        "schemas",
+        "ResourceSearchQuery",
+        "properties",
+        "sort"
+      ],
+      "children": [
+        "POST /resources/search > request > sort[].field",
+        "POST /resources/search > request > sort[].order"
+      ]
+    },
+    "POST /resources/search > request > sort[].field": {
+      "version": "8.10",
+      "location": "request",
+      "endpoint": "POST /resources/search",
+      "property": "field",
+      "qualifiedName": "sort[].field",
+      "depth": 1,
+      "path": [
+        "components",
+        "schemas",
+        "ResourceSearchQuerySortRequest",
+        "properties",
+        "field"
+      ],
+      "children": []
+    },
+    "POST /resources/search > request > sort[].order": {
+      "version": "8.10",
+      "location": "request",
+      "endpoint": "POST /resources/search",
+      "property": "order",
+      "qualifiedName": "sort[].order",
+      "depth": 1,
+      "path": [
+        "components",
+        "schemas",
+        "ResourceSearchQuerySortRequest",
+        "properties",
+        "order"
+      ],
+      "children": []
+    },
+    "POST /resources/search > request > filter": {
+      "version": "8.10",
+      "location": "request",
+      "endpoint": "POST /resources/search",
+      "property": "filter",
+      "qualifiedName": "filter",
+      "depth": 0,
+      "path": [
+        "components",
+        "schemas",
+        "ResourceSearchQuery",
+        "properties",
+        "filter"
+      ],
+      "children": [
+        "POST /resources/search > request > filter.resourceKey",
+        "POST /resources/search > request > filter.resourceName",
+        "POST /resources/search > request > filter.resourceId",
+        "POST /resources/search > request > filter.version",
+        "POST /resources/search > request > filter.versionTag",
+        "POST /resources/search > request > filter.deploymentKey",
+        "POST /resources/search > request > filter.tenantId"
+      ]
+    },
+    "POST /resources/search > request > filter.resourceKey": {
+      "version": "8.10",
+      "location": "request",
+      "endpoint": "POST /resources/search",
+      "property": "resourceKey",
+      "qualifiedName": "filter.resourceKey",
+      "depth": 1,
+      "path": [
+        "components",
+        "schemas",
+        "ResourceSearchQuery",
+        "properties",
+        "filter",
+        "properties",
+        "resourceKey"
+      ],
+      "children": [
+        "POST /resources/search > request > filter.resourceKey.$eq",
+        "POST /resources/search > request > filter.resourceKey.$neq",
+        "POST /resources/search > request > filter.resourceKey.$exists",
+        "POST /resources/search > request > filter.resourceKey.$in",
+        "POST /resources/search > request > filter.resourceKey.$notIn"
+      ]
+    },
+    "POST /resources/search > request > filter.resourceKey.$eq": {
+      "version": "8.10",
+      "location": "request",
+      "endpoint": "POST /resources/search",
+      "property": "$eq",
+      "qualifiedName": "filter.resourceKey.$eq",
+      "depth": 2,
+      "path": [
+        "components",
+        "schemas",
+        "AdvancedResourceKeyFilter",
+        "properties",
+        "$eq"
+      ],
+      "children": []
+    },
+    "POST /resources/search > request > filter.resourceKey.$neq": {
+      "version": "8.10",
+      "location": "request",
+      "endpoint": "POST /resources/search",
+      "property": "$neq",
+      "qualifiedName": "filter.resourceKey.$neq",
+      "depth": 2,
+      "path": [
+        "components",
+        "schemas",
+        "AdvancedResourceKeyFilter",
+        "properties",
+        "$neq"
+      ],
+      "children": []
+    },
+    "POST /resources/search > request > filter.resourceKey.$exists": {
+      "version": "8.10",
+      "location": "request",
+      "endpoint": "POST /resources/search",
+      "property": "$exists",
+      "qualifiedName": "filter.resourceKey.$exists",
+      "depth": 2,
+      "path": [
+        "components",
+        "schemas",
+        "AdvancedResourceKeyFilter",
+        "properties",
+        "$exists"
+      ],
+      "children": []
+    },
+    "POST /resources/search > request > filter.resourceKey.$in": {
+      "version": "8.10",
+      "location": "request",
+      "endpoint": "POST /resources/search",
+      "property": "$in",
+      "qualifiedName": "filter.resourceKey.$in",
+      "depth": 2,
+      "path": [
+        "components",
+        "schemas",
+        "AdvancedResourceKeyFilter",
+        "properties",
+        "$in"
+      ],
+      "children": []
+    },
+    "POST /resources/search > request > filter.resourceKey.$notIn": {
+      "version": "8.10",
+      "location": "request",
+      "endpoint": "POST /resources/search",
+      "property": "$notIn",
+      "qualifiedName": "filter.resourceKey.$notIn",
+      "depth": 2,
+      "path": [
+        "components",
+        "schemas",
+        "AdvancedResourceKeyFilter",
+        "properties",
+        "$notIn"
+      ],
+      "children": []
+    },
+    "POST /resources/search > request > filter.resourceName": {
+      "version": "8.10",
+      "location": "request",
+      "endpoint": "POST /resources/search",
+      "property": "resourceName",
+      "qualifiedName": "filter.resourceName",
+      "depth": 1,
+      "path": [
+        "components",
+        "schemas",
+        "ResourceSearchQuery",
+        "properties",
+        "filter",
+        "properties",
+        "resourceName"
+      ],
+      "children": [
+        "POST /resources/search > request > filter.resourceName.$eq",
+        "POST /resources/search > request > filter.resourceName.$neq",
+        "POST /resources/search > request > filter.resourceName.$exists",
+        "POST /resources/search > request > filter.resourceName.$in",
+        "POST /resources/search > request > filter.resourceName.$notIn",
+        "POST /resources/search > request > filter.resourceName.$like"
+      ]
+    },
+    "POST /resources/search > request > filter.resourceName.$eq": {
+      "version": "8.10",
+      "location": "request",
+      "endpoint": "POST /resources/search",
+      "property": "$eq",
+      "qualifiedName": "filter.resourceName.$eq",
+      "depth": 2,
+      "path": [
+        "filters.yaml",
+        "components",
+        "schemas",
+        "BasicStringFilter",
+        "properties",
+        "$eq"
+      ],
+      "children": []
+    },
+    "POST /resources/search > request > filter.resourceName.$neq": {
+      "version": "8.10",
+      "location": "request",
+      "endpoint": "POST /resources/search",
+      "property": "$neq",
+      "qualifiedName": "filter.resourceName.$neq",
+      "depth": 2,
+      "path": [
+        "filters.yaml",
+        "components",
+        "schemas",
+        "BasicStringFilter",
+        "properties",
+        "$neq"
+      ],
+      "children": []
+    },
+    "POST /resources/search > request > filter.resourceName.$exists": {
+      "version": "8.10",
+      "location": "request",
+      "endpoint": "POST /resources/search",
+      "property": "$exists",
+      "qualifiedName": "filter.resourceName.$exists",
+      "depth": 2,
+      "path": [
+        "filters.yaml",
+        "components",
+        "schemas",
+        "BasicStringFilter",
+        "properties",
+        "$exists"
+      ],
+      "children": []
+    },
+    "POST /resources/search > request > filter.resourceName.$in": {
+      "version": "8.10",
+      "location": "request",
+      "endpoint": "POST /resources/search",
+      "property": "$in",
+      "qualifiedName": "filter.resourceName.$in",
+      "depth": 2,
+      "path": [
+        "filters.yaml",
+        "components",
+        "schemas",
+        "BasicStringFilter",
+        "properties",
+        "$in"
+      ],
+      "children": []
+    },
+    "POST /resources/search > request > filter.resourceName.$notIn": {
+      "version": "8.10",
+      "location": "request",
+      "endpoint": "POST /resources/search",
+      "property": "$notIn",
+      "qualifiedName": "filter.resourceName.$notIn",
+      "depth": 2,
+      "path": [
+        "filters.yaml",
+        "components",
+        "schemas",
+        "BasicStringFilter",
+        "properties",
+        "$notIn"
+      ],
+      "children": []
+    },
+    "POST /resources/search > request > filter.resourceName.$like": {
+      "version": "8.10",
+      "location": "request",
+      "endpoint": "POST /resources/search",
+      "property": "$like",
+      "qualifiedName": "filter.resourceName.$like",
+      "depth": 2,
+      "path": [
+        "filters.yaml",
+        "components",
+        "schemas",
+        "AdvancedStringFilter",
+        "allOf",
+        "1",
+        "properties",
+        "$like"
+      ],
+      "children": []
+    },
+    "POST /resources/search > request > filter.resourceId": {
+      "version": "8.10",
+      "location": "request",
+      "endpoint": "POST /resources/search",
+      "property": "resourceId",
+      "qualifiedName": "filter.resourceId",
+      "depth": 1,
+      "path": [
+        "components",
+        "schemas",
+        "ResourceSearchQuery",
+        "properties",
+        "filter",
+        "properties",
+        "resourceId"
+      ],
+      "children": [
+        "POST /resources/search > request > filter.resourceId.$eq",
+        "POST /resources/search > request > filter.resourceId.$neq",
+        "POST /resources/search > request > filter.resourceId.$exists",
+        "POST /resources/search > request > filter.resourceId.$in",
+        "POST /resources/search > request > filter.resourceId.$notIn",
+        "POST /resources/search > request > filter.resourceId.$like"
+      ]
+    },
+    "POST /resources/search > request > filter.resourceId.$eq": {
+      "version": "8.10",
+      "location": "request",
+      "endpoint": "POST /resources/search",
+      "property": "$eq",
+      "qualifiedName": "filter.resourceId.$eq",
+      "depth": 2,
+      "path": [
+        "filters.yaml",
+        "components",
+        "schemas",
+        "BasicStringFilter",
+        "properties",
+        "$eq"
+      ],
+      "children": []
+    },
+    "POST /resources/search > request > filter.resourceId.$neq": {
+      "version": "8.10",
+      "location": "request",
+      "endpoint": "POST /resources/search",
+      "property": "$neq",
+      "qualifiedName": "filter.resourceId.$neq",
+      "depth": 2,
+      "path": [
+        "filters.yaml",
+        "components",
+        "schemas",
+        "BasicStringFilter",
+        "properties",
+        "$neq"
+      ],
+      "children": []
+    },
+    "POST /resources/search > request > filter.resourceId.$exists": {
+      "version": "8.10",
+      "location": "request",
+      "endpoint": "POST /resources/search",
+      "property": "$exists",
+      "qualifiedName": "filter.resourceId.$exists",
+      "depth": 2,
+      "path": [
+        "filters.yaml",
+        "components",
+        "schemas",
+        "BasicStringFilter",
+        "properties",
+        "$exists"
+      ],
+      "children": []
+    },
+    "POST /resources/search > request > filter.resourceId.$in": {
+      "version": "8.10",
+      "location": "request",
+      "endpoint": "POST /resources/search",
+      "property": "$in",
+      "qualifiedName": "filter.resourceId.$in",
+      "depth": 2,
+      "path": [
+        "filters.yaml",
+        "components",
+        "schemas",
+        "BasicStringFilter",
+        "properties",
+        "$in"
+      ],
+      "children": []
+    },
+    "POST /resources/search > request > filter.resourceId.$notIn": {
+      "version": "8.10",
+      "location": "request",
+      "endpoint": "POST /resources/search",
+      "property": "$notIn",
+      "qualifiedName": "filter.resourceId.$notIn",
+      "depth": 2,
+      "path": [
+        "filters.yaml",
+        "components",
+        "schemas",
+        "BasicStringFilter",
+        "properties",
+        "$notIn"
+      ],
+      "children": []
+    },
+    "POST /resources/search > request > filter.resourceId.$like": {
+      "version": "8.10",
+      "location": "request",
+      "endpoint": "POST /resources/search",
+      "property": "$like",
+      "qualifiedName": "filter.resourceId.$like",
+      "depth": 2,
+      "path": [
+        "filters.yaml",
+        "components",
+        "schemas",
+        "AdvancedStringFilter",
+        "allOf",
+        "1",
+        "properties",
+        "$like"
+      ],
+      "children": []
+    },
+    "POST /resources/search > request > filter.version": {
+      "version": "8.10",
+      "location": "request",
+      "endpoint": "POST /resources/search",
+      "property": "version",
+      "qualifiedName": "filter.version",
+      "depth": 1,
+      "path": [
+        "components",
+        "schemas",
+        "ResourceSearchQuery",
+        "properties",
+        "filter",
+        "properties",
+        "version"
+      ],
+      "children": [
+        "POST /resources/search > request > filter.version.$eq",
+        "POST /resources/search > request > filter.version.$neq",
+        "POST /resources/search > request > filter.version.$exists",
+        "POST /resources/search > request > filter.version.$gt",
+        "POST /resources/search > request > filter.version.$gte",
+        "POST /resources/search > request > filter.version.$lt",
+        "POST /resources/search > request > filter.version.$lte",
+        "POST /resources/search > request > filter.version.$in"
+      ]
+    },
+    "POST /resources/search > request > filter.version.$eq": {
+      "version": "8.10",
+      "location": "request",
+      "endpoint": "POST /resources/search",
+      "property": "$eq",
+      "qualifiedName": "filter.version.$eq",
+      "depth": 2,
+      "path": [
+        "filters.yaml",
+        "components",
+        "schemas",
+        "AdvancedIntegerFilter",
+        "properties",
+        "$eq"
+      ],
+      "children": []
+    },
+    "POST /resources/search > request > filter.version.$neq": {
+      "version": "8.10",
+      "location": "request",
+      "endpoint": "POST /resources/search",
+      "property": "$neq",
+      "qualifiedName": "filter.version.$neq",
+      "depth": 2,
+      "path": [
+        "filters.yaml",
+        "components",
+        "schemas",
+        "AdvancedIntegerFilter",
+        "properties",
+        "$neq"
+      ],
+      "children": []
+    },
+    "POST /resources/search > request > filter.version.$exists": {
+      "version": "8.10",
+      "location": "request",
+      "endpoint": "POST /resources/search",
+      "property": "$exists",
+      "qualifiedName": "filter.version.$exists",
+      "depth": 2,
+      "path": [
+        "filters.yaml",
+        "components",
+        "schemas",
+        "AdvancedIntegerFilter",
+        "properties",
+        "$exists"
+      ],
+      "children": []
+    },
+    "POST /resources/search > request > filter.version.$gt": {
+      "version": "8.10",
+      "location": "request",
+      "endpoint": "POST /resources/search",
+      "property": "$gt",
+      "qualifiedName": "filter.version.$gt",
+      "depth": 2,
+      "path": [
+        "filters.yaml",
+        "components",
+        "schemas",
+        "AdvancedIntegerFilter",
+        "properties",
+        "$gt"
+      ],
+      "children": []
+    },
+    "POST /resources/search > request > filter.version.$gte": {
+      "version": "8.10",
+      "location": "request",
+      "endpoint": "POST /resources/search",
+      "property": "$gte",
+      "qualifiedName": "filter.version.$gte",
+      "depth": 2,
+      "path": [
+        "filters.yaml",
+        "components",
+        "schemas",
+        "AdvancedIntegerFilter",
+        "properties",
+        "$gte"
+      ],
+      "children": []
+    },
+    "POST /resources/search > request > filter.version.$lt": {
+      "version": "8.10",
+      "location": "request",
+      "endpoint": "POST /resources/search",
+      "property": "$lt",
+      "qualifiedName": "filter.version.$lt",
+      "depth": 2,
+      "path": [
+        "filters.yaml",
+        "components",
+        "schemas",
+        "AdvancedIntegerFilter",
+        "properties",
+        "$lt"
+      ],
+      "children": []
+    },
+    "POST /resources/search > request > filter.version.$lte": {
+      "version": "8.10",
+      "location": "request",
+      "endpoint": "POST /resources/search",
+      "property": "$lte",
+      "qualifiedName": "filter.version.$lte",
+      "depth": 2,
+      "path": [
+        "filters.yaml",
+        "components",
+        "schemas",
+        "AdvancedIntegerFilter",
+        "properties",
+        "$lte"
+      ],
+      "children": []
+    },
+    "POST /resources/search > request > filter.version.$in": {
+      "version": "8.10",
+      "location": "request",
+      "endpoint": "POST /resources/search",
+      "property": "$in",
+      "qualifiedName": "filter.version.$in",
+      "depth": 2,
+      "path": [
+        "filters.yaml",
+        "components",
+        "schemas",
+        "AdvancedIntegerFilter",
+        "properties",
+        "$in"
+      ],
+      "children": []
+    },
+    "POST /resources/search > request > filter.versionTag": {
+      "version": "8.10",
+      "location": "request",
+      "endpoint": "POST /resources/search",
+      "property": "versionTag",
+      "qualifiedName": "filter.versionTag",
+      "depth": 1,
+      "path": [
+        "components",
+        "schemas",
+        "ResourceSearchQuery",
+        "properties",
+        "filter",
+        "properties",
+        "versionTag"
+      ],
+      "children": [
+        "POST /resources/search > request > filter.versionTag.$eq",
+        "POST /resources/search > request > filter.versionTag.$neq",
+        "POST /resources/search > request > filter.versionTag.$exists",
+        "POST /resources/search > request > filter.versionTag.$in",
+        "POST /resources/search > request > filter.versionTag.$notIn",
+        "POST /resources/search > request > filter.versionTag.$like"
+      ]
+    },
+    "POST /resources/search > request > filter.versionTag.$eq": {
+      "version": "8.10",
+      "location": "request",
+      "endpoint": "POST /resources/search",
+      "property": "$eq",
+      "qualifiedName": "filter.versionTag.$eq",
+      "depth": 2,
+      "path": [
+        "filters.yaml",
+        "components",
+        "schemas",
+        "BasicStringFilter",
+        "properties",
+        "$eq"
+      ],
+      "children": []
+    },
+    "POST /resources/search > request > filter.versionTag.$neq": {
+      "version": "8.10",
+      "location": "request",
+      "endpoint": "POST /resources/search",
+      "property": "$neq",
+      "qualifiedName": "filter.versionTag.$neq",
+      "depth": 2,
+      "path": [
+        "filters.yaml",
+        "components",
+        "schemas",
+        "BasicStringFilter",
+        "properties",
+        "$neq"
+      ],
+      "children": []
+    },
+    "POST /resources/search > request > filter.versionTag.$exists": {
+      "version": "8.10",
+      "location": "request",
+      "endpoint": "POST /resources/search",
+      "property": "$exists",
+      "qualifiedName": "filter.versionTag.$exists",
+      "depth": 2,
+      "path": [
+        "filters.yaml",
+        "components",
+        "schemas",
+        "BasicStringFilter",
+        "properties",
+        "$exists"
+      ],
+      "children": []
+    },
+    "POST /resources/search > request > filter.versionTag.$in": {
+      "version": "8.10",
+      "location": "request",
+      "endpoint": "POST /resources/search",
+      "property": "$in",
+      "qualifiedName": "filter.versionTag.$in",
+      "depth": 2,
+      "path": [
+        "filters.yaml",
+        "components",
+        "schemas",
+        "BasicStringFilter",
+        "properties",
+        "$in"
+      ],
+      "children": []
+    },
+    "POST /resources/search > request > filter.versionTag.$notIn": {
+      "version": "8.10",
+      "location": "request",
+      "endpoint": "POST /resources/search",
+      "property": "$notIn",
+      "qualifiedName": "filter.versionTag.$notIn",
+      "depth": 2,
+      "path": [
+        "filters.yaml",
+        "components",
+        "schemas",
+        "BasicStringFilter",
+        "properties",
+        "$notIn"
+      ],
+      "children": []
+    },
+    "POST /resources/search > request > filter.versionTag.$like": {
+      "version": "8.10",
+      "location": "request",
+      "endpoint": "POST /resources/search",
+      "property": "$like",
+      "qualifiedName": "filter.versionTag.$like",
+      "depth": 2,
+      "path": [
+        "filters.yaml",
+        "components",
+        "schemas",
+        "AdvancedStringFilter",
+        "allOf",
+        "1",
+        "properties",
+        "$like"
+      ],
+      "children": []
+    },
+    "POST /resources/search > request > filter.deploymentKey": {
+      "version": "8.10",
+      "location": "request",
+      "endpoint": "POST /resources/search",
+      "property": "deploymentKey",
+      "qualifiedName": "filter.deploymentKey",
+      "depth": 1,
+      "path": [
+        "components",
+        "schemas",
+        "ResourceSearchQuery",
+        "properties",
+        "filter",
+        "properties",
+        "deploymentKey"
+      ],
+      "children": [
+        "POST /resources/search > request > filter.deploymentKey.$eq",
+        "POST /resources/search > request > filter.deploymentKey.$neq",
+        "POST /resources/search > request > filter.deploymentKey.$exists",
+        "POST /resources/search > request > filter.deploymentKey.$in",
+        "POST /resources/search > request > filter.deploymentKey.$notIn"
+      ]
+    },
+    "POST /resources/search > request > filter.deploymentKey.$eq": {
+      "version": "8.10",
+      "location": "request",
+      "endpoint": "POST /resources/search",
+      "property": "$eq",
+      "qualifiedName": "filter.deploymentKey.$eq",
+      "depth": 2,
+      "path": [
+        "components",
+        "schemas",
+        "AdvancedDeploymentKeyFilter",
+        "properties",
+        "$eq"
+      ],
+      "children": []
+    },
+    "POST /resources/search > request > filter.deploymentKey.$neq": {
+      "version": "8.10",
+      "location": "request",
+      "endpoint": "POST /resources/search",
+      "property": "$neq",
+      "qualifiedName": "filter.deploymentKey.$neq",
+      "depth": 2,
+      "path": [
+        "components",
+        "schemas",
+        "AdvancedDeploymentKeyFilter",
+        "properties",
+        "$neq"
+      ],
+      "children": []
+    },
+    "POST /resources/search > request > filter.deploymentKey.$exists": {
+      "version": "8.10",
+      "location": "request",
+      "endpoint": "POST /resources/search",
+      "property": "$exists",
+      "qualifiedName": "filter.deploymentKey.$exists",
+      "depth": 2,
+      "path": [
+        "components",
+        "schemas",
+        "AdvancedDeploymentKeyFilter",
+        "properties",
+        "$exists"
+      ],
+      "children": []
+    },
+    "POST /resources/search > request > filter.deploymentKey.$in": {
+      "version": "8.10",
+      "location": "request",
+      "endpoint": "POST /resources/search",
+      "property": "$in",
+      "qualifiedName": "filter.deploymentKey.$in",
+      "depth": 2,
+      "path": [
+        "components",
+        "schemas",
+        "AdvancedDeploymentKeyFilter",
+        "properties",
+        "$in"
+      ],
+      "children": []
+    },
+    "POST /resources/search > request > filter.deploymentKey.$notIn": {
+      "version": "8.10",
+      "location": "request",
+      "endpoint": "POST /resources/search",
+      "property": "$notIn",
+      "qualifiedName": "filter.deploymentKey.$notIn",
+      "depth": 2,
+      "path": [
+        "components",
+        "schemas",
+        "AdvancedDeploymentKeyFilter",
+        "properties",
+        "$notIn"
+      ],
+      "children": []
+    },
+    "POST /resources/search > request > filter.tenantId": {
+      "version": "8.10",
+      "location": "request",
+      "endpoint": "POST /resources/search",
+      "property": "tenantId",
+      "qualifiedName": "filter.tenantId",
+      "depth": 1,
+      "path": [
+        "components",
+        "schemas",
+        "ResourceSearchQuery",
+        "properties",
+        "filter",
+        "properties",
+        "tenantId"
+      ],
+      "children": []
+    },
+    "POST /resources/search > request > page": {
+      "version": "8.10",
+      "location": "request",
+      "endpoint": "POST /resources/search",
+      "property": "page",
+      "qualifiedName": "page",
+      "depth": 0,
+      "path": [
+        "search-models.yaml",
+        "components",
+        "schemas",
+        "SearchQueryRequest",
+        "properties",
+        "page"
+      ],
+      "children": [
+        "POST /resources/search > request > page.limit",
+        "POST /resources/search > request > page.from",
+        "POST /resources/search > request > page.after",
+        "POST /resources/search > request > page.before"
+      ]
+    },
+    "POST /resources/search > request > page.limit": {
+      "version": "8.10",
+      "location": "request",
+      "endpoint": "POST /resources/search",
+      "property": "limit",
+      "qualifiedName": "page.limit",
+      "depth": 1,
+      "path": [
+        "search-models.yaml",
+        "components",
+        "schemas",
+        "LimitPagination",
+        "properties",
+        "limit"
+      ],
+      "children": []
+    },
+    "POST /resources/search > request > page.from": {
+      "version": "8.10",
+      "location": "request",
+      "endpoint": "POST /resources/search",
+      "property": "from",
+      "qualifiedName": "page.from",
+      "depth": 1,
+      "path": [
+        "search-models.yaml",
+        "components",
+        "schemas",
+        "OffsetPagination",
+        "properties",
+        "from"
+      ],
+      "children": []
+    },
+    "POST /resources/search > request > page.after": {
+      "version": "8.10",
+      "location": "request",
+      "endpoint": "POST /resources/search",
+      "property": "after",
+      "qualifiedName": "page.after",
+      "depth": 1,
+      "path": [
+        "search-models.yaml",
+        "components",
+        "schemas",
+        "CursorForwardPagination",
+        "properties",
+        "after"
+      ],
+      "children": []
+    },
+    "POST /resources/search > request > page.before": {
+      "version": "8.10",
+      "location": "request",
+      "endpoint": "POST /resources/search",
+      "property": "before",
+      "qualifiedName": "page.before",
+      "depth": 1,
+      "path": [
+        "search-models.yaml",
+        "components",
+        "schemas",
+        "CursorBackwardPagination",
+        "properties",
+        "before"
+      ],
+      "children": []
+    },
+    "POST /resources/search > response > items": {
+      "version": "8.10",
+      "location": "response",
+      "endpoint": "POST /resources/search",
+      "property": "items",
+      "qualifiedName": "items",
+      "depth": 0,
+      "path": [
+        "components",
+        "schemas",
+        "ResourceSearchQueryResult",
+        "properties",
+        "items"
+      ],
+      "children": [
+        "POST /resources/search > response > items[].resourceName",
+        "POST /resources/search > response > items[].version",
+        "POST /resources/search > response > items[].versionTag",
+        "POST /resources/search > response > items[].resourceId",
+        "POST /resources/search > response > items[].tenantId",
+        "POST /resources/search > response > items[].resourceKey"
+      ]
+    },
+    "POST /resources/search > response > items[].resourceName": {
+      "version": "8.10",
+      "location": "response",
+      "endpoint": "POST /resources/search",
+      "property": "resourceName",
+      "qualifiedName": "items[].resourceName",
+      "depth": 1,
+      "path": [
+        "components",
+        "schemas",
+        "ResourceResult",
+        "properties",
+        "resourceName"
+      ],
+      "children": []
+    },
+    "POST /resources/search > response > items[].version": {
+      "version": "8.10",
+      "location": "response",
+      "endpoint": "POST /resources/search",
+      "property": "version",
+      "qualifiedName": "items[].version",
+      "depth": 1,
+      "path": [
+        "components",
+        "schemas",
+        "ResourceResult",
+        "properties",
+        "version"
+      ],
+      "children": []
+    },
+    "POST /resources/search > response > items[].versionTag": {
+      "version": "8.10",
+      "location": "response",
+      "endpoint": "POST /resources/search",
+      "property": "versionTag",
+      "qualifiedName": "items[].versionTag",
+      "depth": 1,
+      "path": [
+        "components",
+        "schemas",
+        "ResourceResult",
+        "properties",
+        "versionTag"
+      ],
+      "children": []
+    },
+    "POST /resources/search > response > items[].resourceId": {
+      "version": "8.10",
+      "location": "response",
+      "endpoint": "POST /resources/search",
+      "property": "resourceId",
+      "qualifiedName": "items[].resourceId",
+      "depth": 1,
+      "path": [
+        "components",
+        "schemas",
+        "ResourceResult",
+        "properties",
+        "resourceId"
+      ],
+      "children": []
+    },
+    "POST /resources/search > response > items[].tenantId": {
+      "version": "8.10",
+      "location": "response",
+      "endpoint": "POST /resources/search",
+      "property": "tenantId",
+      "qualifiedName": "items[].tenantId",
+      "depth": 1,
+      "path": [
+        "components",
+        "schemas",
+        "ResourceResult",
+        "properties",
+        "tenantId"
+      ],
+      "children": []
+    },
+    "POST /resources/search > response > items[].resourceKey": {
+      "version": "8.10",
+      "location": "response",
+      "endpoint": "POST /resources/search",
+      "property": "resourceKey",
+      "qualifiedName": "items[].resourceKey",
+      "depth": 1,
+      "path": [
+        "components",
+        "schemas",
+        "ResourceResult",
+        "properties",
+        "resourceKey"
+      ],
+      "children": []
+    },
+    "POST /resources/search > response > page": {
+      "version": "8.10",
+      "location": "response",
+      "endpoint": "POST /resources/search",
+      "property": "page",
+      "qualifiedName": "page",
+      "depth": 0,
+      "path": [
+        "search-models.yaml",
+        "components",
+        "schemas",
+        "SearchQueryResponse",
+        "properties",
+        "page"
+      ],
+      "children": [
+        "POST /resources/search > response > page.totalItems",
+        "POST /resources/search > response > page.hasMoreTotalItems",
+        "POST /resources/search > response > page.startCursor",
+        "POST /resources/search > response > page.endCursor"
+      ]
+    },
+    "POST /resources/search > response > page.totalItems": {
+      "version": "8.10",
+      "location": "response",
+      "endpoint": "POST /resources/search",
+      "property": "totalItems",
+      "qualifiedName": "page.totalItems",
+      "depth": 1,
+      "path": [
+        "search-models.yaml",
+        "components",
+        "schemas",
+        "SearchQueryPageResponse",
+        "properties",
+        "totalItems"
+      ],
+      "children": []
+    },
+    "POST /resources/search > response > page.hasMoreTotalItems": {
+      "version": "8.10",
+      "location": "response",
+      "endpoint": "POST /resources/search",
+      "property": "hasMoreTotalItems",
+      "qualifiedName": "page.hasMoreTotalItems",
+      "depth": 1,
+      "path": [
+        "search-models.yaml",
+        "components",
+        "schemas",
+        "SearchQueryPageResponse",
+        "properties",
+        "hasMoreTotalItems"
+      ],
+      "children": []
+    },
+    "POST /resources/search > response > page.startCursor": {
+      "version": "8.10",
+      "location": "response",
+      "endpoint": "POST /resources/search",
+      "property": "startCursor",
+      "qualifiedName": "page.startCursor",
+      "depth": 1,
+      "path": [
+        "search-models.yaml",
+        "components",
+        "schemas",
+        "SearchQueryPageResponse",
+        "properties",
+        "startCursor"
+      ],
+      "children": []
+    },
+    "POST /resources/search > response > page.endCursor": {
+      "version": "8.10",
+      "location": "response",
+      "endpoint": "POST /resources/search",
+      "property": "endCursor",
+      "qualifiedName": "page.endCursor",
+      "depth": 1,
+      "path": [
+        "search-models.yaml",
+        "components",
+        "schemas",
+        "SearchQueryPageResponse",
+        "properties",
+        "endCursor"
+      ],
+      "children": []
+    },
+    "POST /user-tasks/search > request > filter.processDefinitionId.$eq": {
+      "version": "8.10",
+      "location": "request",
+      "endpoint": "POST /user-tasks/search",
+      "property": "$eq",
+      "qualifiedName": "filter.processDefinitionId.$eq",
+      "depth": 2,
+      "path": [
+        "identifiers.yaml",
+        "components",
+        "schemas",
+        "AdvancedProcessDefinitionIdFilter",
+        "properties",
+        "$eq"
+      ],
+      "children": []
+    },
+    "POST /user-tasks/search > request > filter.processDefinitionId.$neq": {
+      "version": "8.10",
+      "location": "request",
+      "endpoint": "POST /user-tasks/search",
+      "property": "$neq",
+      "qualifiedName": "filter.processDefinitionId.$neq",
+      "depth": 2,
+      "path": [
+        "identifiers.yaml",
+        "components",
+        "schemas",
+        "AdvancedProcessDefinitionIdFilter",
+        "properties",
+        "$neq"
+      ],
+      "children": []
+    },
+    "POST /user-tasks/search > request > filter.processDefinitionId.$exists": {
+      "version": "8.10",
+      "location": "request",
+      "endpoint": "POST /user-tasks/search",
+      "property": "$exists",
+      "qualifiedName": "filter.processDefinitionId.$exists",
+      "depth": 2,
+      "path": [
+        "identifiers.yaml",
+        "components",
+        "schemas",
+        "AdvancedProcessDefinitionIdFilter",
+        "properties",
+        "$exists"
+      ],
+      "children": []
+    },
+    "POST /user-tasks/search > request > filter.processDefinitionId.$in": {
+      "version": "8.10",
+      "location": "request",
+      "endpoint": "POST /user-tasks/search",
+      "property": "$in",
+      "qualifiedName": "filter.processDefinitionId.$in",
+      "depth": 2,
+      "path": [
+        "identifiers.yaml",
+        "components",
+        "schemas",
+        "AdvancedProcessDefinitionIdFilter",
+        "properties",
+        "$in"
+      ],
+      "children": []
+    },
+    "POST /user-tasks/search > request > filter.processDefinitionId.$notIn": {
+      "version": "8.10",
+      "location": "request",
+      "endpoint": "POST /user-tasks/search",
+      "property": "$notIn",
+      "qualifiedName": "filter.processDefinitionId.$notIn",
+      "depth": 2,
+      "path": [
+        "identifiers.yaml",
+        "components",
+        "schemas",
+        "AdvancedProcessDefinitionIdFilter",
+        "properties",
+        "$notIn"
+      ],
+      "children": []
+    },
+    "POST /user-tasks/search > request > filter.processDefinitionId.$like": {
+      "version": "8.10",
+      "location": "request",
+      "endpoint": "POST /user-tasks/search",
+      "property": "$like",
+      "qualifiedName": "filter.processDefinitionId.$like",
+      "depth": 2,
+      "path": [
+        "identifiers.yaml",
+        "components",
+        "schemas",
+        "AdvancedProcessDefinitionIdFilter",
+        "properties",
+        "$like"
+      ],
+      "children": []
+    },
+    "POST /user-tasks/search > request > filter.processDefinitionKey.$eq": {
+      "version": "8.10",
+      "location": "request",
+      "endpoint": "POST /user-tasks/search",
+      "property": "$eq",
+      "qualifiedName": "filter.processDefinitionKey.$eq",
+      "depth": 2,
+      "path": [
+        "keys.yaml",
+        "components",
+        "schemas",
+        "AdvancedProcessDefinitionKeyFilter",
+        "properties",
+        "$eq"
+      ],
+      "children": []
+    },
+    "POST /user-tasks/search > request > filter.processDefinitionKey.$neq": {
+      "version": "8.10",
+      "location": "request",
+      "endpoint": "POST /user-tasks/search",
+      "property": "$neq",
+      "qualifiedName": "filter.processDefinitionKey.$neq",
+      "depth": 2,
+      "path": [
+        "keys.yaml",
+        "components",
+        "schemas",
+        "AdvancedProcessDefinitionKeyFilter",
+        "properties",
+        "$neq"
+      ],
+      "children": []
+    },
+    "POST /user-tasks/search > request > filter.processDefinitionKey.$exists": {
+      "version": "8.10",
+      "location": "request",
+      "endpoint": "POST /user-tasks/search",
+      "property": "$exists",
+      "qualifiedName": "filter.processDefinitionKey.$exists",
+      "depth": 2,
+      "path": [
+        "keys.yaml",
+        "components",
+        "schemas",
+        "AdvancedProcessDefinitionKeyFilter",
+        "properties",
+        "$exists"
+      ],
+      "children": []
+    },
+    "POST /user-tasks/search > request > filter.processDefinitionKey.$in": {
+      "version": "8.10",
+      "location": "request",
+      "endpoint": "POST /user-tasks/search",
+      "property": "$in",
+      "qualifiedName": "filter.processDefinitionKey.$in",
+      "depth": 2,
+      "path": [
+        "keys.yaml",
+        "components",
+        "schemas",
+        "AdvancedProcessDefinitionKeyFilter",
+        "properties",
+        "$in"
+      ],
+      "children": []
+    },
+    "POST /user-tasks/search > request > filter.processDefinitionKey.$notIn": {
+      "version": "8.10",
+      "location": "request",
+      "endpoint": "POST /user-tasks/search",
+      "property": "$notIn",
+      "qualifiedName": "filter.processDefinitionKey.$notIn",
+      "depth": 2,
+      "path": [
+        "keys.yaml",
+        "components",
+        "schemas",
+        "AdvancedProcessDefinitionKeyFilter",
+        "properties",
+        "$notIn"
+      ],
+      "children": []
+    },
+    "POST /user-tasks/search > request > filter.processInstanceKey.$eq": {
+      "version": "8.10",
+      "location": "request",
+      "endpoint": "POST /user-tasks/search",
+      "property": "$eq",
+      "qualifiedName": "filter.processInstanceKey.$eq",
+      "depth": 2,
+      "path": [
+        "keys.yaml",
+        "components",
+        "schemas",
+        "AdvancedProcessInstanceKeyFilter",
+        "properties",
+        "$eq"
+      ],
+      "children": []
+    },
+    "POST /user-tasks/search > request > filter.processInstanceKey.$neq": {
+      "version": "8.10",
+      "location": "request",
+      "endpoint": "POST /user-tasks/search",
+      "property": "$neq",
+      "qualifiedName": "filter.processInstanceKey.$neq",
+      "depth": 2,
+      "path": [
+        "keys.yaml",
+        "components",
+        "schemas",
+        "AdvancedProcessInstanceKeyFilter",
+        "properties",
+        "$neq"
+      ],
+      "children": []
+    },
+    "POST /user-tasks/search > request > filter.processInstanceKey.$exists": {
+      "version": "8.10",
+      "location": "request",
+      "endpoint": "POST /user-tasks/search",
+      "property": "$exists",
+      "qualifiedName": "filter.processInstanceKey.$exists",
+      "depth": 2,
+      "path": [
+        "keys.yaml",
+        "components",
+        "schemas",
+        "AdvancedProcessInstanceKeyFilter",
+        "properties",
+        "$exists"
+      ],
+      "children": []
+    },
+    "POST /user-tasks/search > request > filter.processInstanceKey.$in": {
+      "version": "8.10",
+      "location": "request",
+      "endpoint": "POST /user-tasks/search",
+      "property": "$in",
+      "qualifiedName": "filter.processInstanceKey.$in",
+      "depth": 2,
+      "path": [
+        "keys.yaml",
+        "components",
+        "schemas",
+        "AdvancedProcessInstanceKeyFilter",
+        "properties",
+        "$in"
+      ],
+      "children": []
+    },
+    "POST /user-tasks/search > request > filter.processInstanceKey.$notIn": {
+      "version": "8.10",
+      "location": "request",
+      "endpoint": "POST /user-tasks/search",
+      "property": "$notIn",
+      "qualifiedName": "filter.processInstanceKey.$notIn",
+      "depth": 2,
+      "path": [
+        "keys.yaml",
+        "components",
+        "schemas",
+        "AdvancedProcessInstanceKeyFilter",
+        "properties",
+        "$notIn"
       ],
       "children": []
     }

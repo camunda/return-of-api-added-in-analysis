@@ -1,7 +1,7 @@
 /**
  * build-version-map.mjs
  *
- * Parses OpenAPI specs for versions 8.5–8.9 and builds a unified version map
+ * Parses OpenAPI specs for versions 8.5–8.10 and builds a unified version map
  * recording when each operation and property was first introduced.
  *
  * This works directly from the specs (no openapi-diff needed) by comparing the
@@ -31,7 +31,7 @@ import YAML, { parse } from 'yaml';
 
 const yaml = { load: (source) => YAML.parse(source) };
 
-const VERSIONS = ['8.5', '8.6', '8.7', '8.8', '8.9'];
+const VERSIONS = ['8.5', '8.6', '8.7', '8.8', '8.9', '8.10'];
 const HTTP_METHODS = ['get', 'post', 'put', 'patch', 'delete', 'head', 'options'];
 
 // ─── Helpers ───────────────────────────────────────────────────────────────────
