@@ -129,26 +129,47 @@ function extractProperties(
 
       // Recurse into nested objects (but not too deep)
       if (depth < maxDepth && (type === 'object' || type === 'array')) {
-        let innerSchema = propSchema.$ref ? resolveRef(spec, propSchema.$ref) : resolvedProp;
-        let innerBasePath = propSchema.$ref
-          ? (refToPath(propSchema.$ref) || [...basePath, 'properties', name])
+        // The schema in front of us may be a direct $ref OR a single-element
+        // `allOf: [{ $ref }]` wrapper (the Camunda convention for attaching
+        // a description/x-added-in-version to a referenced schema). Both
+        // forms must rebase `innerBasePath` onto the referenced schema's
+        // location — otherwise nested properties get recorded under the
+        // wrapper's path, which doesn't exist in the upstream YAML.
+        const effectiveRef =
+          propSchema.$ref
+          || (Array.isArray(propSchema.allOf)
+              && propSchema.allOf.length === 1
+              && typeof propSchema.allOf[0]?.$ref === 'string'
+              ? propSchema.allOf[0].$ref
+              : null);
+        let innerSchema = effectiveRef ? resolveRef(spec, effectiveRef) : resolvedProp;
+        let innerBasePath = effectiveRef
+          ? (refToPath(effectiveRef) || [...basePath, 'properties', name])
           : [...basePath, 'properties', name];
         let childChain = qname;
         let childVisited = visitedRefs;
-        if (propSchema.$ref) {
-          if (visitedRefs.has(propSchema.$ref)) continue;
+        if (effectiveRef) {
+          if (visitedRefs.has(effectiveRef)) continue;
           childVisited = new Set(visitedRefs);
-          childVisited.add(propSchema.$ref);
+          childVisited.add(effectiveRef);
         }
         if (type === 'array') {
-          const arraySchema = propSchema.$ref ? resolveRef(spec, propSchema.$ref) : resolvedProp;
+          const arraySchema = effectiveRef ? resolveRef(spec, effectiveRef) : resolvedProp;
           innerSchema = arraySchema?.items || resolvedProp?.items;
-          if (innerSchema?.$ref) {
-            if (childVisited.has(innerSchema.$ref)) continue;
+          // Items may themselves be a $ref or an `allOf: [{ $ref }]` wrapper.
+          const itemsRef =
+            innerSchema?.$ref
+            || (Array.isArray(innerSchema?.allOf)
+                && innerSchema.allOf.length === 1
+                && typeof innerSchema.allOf[0]?.$ref === 'string'
+                ? innerSchema.allOf[0].$ref
+                : null);
+          if (itemsRef) {
+            if (childVisited.has(itemsRef)) continue;
             childVisited = new Set(childVisited);
-            childVisited.add(innerSchema.$ref);
-            innerBasePath = refToPath(innerSchema.$ref) || innerBasePath;
-            innerSchema = resolveRef(spec, innerSchema.$ref) || innerSchema;
+            childVisited.add(itemsRef);
+            innerBasePath = refToPath(itemsRef) || innerBasePath;
+            innerSchema = resolveRef(spec, itemsRef) || innerSchema;
           } else {
             innerBasePath = [...innerBasePath, 'items'];
           }
