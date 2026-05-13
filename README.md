@@ -1,6 +1,6 @@
 # api-added-in-analysis-2
 
-Tracks when each Camunda 8 REST API operation and property was first introduced, by parsing OpenAPI specs across versions 8.5–8.9.
+Tracks when each Camunda 8 REST API operation and property was first introduced (and when it was removed), by parsing OpenAPI specs across versions 8.5–8.10. Nested object and array properties are extracted recursively, so the output captures the full request/response schema surface — not just top-level fields.
 
 First install deps:
 ```bash
@@ -31,12 +31,20 @@ npm run all            # extract-specs.sh → specs/ → output/version-map.json
 
 ## Output
 
-Both flows produce identical output (185 operations, 2,710 properties, 2 deleted operations).
+Both flows produce equivalent output (192 operations, 5,695 properties, 2 deleted operations, 111 deleted properties).
+
+Each property carries:
+- `qualifiedName` — dot-notation access path from the operation's root schema, with `[]` marking arrays of objects (e.g. `filter.processInstanceKey.$eq`, `brokers[].partitions[].role`). Used to disambiguate same-named fields at different nesting levels.
+- `property` — bare leaf name (preserved for backward compatibility).
+- `children` — list of property keys one level deeper in the `qualifiedName` tree, scoped to the same operation/location. Lets consumers walk the schema without re-parsing.
+- `path` — JSON-Pointer-style location inside the OpenAPI document (for spec navigation).
+
+Removed operations and properties are tracked under `deletedOperations` / `deletedProperties` with the version in which they disappeared.
 
 ```json
 {
   "metadata": {
-    "multiFileVersions": ["8.9"]
+    "multiFileVersions": ["8.9", "8.10"]
   },
   "operations": {
     "GET /topology": {
@@ -46,13 +54,28 @@ Both flows produce identical output (185 operations, 2,710 properties, 2 deleted
     }
   },
   "properties": {
-    "POST /user-tasks/{userTaskKey}/completion > request > variables": {
-      "version": "8.5",
+    "POST /user-tasks/search > request > filter": {
+      "version": "8.6",
       "location": "request",
-      "endpoint": "POST /user-tasks/{userTaskKey}/completion",
-      "property": "variables",
+      "endpoint": "POST /user-tasks/search",
+      "property": "filter",
+      "qualifiedName": "filter",
       "depth": 0,
-      "path": ["components", "schemas", "UserTaskCompletionRequest", "properties", "variables"]
+      "path": ["components", "schemas", "UserTaskSearchQuery", "properties", "filter"],
+      "children": [
+        "POST /user-tasks/search > request > filter.state",
+        "POST /user-tasks/search > request > filter.assignee"
+      ]
+    },
+    "POST /user-tasks/search > request > filter.state": {
+      "version": "8.6",
+      "location": "request",
+      "endpoint": "POST /user-tasks/search",
+      "property": "state",
+      "qualifiedName": "filter.state",
+      "depth": 1,
+      "path": ["components", "schemas", "UserTaskSearchQuery", "properties", "filter", "properties", "state"],
+      "children": []
     }
   },
   "deletedOperations": {
@@ -60,8 +83,15 @@ Both flows produce identical output (185 operations, 2,710 properties, 2 deleted
       "removedIn": "8.7",
       "summary": "Create document link (alpha)"
     }
+  },
+  "deletedProperties": {
+    "POST /some-endpoint > request > legacyField": {
+      "removedIn": "8.8",
+      "endpoint": "POST /some-endpoint"
+    }
   }
 }
+```
 
 ## Comparing Version Maps
 
