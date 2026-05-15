@@ -225,19 +225,39 @@ function extractProperties(
     }
   }
 
-  // oneOf / anyOf — merge properties from all branches
+  // oneOf / anyOf — merge properties from all branches.
+  //
+  // Unlike `allOf` (which is intersection/composition: any property name
+  // legitimately lives in exactly one physical schema along the chain),
+  // `oneOf`/`anyOf` are independent alternative shapes. Sibling branches
+  // routinely declare the same leaf property name (the discriminator
+  // pattern in particular), and each branch is its own schema in the YAML
+  // that needs its own `x-properties-added-in-version` annotation.
+  //
+  // Without disambiguation, first-wins on `qualifiedName` would silently
+  // drop every branch after the first and the downstream writer would
+  // annotate only one variant. Tag the qualified name with the branch's
+  // referenced schema name (or the index, for inline branches) so each
+  // branch gets its own entry with its own path.
   for (const keyword of ['oneOf', 'anyOf']) {
-    if (schema[keyword]) {
-      for (let i = 0; i < schema[keyword].length; i++) {
-        const sub = schema[keyword][i];
-        const subBasePath = sub.$ref ? (refToPath(sub.$ref) || basePath) : [...basePath, keyword, String(i)];
-        const subProps = extractProperties(
-          spec, sub, depth, maxDepth, subBasePath, parentChain, visitedRefs,
-        );
-        for (const [qname, info] of subProps) {
-          if (!props.has(qname)) {
-            props.set(qname, info);
-          }
+    if (!schema[keyword]) continue;
+    for (let i = 0; i < schema[keyword].length; i++) {
+      const sub = schema[keyword][i];
+      const subBasePath = sub.$ref
+        ? (refToPath(sub.$ref) || basePath)
+        : [...basePath, keyword, String(i)];
+      const branchTag = sub.$ref
+        ? sub.$ref.split('/').pop()
+        : `${keyword}[${i}]`;
+      const branchChain = parentChain
+        ? `${parentChain}|${branchTag}`
+        : branchTag;
+      const subProps = extractProperties(
+        spec, sub, depth, maxDepth, subBasePath, branchChain, visitedRefs,
+      );
+      for (const [qname, info] of subProps) {
+        if (!props.has(qname)) {
+          props.set(qname, info);
         }
       }
     }
@@ -544,19 +564,39 @@ for (const version of VERSIONS) {
   // Detect deleted properties (present in previous version but absent in this one)
   let deletedProps = 0;
   if (previousProps) {
+    // A property may legitimately migrate from an inline position to inside a
+    // deeper *container* across versions (e.g. `processDefinitionVersion` moved
+    // from the request body root in 8.7 into `ProcessInstanceCreationInstructionById`
+    // in 8.8). Container migrations keep the qname tagless, so treat the field
+    // as still present only when the surviving match also lives in a tagless
+    // qname.
+    //
+    // Relocations into a `oneOf`/`anyOf` branch (qname carries a `|BranchTag`
+    // segment) are NOT treated as still-present: the parent schema genuinely
+    // stopped declaring the property, and downstream consumers need to see the
+    // entry in `deletedProperties` so they can suppress annotations on the
+    // pre-split shape. The branch-tagged entry remains in `properties` with
+    // its own `version` reflecting when the branch first declared it.
+    const currentTaglessLeafs = new Set();
+    for (const propData of properties.values()) {
+      if (propData.qualifiedName && propData.qualifiedName.includes('|')) continue;
+      currentTaglessLeafs.add(`${propData.endpoint}|||${propData.location}|||${propData.property}`);
+    }
     for (const [propKey, propData] of previousProps) {
-      if (!properties.has(propKey) && !versionMap.deletedProperties[propKey]) {
-        versionMap.deletedProperties[propKey] = {
-          removedIn: version,
-          endpoint: propData.endpoint,
-        };
-        // Strip the stale `path` from the surviving entry in `properties`,
-        // mirroring the deletedOperations treatment.
-        if (versionMap.properties[propKey]) {
-          delete versionMap.properties[propKey].path;
-        }
-        deletedProps++;
+      if (properties.has(propKey)) continue;
+      if (versionMap.deletedProperties[propKey]) continue;
+      const leafKey = `${propData.endpoint}|||${propData.location}|||${propData.property}`;
+      if (currentTaglessLeafs.has(leafKey)) continue;
+      versionMap.deletedProperties[propKey] = {
+        removedIn: version,
+        endpoint: propData.endpoint,
+      };
+      // Strip the stale `path` from the surviving entry in `properties`,
+      // mirroring the deletedOperations treatment.
+      if (versionMap.properties[propKey]) {
+        delete versionMap.properties[propKey].path;
       }
+      deletedProps++;
     }
   }
 
@@ -569,6 +609,68 @@ for (const version of VERSIONS) {
 
   previousOps = operations;
   previousProps = properties;
+}
+
+// Backwards-compat collapse: when a property re-appears in a later version on
+// a different schema branch (e.g. an oneOf split, or a field reintroduced for
+// backwards-compatibility on a sibling branch), branch-tagging gives every
+// occurrence its own entry. For the purpose of "when could a user first send
+// this property on this endpoint+location?" the answer is the EARLIEST
+// version among all branches sharing the same (endpoint, location, property)
+// triple — BUT only when there is an actual pre-polymorphic-split ancestor
+// in the history.
+//
+// We use a tagless qname (no leading branch-tag segment, no `|` anywhere) as
+// the signal for "this is the flat, pre-split form." If at least one such
+// entry exists for the triple, every branch entry collapses to the triple's
+// MIN version (this fixes ByKey.processDefinitionVersion which was re-added
+// for backwards-compat in 8.9 after living on the flat shape since 8.6).
+//
+// If NO tagless ancestor exists (all entries are inside polymorphic branches
+// — e.g. ProcessInstanceCreationTerminateInstruction.type, where both the
+// discriminator parent and the explicit child re-declaration live inside
+// oneOf branches), every entry keeps its own version because each branch is
+// a genuinely-new YAML location at its own version.
+{
+  const cmp = (a, b) => {
+    const [aMaj, aMin] = a.split('.').map(Number);
+    const [bMaj, bMin] = b.split('.').map(Number);
+    return aMaj - bMaj || aMin - bMin;
+  };
+  // A qname is "tagless" only when it carries no branch-tag markers at all:
+  // no `|BranchTag` segment AND no leading bare PascalCase segment (which is
+  // how the extractor encodes a top-level oneOf branch root, e.g.
+  // `ProcessInstanceCreationInstructionById.startInstructions`).
+  const hasLeadingBranch = (qname) => /^[A-Z][^.|]*\./.test(qname);
+  const isTagless = (qname) => !qname.includes('|') && !hasLeadingBranch(qname);
+  // Strip every `|BranchTag` suffix and any leading bare PascalCase segment so
+  // qnames originating from different oneOf branches normalize to the same
+  // logical path.
+  const normalizeQname = (qname) =>
+    qname.replace(/\|[^.]+/g, '').replace(/^[A-Z][^.|]*\./, '');
+  // Triple key = (endpoint, location, normalizedQname). Using the FULL
+  // normalized qname (not just the leaf) keeps unrelated fields that happen
+  // to share a leaf name on the same endpoint (e.g. activateInstructions[]
+  // .elementId vs terminateInstructions[]|...ByIdInstruction.elementId) in
+  // separate buckets.
+  const byTriple = new Map();
+  for (const val of Object.values(versionMap.properties)) {
+    const k = `${val.endpoint}|||${val.location}|||${normalizeQname(val.qualifiedName)}`;
+    let bucket = byTriple.get(k);
+    if (!bucket) {
+      bucket = { hasTagless: false, min: val.version, entries: [] };
+      byTriple.set(k, bucket);
+    }
+    bucket.entries.push(val);
+    if (isTagless(val.qualifiedName)) bucket.hasTagless = true;
+    if (cmp(val.version, bucket.min) < 0) bucket.min = val.version;
+  }
+  for (const bucket of byTriple.values()) {
+    if (!bucket.hasTagless) continue;
+    for (const val of bucket.entries) {
+      if (cmp(bucket.min, val.version) < 0) val.version = bucket.min;
+    }
+  }
 }
 
 // ─── Summary ───────────────────────────────────────────────────────────────────
@@ -604,9 +706,23 @@ for (const [propKey, val] of Object.entries(versionMap.properties)) {
   const q = val.qualifiedName;
   const lastDot = q.lastIndexOf('.');
   if (lastDot < 0) continue;
-  const parentQ = q.slice(lastDot - 2, lastDot) === '[]'
+  let parentQ = q.slice(lastDot - 2, lastDot) === '[]'
     ? q.slice(0, lastDot - 2)
     : q.slice(0, lastDot);
+  // The parent qname may carry a trailing oneOf/anyOf branch tag introduced
+  // by extractProperties (e.g. `page|OffsetPagination`, `filter.state|AdvancedStringFilter`).
+  // Branch tags are not emitted as their own property entries — the logical
+  // parent is the segment before the FIRST `|` after the last `.`.
+  const dotInParent = parentQ.lastIndexOf('.');
+  const pipeInParent = parentQ.indexOf('|', dotInParent + 1);
+  if (pipeInParent !== -1) {
+    parentQ = parentQ.slice(0, pipeInParent);
+    // After dropping the branch tag we may still be left with a trailing
+    // `[]` array marker (e.g. `runtimeInstructions[]|TerminateInstruction`
+    // -> `runtimeInstructions[]`). The actual stored parent entry omits the
+    // marker, so strip it.
+    if (parentQ.endsWith('[]')) parentQ = parentQ.slice(0, -2);
+  }
   const parentKey = `${val.endpoint} > ${val.location} > ${parentQ}`;
   if (versionMap.properties[parentKey]) {
     versionMap.properties[parentKey].children.push(propKey);
