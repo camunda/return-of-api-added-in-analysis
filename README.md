@@ -109,3 +109,7 @@ npx json-diff <(node -e "process.stdout.write(JSON.stringify(require('./output/v
 npx json-diff <(node -e "process.stdout.write(JSON.stringify(require('./output/version-map.json').properties))") \
               <(node -e "process.stdout.write(JSON.stringify(require('./output/bundler-version-map.json').properties))")
 ```
+If running in a ci script:
+```bash
+npm ci --omit=dev
+```

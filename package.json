@@ -12,7 +12,9 @@
   "private": true,
   "dependencies": {
     "camunda-schema-bundler": "^2.4.1",
-    "json-diff": "^1.0.6",
     "yaml": "^2.8.3"
+  },
+  "devDependencies": {
+    "json-diff": "^1.0.6"
   }
 }

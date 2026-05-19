@@ -102623,6 +102623,22 @@
       ],
       "children": []
     },
+    "POST /expression/evaluation > request > scopeKey": {
+      "version": "8.10",
+      "location": "request",
+      "endpoint": "POST /expression/evaluation",
+      "property": "scopeKey",
+      "qualifiedName": "scopeKey",
+      "depth": 0,
+      "path": [
+        "components",
+        "schemas",
+        "ExpressionEvaluationRequest",
+        "properties",
+        "scopeKey"
+      ],
+      "children": []
+    },
     "GET /forms/{formKey} > response > tenantId": {
       "version": "8.10",
       "location": "response",
