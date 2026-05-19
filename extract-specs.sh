@@ -4,17 +4,46 @@
 # 8.10 tracks `main` until it cuts its own release branch.
 # Uses sparse git clone to fetch only the spec directory for each version.
 #
+# Env:
+#   REGENERATE_LATEST_SPEC_ONLY   Truthy (1/true/yes/on) → wipe the cache dir for the
+#                            last version in VERSIONS before extracting, forcing
+#                            a fresh fetch+bundle. Use after the upstream `main`
+#                            branch has changed.
+#
 # Usage:
 #   ./extract-specs.sh
 #
 set -euo pipefail
 
 SCRIPT_DIR="$(cd "$(dirname "$0")" && pwd)"
+
+# Auto-load .env so `REGENERATE_LATEST_SPEC_ONLY=1` in a project-local .env behaves
+# the same here as it does for the Node scripts that use `dotenv/config`.
+if [[ -f "$SCRIPT_DIR/.env" ]]; then
+  set -a
+  # shellcheck disable=SC1091
+  source "$SCRIPT_DIR/.env"
+  set +a
+fi
+
 REPO_URL="https://github.com/camunda/camunda.git"
 SPEC_PATH="zeebe/gateway-protocol/src/main/proto/rest-api.yaml"
 SPEC_V2_DIR="zeebe/gateway-protocol/src/main/proto/v2"
 
 VERSIONS=(8.5 8.6 8.7 8.8 8.9 8.10)
+
+# When REGENERATE_LATEST_SPEC_ONLY is truthy, clear the cache for the last version
+# in VERSIONS (the one tracking `main`) so the loop below re-fetches it.
+latest_version="${VERSIONS[${#VERSIONS[@]}-1]}"
+case "${REGENERATE_LATEST_SPEC_ONLY:-}" in
+  1|true|TRUE|yes|YES|on|ON)
+    latest_dest="$SCRIPT_DIR/specs/$latest_version"
+    if [[ -d "$latest_dest" ]]; then
+      echo "REGENERATE_LATEST_SPEC_ONLY=1 — clearing $latest_dest"
+      rm -rf "$latest_dest"
+    fi
+    ;;
+esac
 
 echo "=== Extracting OpenAPI specs for versions: ${VERSIONS[*]} ==="
 echo ""

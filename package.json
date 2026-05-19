@@ -5,13 +5,16 @@
   "type": "module",
   "scripts": {
     "extract": "bash extract-specs.sh",
-    "build": "node build-version-map.mjs",
+    "build:only": "node build-version-map.mjs",
     "build:bundler": "node build-bundler-version-map.mjs",
-    "all": "npm run extract && node build-version-map.mjs"
+    "build:bundler:latest": "REGENERATE_LATEST_SPEC_ONLY=1 node build-bundler-version-map.mjs",
+    "build": "npm run extract && node build-version-map.mjs",
+    "build:latest": "REGENERATE_LATEST_SPEC_ONLY=1 npm run extract && node build-version-map.mjs"
   },
   "private": true,
   "dependencies": {
     "camunda-schema-bundler": "^2.4.1",
+    "dotenv": "^16.4.5",
     "yaml": "^2.8.3"
   },
   "devDependencies": {

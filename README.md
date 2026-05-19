@@ -12,7 +12,8 @@ npm install
 Fetches and bundles specs from GitHub via `camunda-schema-bundler`. No local repo needed.
 
 ```bash
-npm run build:bundler   # → bundler-specs/ → output/bundler-version-map.json
+npm run build:bundler          # → bundler-specs/ → output/bundler-version-map.json
+npm run build:bundler:latest   # same, but re-fetch the latest version (REGENERATE_LATEST_SPEC_ONLY=1)
 ```
 
 Uses the `camunda-schema-bundler` npm package (installed via `npm install`).
@@ -22,8 +23,11 @@ Uses the `camunda-schema-bundler` npm package (installed via `npm install`).
 Sparse-clones each version's spec from GitHub, bundles with Redocly.
 
 ```bash
-npm run all            # extract-specs.sh → specs/ → output/version-map.json
+npm run build           # extract-specs.sh → specs/ → output/version-map.json
+npm run build:latest    # same, but re-extract the latest version (REGENERATE_LATEST_SPEC_ONLY=1)
 ```
+
+Set `REGENERATE_LATEST_SPEC_ONLY=1` (env or `.env`) to force-refresh the last version in `VERSIONS` (the one tracking `main`). Stable versions stay cached.
 
 ## Prerequisites
 

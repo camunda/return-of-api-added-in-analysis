@@ -11,18 +11,43 @@
  *
  * Output: output/bundler-version-map.json
  */
-import { writeFileSync, mkdirSync, readFileSync, readdirSync } from 'fs';
+import 'dotenv/config';
+import { writeFileSync, mkdirSync, readFileSync, readdirSync, rmSync, existsSync } from 'fs';
+import { dirname } from 'path';
 import { fetchAndBundle } from 'camunda-schema-bundler';
 import YAML from 'yaml';
 
 const yaml = { load: (source) => YAML.parse(source) };
 
-const VERSIONS = ['8.5', '8.6', '8.7', '8.8', '8.9', '8.10'];
-// 8.10 tracks `main` until it cuts its own release branch. Everything else
-// has a stable/<version> branch on camunda/camunda.
-const VERSION_REFS = {
-  '8.10': 'main',
-};
+// ─── Configuration (env-overridable) ───────────────────────────────────────────────
+//
+//   VERSIONS                Comma-separated list (default: 8.5,8.6,8.7,8.8,8.9,8.10)
+//   MAIN_BRANCH_VERSIONS    Versions that track the `main` branch instead of
+//                           a stable/<v> branch (default: 8.10)
+//   BUNDLER_SPECS_DIR       Where fetched/bundled specs are cached
+//                           (default: bundler-specs)
+//   OUTPUT_PATH             Output JSON path
+//                           (default: output/bundler-version-map.json)
+//   REGENERATE_LATEST_SPEC_ONLY  Truthy (1/true/yes/on) → wipe the cache dir for
+//                           the last version in VERSIONS before fetching,
+//                           forcing camunda-schema-bundler to re-download.
+//                           Use after the upstream `main` branch has changed.
+function parseCsv(value, fallback) {
+  if (!value) return fallback;
+  return value.split(',').map((s) => s.trim()).filter(Boolean);
+}
+function parseBool(value) {
+  if (!value) return false;
+  return /^(1|true|yes|on)$/i.test(value);
+}
+const VERSIONS = parseCsv(process.env.VERSIONS, ['8.5', '8.6', '8.7', '8.8', '8.9', '8.10']);
+const MAIN_BRANCH_VERSIONS = parseCsv(process.env.MAIN_BRANCH_VERSIONS, ['8.10']);
+// 8.10 (or whatever MAIN_BRANCH_VERSIONS lists) tracks `main` until it cuts
+// its own release branch. Everything else has a stable/<version> branch on
+// camunda/camunda.
+const VERSION_REFS = Object.fromEntries(MAIN_BRANCH_VERSIONS.map((v) => [v, 'main']));
+const BUNDLER_SPECS_DIR = process.env.BUNDLER_SPECS_DIR ?? 'bundler-specs';
+const OUTPUT_PATH = process.env.OUTPUT_PATH ?? 'output/bundler-version-map.json';
 const HTTP_METHODS = ['get', 'post', 'put', 'patch', 'delete', 'head', 'options'];
 
 // ─── Helpers ───────────────────────────────────────────────────────────────────
@@ -374,6 +399,18 @@ function extractSpecData(spec, operationFileMap, schemaFileMap, operationSchemaR
 async function main() {
   console.log('Building version map from camunda-schema-bundler output...\n');
 
+  // When REGENERATE_LATEST_SPEC_ONLY is truthy, wipe the cache for the last version
+  // in VERSIONS (typically the one tracking `main`) so fetchAndBundle re-downloads
+  // it. Stable refs are immutable so their caches are always reused.
+  if (parseBool(process.env.REGENERATE_LATEST_SPEC_ONLY) && VERSIONS.length > 0) {
+    const latest = VERSIONS[VERSIONS.length - 1];
+    const dir = `${BUNDLER_SPECS_DIR}/${latest}`;
+    if (existsSync(dir)) {
+      console.log(`REGENERATE_LATEST_SPEC_ONLY=1 — clearing ${dir}`);
+      rmSync(dir, { recursive: true, force: true });
+    }
+  }
+
   const versionMap = {
     metadata: {
       multiFileVersions: [],
@@ -389,23 +426,48 @@ async function main() {
 
   for (const version of VERSIONS) {
     const ref = VERSION_REFS[version] ?? `stable/${version}`;
-    const outputDir = `bundler-specs/${version}/upstream`;
-    const outputSpec = `bundler-specs/${version}/rest-api.bundle.json`;
-
-    console.log(`  Fetching and bundling ${ref}...`);
+    const outputDir = `${BUNDLER_SPECS_DIR}/${version}/upstream`;
+    const outputSpec = `${BUNDLER_SPECS_DIR}/${version}/rest-api.bundle.json`;
 
     let result;
-    try {
-      result = await fetchAndBundle({
-        ref,
-        outputDir,
-        outputSpec,
-        allowPathLocalLikeRefs: true,
-        restoreUpstreamOperationRefs: true
-      });
-    } catch (err) {
-      console.error(`  ERROR bundling ${version}: ${err.message}`);
-      continue;
+    // Cache hit: skip the network round-trip when both the bundle JSON and the
+    // upstream YAML directory are already present. REGENERATE_LATEST_SPEC_ONLY has
+    // already wiped the latest version's dir above, so it will always miss the
+    // cache and re-fetch.
+    const upstreamHasYaml = existsSync(outputDir)
+      && readdirSync(outputDir).some((f) => f.endsWith('.yaml'));
+    if (existsSync(outputSpec) && upstreamHasYaml) {
+      console.log(`  Using cached bundle for ${ref} (${outputSpec})`);
+      try {
+        const spec = JSON.parse(readFileSync(outputSpec, 'utf8'));
+        result = {
+          spec,
+          stats: {
+            pathCount: spec?.paths ? Object.keys(spec.paths).length : 0,
+            schemaCount: spec?.components?.schemas
+              ? Object.keys(spec.components.schemas).length : 0,
+          },
+        };
+      } catch (err) {
+        console.warn(`  WARN: cached bundle unreadable, re-fetching: ${err.message}`);
+        result = null;
+      }
+    }
+
+    if (!result) {
+      console.log(`  Fetching and bundling ${ref}...`);
+      try {
+        result = await fetchAndBundle({
+          ref,
+          outputDir,
+          outputSpec,
+          allowPathLocalLikeRefs: true,
+          restoreUpstreamOperationRefs: true
+        });
+      } catch (err) {
+        console.error(`  ERROR bundling ${version}: ${err.message}`);
+        continue;
+      }
     }
 
     const spec = result.spec;
@@ -707,9 +769,10 @@ async function main() {
   }
 
   // Write output
-  mkdirSync('output', { recursive: true });
-  writeFileSync('output/bundler-version-map.json', JSON.stringify(versionMap, null, 2));
-  console.log(`\nVersion map written to output/bundler-version-map.json`);
+  const outDir = dirname(OUTPUT_PATH);
+  if (outDir && outDir !== '.') mkdirSync(outDir, { recursive: true });
+  writeFileSync(OUTPUT_PATH, JSON.stringify(versionMap, null, 2));
+  console.log(`\nVersion map written to ${OUTPUT_PATH}`);
   console.log(`  ${Object.keys(versionMap.operations).length} operations`);
   console.log(`  ${Object.keys(versionMap.properties).length} properties`);
   console.log(`  ${Object.keys(versionMap.deletedOperations).length} deleted operations`);

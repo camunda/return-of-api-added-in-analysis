@@ -26,18 +26,38 @@
  *   }
  * }
  */
+import 'dotenv/config';
 import { readFileSync, writeFileSync, existsSync, mkdirSync, readdirSync } from 'fs';
+import { dirname } from 'path';
 import YAML, { parse } from 'yaml';
 
 const yaml = { load: (source) => YAML.parse(source) };
 
-const VERSIONS = ['8.5', '8.6', '8.7', '8.8', '8.9', '8.10'];
+// ─── Configuration (env-overridable) ───────────────────────────────────────────────
+//
+//   VERSIONS                Comma-separated version list
+//                           (default: 8.5,8.6,8.7,8.8,8.9,8.10)
+//   SPECS_DIR               Root directory holding `<version>/bundled-api.yaml`
+//                           and `<version>/upstream/` (default: specs)
+//   OUTPUT_PATH             Path to write the version map JSON to
+//                           (default: output/version-map.json)
+//   REGENERATE_LATEST_SPEC_ONLY  Consumed by `extract-specs.sh` (run via `npm run
+//                           extract`). When truthy, the latest version's spec
+//                           cache is wiped and re-fetched before this script
+//                           reads it. No effect when called standalone.
+function parseCsv(value, fallback) {
+  if (!value) return fallback;
+  return value.split(',').map((s) => s.trim()).filter(Boolean);
+}
+const VERSIONS = parseCsv(process.env.VERSIONS, ['8.5', '8.6', '8.7', '8.8', '8.9', '8.10']);
+const SPECS_DIR = process.env.SPECS_DIR ?? 'specs';
+const OUTPUT_PATH = process.env.OUTPUT_PATH ?? 'output/version-map.json';
 const HTTP_METHODS = ['get', 'post', 'put', 'patch', 'delete', 'head', 'options'];
 
 // ─── Helpers ───────────────────────────────────────────────────────────────────
 
 function loadSpec(version) {
-  const path = `specs/${version}/bundled-api.yaml`;
+  const path = `${SPECS_DIR}/${version}/bundled-api.yaml`;
   if (!existsSync(path)) {
     console.error(`  WARN: spec not found: ${path}`);
     return null;
@@ -414,7 +434,7 @@ for (const version of VERSIONS) {
 
   // Build operation → source file map, schema → source file map,
   // and operation → original schema $ref map by scanning upstream YAML files
-  const upstreamDir = `specs/${version}/upstream`;
+  const upstreamDir = `${SPECS_DIR}/${version}/upstream`;
   const operationFileMap = new Map();
   const schemaFileMap = new Map();
   const operationSchemaRefMap = new Map();
@@ -730,9 +750,10 @@ for (const [propKey, val] of Object.entries(versionMap.properties)) {
 }
 
 // Write output
-mkdirSync('output', { recursive: true });
-writeFileSync('output/version-map.json', JSON.stringify(versionMap, null, 2));
-console.log(`\nVersion map written to output/version-map.json`);
+const outDir = dirname(OUTPUT_PATH);
+if (outDir && outDir !== '.') mkdirSync(outDir, { recursive: true });
+writeFileSync(OUTPUT_PATH, JSON.stringify(versionMap, null, 2));
+console.log(`\nVersion map written to ${OUTPUT_PATH}`);
 console.log(`  ${Object.keys(versionMap.operations).length} operations`);
 console.log(`  ${Object.keys(versionMap.properties).length} properties`);
 console.log(`  ${Object.keys(versionMap.deletedOperations).length} deleted operations`);
