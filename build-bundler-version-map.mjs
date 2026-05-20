@@ -13,7 +13,6 @@
  */
 import 'dotenv/config';
 import { writeFileSync, mkdirSync, readFileSync, readdirSync, rmSync, existsSync } from 'fs';
-import { dirname } from 'path';
 import { fetchAndBundle } from 'camunda-schema-bundler';
 import YAML from 'yaml';
 
@@ -26,8 +25,10 @@ const yaml = { load: (source) => YAML.parse(source) };
 //                           a stable/<v> branch (default: 8.10)
 //   BUNDLER_SPECS_DIR       Where fetched/bundled specs are cached
 //                           (default: bundler-specs)
-//   OUTPUT_PATH             Output JSON path
-//                           (default: output/bundler-version-map.json)
+//   OUTPUT_PATH             Output directory for generated artefacts
+//                           (default: output). Writes `bundler-version-map.json`
+//                           and, per MAIN_BRANCH_VERSIONS entry,
+//                           `endpoint-map-<version>.json`.
 //   REGENERATE_LATEST_SPEC_ONLY  Truthy (1/true/yes/on) → wipe every cache
 //                           dir listed in MAIN_BRANCH_VERSIONS before AND after
 //                           fetching, forcing camunda-schema-bundler to
@@ -48,7 +49,7 @@ const MAIN_BRANCH_VERSIONS = parseCsv(process.env.MAIN_BRANCH_VERSIONS, ['8.10']
 // camunda/camunda.
 const VERSION_REFS = Object.fromEntries(MAIN_BRANCH_VERSIONS.map((v) => [v, 'main']));
 const BUNDLER_SPECS_DIR = process.env.BUNDLER_SPECS_DIR ?? 'bundler-specs';
-const OUTPUT_PATH = process.env.OUTPUT_PATH ?? 'output/bundler-version-map.json';
+const OUTPUT_PATH = process.env.OUTPUT_PATH ?? 'output';
 const HTTP_METHODS = ['get', 'post', 'put', 'patch', 'delete', 'head', 'options'];
 
 // ─── Helpers ───────────────────────────────────────────────────────────────────
@@ -431,6 +432,13 @@ async function main() {
     const ref = VERSION_REFS[version] ?? `stable/${version}`;
     const outputDir = `${BUNDLER_SPECS_DIR}/${version}/upstream`;
     const outputSpec = `${BUNDLER_SPECS_DIR}/${version}/rest-api.bundle.json`;
+    // `endpoint-map.json` was deprecated in camunda-schema-bundler 2.2.0 and is
+    // scheduled for removal in 3.0.0 — the `sourceFile` it carried now lives
+    // on each `OperationSummary` inside `spec-metadata.json`. See
+    // https://github.com/camunda/camunda-schema-bundler/issues/21. We emit the
+    // metadata file per version here, and derive `endpoint-map.json` from it
+    // for MAIN_BRANCH_VERSIONS below.
+    const outputMetadata = `${BUNDLER_SPECS_DIR}/${version}/spec-metadata.json`;
 
     let result;
     // Cache hit: skip the network round-trip when both the bundle JSON and the
@@ -439,7 +447,7 @@ async function main() {
     // the cache and re-fetch.
     const upstreamHasYaml = existsSync(outputDir)
       && readdirSync(outputDir).some((f) => f.endsWith('.yaml'));
-    if (existsSync(outputSpec) && upstreamHasYaml) {
+    if (existsSync(outputSpec) && upstreamHasYaml && existsSync(outputMetadata)) {
       console.log(`  Using cached bundle for ${ref} (${outputSpec})`);
       try {
         const spec = JSON.parse(readFileSync(outputSpec, 'utf8'));
@@ -464,6 +472,7 @@ async function main() {
           ref,
           outputDir,
           outputSpec,
+          outputMetadata,
           allowPathLocalLikeRefs: true,
           restoreUpstreamOperationRefs: true
         });
@@ -676,6 +685,59 @@ async function main() {
     previousProps = properties;
   }
 
+  // Derive `endpoint-map.json` for every MAIN_BRANCH_VERSIONS entry from the
+  // `spec-metadata.json` the bundler just wrote. The standalone
+  // `outputEndpointMap` bundler flag is deprecated (see
+  // https://github.com/camunda/camunda-schema-bundler/issues/21); `sourceFile`
+  // now lives on each `OperationSummary`. Failing loud here — missing
+  // metadata, missing `sourceFile`, or missing method/path — is intentional:
+  // a silently-empty endpoint-map would mask upstream bundler regressions.
+  for (const version of MAIN_BRANCH_VERSIONS) {
+    const metadataPath = `${BUNDLER_SPECS_DIR}/${version}/spec-metadata.json`;
+    if (!existsSync(metadataPath)) {
+      throw new Error(
+        `Cannot derive endpoint-map for ${version}: ${metadataPath} not found. ` +
+        `Did camunda-schema-bundler fail for this version?`
+      );
+    }
+    const metadata = JSON.parse(readFileSync(metadataPath, 'utf8'));
+    if (!Array.isArray(metadata?.operations)) {
+      throw new Error(
+        `${metadataPath} is missing an \`operations\` array; expected ` +
+        `spec-metadata.json from camunda-schema-bundler >= 2.2.0.`
+      );
+    }
+    const entries = metadata.operations
+      .map((op) => {
+        if (typeof op?.method !== 'string' || typeof op?.path !== 'string') {
+          throw new Error(
+            `${metadataPath} operation entry missing method/path: ${JSON.stringify(op)}`
+          );
+        }
+        if (typeof op.sourceFile !== 'string' || op.sourceFile === '') {
+          throw new Error(
+            `${metadataPath} operation ${op.method.toUpperCase()} ${op.path} ` +
+            `has no sourceFile attribution.`
+          );
+        }
+        return [`${op.method.toUpperCase()} ${op.path}`, op.sourceFile];
+      })
+      // Sort by "METHOD /path" so the output is deterministic regardless of
+      // the operation order chosen by the bundler.
+      .sort(([a], [b]) => (a < b ? -1 : a > b ? 1 : 0));
+    const endpointMap = Object.fromEntries(entries);
+    // One file per MAIN_BRANCH_VERSIONS entry so multi-version runs don't
+    // silently overwrite each other. The cross-version `bundler-version-map.json`
+    // stays unsuffixed because there is exactly one of it.
+    const endpointMapPath =
+      `${OUTPUT_PATH}/endpoint-map.json`;
+    mkdirSync(OUTPUT_PATH, { recursive: true });
+    writeFileSync(endpointMapPath, JSON.stringify(endpointMap, null, 2) + '\n');
+    console.log(
+      `Derived ${endpointMapPath} (${entries.length} operations from ${version})`
+    );
+  }
+
   // When REGENERATE_LATEST_SPEC_ONLY is set, also wipe every MAIN_BRANCH_VERSIONS
   // cache dir after the run. Those refs (e.g. `main`) are mutable, so a stale
   // cache would silently mask upstream changes on the next plain invocation.
@@ -786,10 +848,10 @@ async function main() {
   }
 
   // Write output
-  const outDir = dirname(OUTPUT_PATH);
-  if (outDir && outDir !== '.') mkdirSync(outDir, { recursive: true });
-  writeFileSync(OUTPUT_PATH, JSON.stringify(versionMap, null, 2));
-  console.log(`\nVersion map written to ${OUTPUT_PATH}`);
+  mkdirSync(OUTPUT_PATH, { recursive: true });
+  const versionMapPath = `${OUTPUT_PATH}/bundler-version-map.json`;
+  writeFileSync(versionMapPath, JSON.stringify(versionMap, null, 2));
+  console.log(`\nVersion map written to ${versionMapPath}`);
   console.log(`  ${Object.keys(versionMap.operations).length} operations`);
   console.log(`  ${Object.keys(versionMap.properties).length} properties`);
   console.log(`  ${Object.keys(versionMap.deletedOperations).length} deleted operations`);
