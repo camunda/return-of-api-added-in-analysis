@@ -23,6 +23,11 @@ const yaml = { load: (source) => YAML.parse(source) };
 //   VERSIONS                Comma-separated list (default: 8.5,8.6,8.7,8.8,8.9,8.10)
 //   MAIN_BRANCH_VERSIONS    Versions that track the `main` branch instead of
 //                           a stable/<v> branch (default: 8.10)
+//   LATEST_BRANCH           Optional ref to try first for every
+//                           MAIN_BRANCH_VERSIONS entry. Falls back to `main`
+//                           if the fetch fails (e.g. branch doesn't exist).
+//                           Stable versions ignore this and always use
+//                           `stable/<version>`.
 //   BUNDLER_SPECS_DIR       Where fetched/bundled specs are cached
 //                           (default: bundler-specs)
 //   OUTPUT_PATH             Output directory for generated artefacts
@@ -46,8 +51,12 @@ const VERSIONS = parseCsv(process.env.VERSIONS, ['8.5', '8.6', '8.7', '8.8', '8.
 const MAIN_BRANCH_VERSIONS = parseCsv(process.env.MAIN_BRANCH_VERSIONS, ['8.10']);
 // 8.10 (or whatever MAIN_BRANCH_VERSIONS lists) tracks `main` until it cuts
 // its own release branch. Everything else has a stable/<version> branch on
-// camunda/camunda.
-const VERSION_REFS = Object.fromEntries(MAIN_BRANCH_VERSIONS.map((v) => [v, 'main']));
+// camunda/camunda. When LATEST_BRANCH is set, it overrides `main` as the
+// preferred ref for MAIN_BRANCH_VERSIONS, with `main` as the fallback.
+const LATEST_BRANCH = process.env.LATEST_BRANCH || null;
+const VERSION_REFS = Object.fromEntries(
+  MAIN_BRANCH_VERSIONS.map((v) => [v, LATEST_BRANCH ?? 'main']),
+);
 const BUNDLER_SPECS_DIR = process.env.BUNDLER_SPECS_DIR ?? 'bundler-specs';
 const OUTPUT_PATH = process.env.OUTPUT_PATH ?? 'output';
 const HTTP_METHODS = ['get', 'post', 'put', 'patch', 'delete', 'head', 'options'];
@@ -477,8 +486,37 @@ async function main() {
           restoreUpstreamOperationRefs: true
         });
       } catch (err) {
-        console.error(`  ERROR bundling ${version}: ${err.message}`);
-        continue;
+        // Fallback path: when LATEST_BRANCH was preferred for a
+        // MAIN_BRANCH_VERSIONS entry and the fetch failed (typically because
+        // the branch doesn't exist upstream yet), retry against `main`. Only
+        // applies to refs we synthesised from LATEST_BRANCH; stable refs and
+        // explicit `main` failures propagate unchanged.
+        const shouldFallback =
+          LATEST_BRANCH
+          && ref === LATEST_BRANCH
+          && MAIN_BRANCH_VERSIONS.includes(version);
+        if (shouldFallback) {
+          console.warn(
+            `  WARN: fetching ${ref} for ${version} failed (${err.message}); ` +
+            `falling back to \`main\`.`
+          );
+          try {
+            result = await fetchAndBundle({
+              ref: 'main',
+              outputDir,
+              outputSpec,
+              outputMetadata,
+              allowPathLocalLikeRefs: true,
+              restoreUpstreamOperationRefs: true
+            });
+          } catch (fallbackErr) {
+            console.error(`  ERROR bundling ${version} (fallback to main): ${fallbackErr.message}`);
+            continue;
+          }
+        } else {
+          console.error(`  ERROR bundling ${version}: ${err.message}`);
+          continue;
+        }
       }
     }
 
