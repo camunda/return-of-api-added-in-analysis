@@ -28,10 +28,11 @@ const yaml = { load: (source) => YAML.parse(source) };
 //                           (default: bundler-specs)
 //   OUTPUT_PATH             Output JSON path
 //                           (default: output/bundler-version-map.json)
-//   REGENERATE_LATEST_SPEC_ONLY  Truthy (1/true/yes/on) → wipe the cache dir for
-//                           the last version in VERSIONS before fetching,
-//                           forcing camunda-schema-bundler to re-download.
-//                           Use after the upstream `main` branch has changed.
+//   REGENERATE_LATEST_SPEC_ONLY  Truthy (1/true/yes/on) → wipe every cache
+//                           dir listed in MAIN_BRANCH_VERSIONS before AND after
+//                           fetching, forcing camunda-schema-bundler to
+//                           re-download. Use after the upstream `main` branch
+//                           has changed.
 function parseCsv(value, fallback) {
   if (!value) return fallback;
   return value.split(',').map((s) => s.trim()).filter(Boolean);
@@ -399,15 +400,17 @@ function extractSpecData(spec, operationFileMap, schemaFileMap, operationSchemaR
 async function main() {
   console.log('Building version map from camunda-schema-bundler output...\n');
 
-  // When REGENERATE_LATEST_SPEC_ONLY is truthy, wipe the cache for the last version
-  // in VERSIONS (typically the one tracking `main`) so fetchAndBundle re-downloads
-  // it. Stable refs are immutable so their caches are always reused.
-  if (parseBool(process.env.REGENERATE_LATEST_SPEC_ONLY) && VERSIONS.length > 0) {
-    const latest = VERSIONS[VERSIONS.length - 1];
-    const dir = `${BUNDLER_SPECS_DIR}/${latest}`;
-    if (existsSync(dir)) {
-      console.log(`REGENERATE_LATEST_SPEC_ONLY=1 — clearing ${dir}`);
-      rmSync(dir, { recursive: true, force: true });
+  // When REGENERATE_LATEST_SPEC_ONLY is truthy, wipe every MAIN_BRANCH_VERSIONS
+  // cache dir before fetching so fetchAndBundle re-downloads from the mutable
+  // upstream ref (e.g. `main`). Stable refs are immutable so their caches are
+  // always reused.
+  if (parseBool(process.env.REGENERATE_LATEST_SPEC_ONLY)) {
+    for (const version of MAIN_BRANCH_VERSIONS) {
+      const dir = `${BUNDLER_SPECS_DIR}/${version}`;
+      if (existsSync(dir)) {
+        console.log(`REGENERATE_LATEST_SPEC_ONLY=1 — clearing ${dir}`);
+        rmSync(dir, { recursive: true, force: true });
+      }
     }
   }
 
@@ -432,8 +435,8 @@ async function main() {
     let result;
     // Cache hit: skip the network round-trip when both the bundle JSON and the
     // upstream YAML directory are already present. REGENERATE_LATEST_SPEC_ONLY has
-    // already wiped the latest version's dir above, so it will always miss the
-    // cache and re-fetch.
+    // already wiped MAIN_BRANCH_VERSIONS cache dirs above, so those always miss
+    // the cache and re-fetch.
     const upstreamHasYaml = existsSync(outputDir)
       && readdirSync(outputDir).some((f) => f.endsWith('.yaml'));
     if (existsSync(outputSpec) && upstreamHasYaml) {
@@ -671,6 +674,20 @@ async function main() {
 
     previousOps = operations;
     previousProps = properties;
+  }
+
+  // When REGENERATE_LATEST_SPEC_ONLY is set, also wipe every MAIN_BRANCH_VERSIONS
+  // cache dir after the run. Those refs (e.g. `main`) are mutable, so a stale
+  // cache would silently mask upstream changes on the next plain invocation.
+  // Stable refs (`stable/<v>`) are immutable and stay cached.
+  if (parseBool(process.env.REGENERATE_LATEST_SPEC_ONLY)) {
+    for (const version of MAIN_BRANCH_VERSIONS) {
+      const dir = `${BUNDLER_SPECS_DIR}/${version}`;
+      if (existsSync(dir)) {
+        console.log(`REGENERATE_LATEST_SPEC_ONLY=1 — clearing ${dir} (post-run)`);
+        rmSync(dir, { recursive: true, force: true });
+      }
+    }
   }
 
   // Backwards-compat collapse: when a property re-appears in a later version

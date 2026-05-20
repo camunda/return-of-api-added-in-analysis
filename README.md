@@ -13,7 +13,7 @@ Fetches and bundles specs from GitHub via `camunda-schema-bundler`. No local rep
 
 ```bash
 npm run build:bundler          # → bundler-specs/ → output/bundler-version-map.json
-npm run build:bundler:latest   # same, but re-fetch the latest version (REGENERATE_LATEST_SPEC_ONLY=1)
+npm run build:bundler:latest   # same, but re-fetch every version listed in MAIN_BRANCH_VERSIONS (REGENERATE_LATEST_SPEC_ONLY=1)
 ```
 
 Uses the `camunda-schema-bundler` npm package (installed via `npm install`).
@@ -27,7 +27,7 @@ npm run build           # extract-specs.sh → specs/ → output/version-map.jso
 npm run build:latest    # same, but re-extract the latest version (REGENERATE_LATEST_SPEC_ONLY=1)
 ```
 
-Set `REGENERATE_LATEST_SPEC_ONLY=1` (env or `.env`) to force-refresh the last version in `VERSIONS` (the one tracking `main`). Stable versions stay cached.
+Set `REGENERATE_LATEST_SPEC_ONLY=1` (env or `.env`) to force-refresh the versions that track `main`. For the bundler flow that is every entry in `MAIN_BRANCH_VERSIONS` (wiped both before and after the run); for the extract flow it is the last entry in `VERSIONS`. Stable versions stay cached.
 
 ## Prerequisites
 
